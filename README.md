@@ -1,8 +1,44 @@
-# fraand
+# FRAAND
 
-Stuff sharing platform (social network).
+[![Built with Django Bootstrap Template](https://img.shields.io/badge/Built%20with-Django%20Bootstrap%20Template-blueviolet.svg)](https://github.com/griceturrble/django-bootstrap-template/)
+[![pdm-managed](https://img.shields.io/badge/pdm-managed-blueviolet)](https://pdm.fming.dev)
+[![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
-[![Built with Django Bootstrap Template](https://img.shields.io/badge/Built%20with-Django%20Bootstrap%20Template-blueviolet.svg)](https://github.com/griceturrble/django-bootstrap-template/) [![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+Free Rent (it's called 'sharing') Application Among Neighbours [Decentrilized] platform.
+Is a stuff sharing platform (aka social network).
+
+
+## Planned Features
+
+- [ ] profile
+    - [ ] photo?
+    - [ ] prefered contacts (email, Telegram alias, etc.)
+    - [ ] list of items with a search bar
+    - [ ] [FUTURE] activity feed
+    - [ ] [FUTURE] reputation points
+- [ ] item
+    - [ ] name
+    - [ ] description
+    - [ ] categories/tags
+    - [ ] carousel of images (or URLs field)
+    - [ ] rent-to (link to a profile)
+    - [ ] public/accessible by link/hidden
+        - [ ] probably, make custom groups (e.g., for BDSM-only members)
+- [ ] deal
+    - [ ] due to
+    - [ ] item(s)
+    - [ ] from profile(s)
+    - [ ] to profile(s)
+    - [ ] `change_due_date_to(new_date)`
+    - [ ] state
+        - [ ] communicating
+        - [ ] on-going
+        - [ ] success
+        - [ ] failed (the item is not returned in time)
+- [ ] [FUTURE] chat
+- [ ] [FUTURE] map
+- [ ] [FUTURE] organizations/gropus/clubs
+
 
 
 ## License
@@ -12,29 +48,13 @@ This project uses the GPLv3 license. Please see the [LICENSE](LICENSE) for detai
 
 ## Installation
 
-1. Create a new Python virtual environment.
-
-   - Using `venv` on Linux:
-
-     ```bash
-     python3 -m venv .venv --prompt fraand
-     ```
-
-   - Using `venv` on Windows:
-
-     ```bash
-     python3 -m venv .venv --prompt fraand
-     ```
-
-   - Or, use whichever style of virtual environment management you prefer!
-
-1. Install dependencies:
+1. Install [PDM](https://github.com/pdm-project/pdm) dependencies.
 
    ```bash
-   pip install -r requirements.txt
+   pdm init
    ```
 
-1. *PostgreSQL settings*: if not present already create a new `.env` file at `fraand/core/.env`. This file should be gitignored from the repo, and should contain credentials for connecting to the PostgreSQL database:
+2. *PostgreSQL settings*: if not present already create a new `.env` file at `fraand/core/.env`. This file should be gitignored from the repo, and should contain credentials for connecting to the PostgreSQL database:
 
    - `POSTGRES_NAME`: database name
    - `POSTGRES_USER`: username
@@ -42,22 +62,22 @@ This project uses the GPLv3 license. Please see the [LICENSE](LICENSE) for detai
    - `POSTGRES_HOST`: host serving the database
    - `POSTGRES_PORT`: port
 
-1. Migrate models to the database:
+3. Migrate models to the database:
 
    ```bash
    python fraand/manage.py migrate
    ```
 
-1. Create a superuser:
+4. Create a superuser:
 
    ```bash
    python fraand/manage.py createsuperuser
    ```
 
-1. Run the development server:
+5. Run the development server:
 
    ```bash
    python fraand/manage.py runserver
    ```
 
-1. Open http://localhost:8000 to view the running site.
+6. Open http://localhost:8000 to view the running site.
