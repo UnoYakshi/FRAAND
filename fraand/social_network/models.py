@@ -50,7 +50,6 @@ class Item(MyBaseModel):
 
 
 class Image(models.Model):
-    name = models.CharField(max_length=255)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/')
     default = models.BooleanField(default=False)
