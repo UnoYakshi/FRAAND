@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from django.views.generic import TemplateView
+from social_network.views import index
 
 # fmt: off
 # (Skip Black formatting in this section)
@@ -26,7 +27,8 @@ urlpatterns = [
     # NOTE: change the URL for Admin, for added security.
     # See #2 here: https://opensource.com/article/18/1/10-tips-making-django-admin-more-secure
     path("admin/", admin.site.urls),
-    path("", TemplateView.as_view(template_name="homepage.html"), name="homepage"),
+    path('', index, name='homepage'),
+    # path("", TemplateView.as_view(template_name="index.html"), name="homepage"),
 ]
 # fmt: on
 

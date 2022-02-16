@@ -17,8 +17,8 @@ Is a stuff sharing platform (aka social network).
     - [ ] [FUTURE] activity feed
     - [ ] [FUTURE] reputation points
 - [ ] item
-    - [ ] name
-    - [ ] description
+    - [x] name
+    - [x] description
     - [ ] categories/tags
     - [ ] carousel of images (or URLs field)
     - [ ] rent-to (link to a profile)

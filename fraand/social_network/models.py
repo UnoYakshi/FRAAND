@@ -34,12 +34,13 @@ class Item(MyBaseModel):
 
     tags = models.ManyToManyField(Tag, related_name='products', blank=True)
 
-    # slug = models.SlugField(populate_from='name')
+    # Can work either automatically (with `slugify_function()` name) or with explicit assign...
+    # Needs https://django-extensions.readthedocs.io/en/latest/field_extensions.html...
+    # slug = models.SlugField(populate_from='name')  # slugify_function=slug_name)
+    # def slug_name(self, content):
+    #     return content.replace('_', '-').lower()
     # def slugify_function(self, content):
     #     return content.replace('_', '-').lower()
-    # def save(self, *args, **kwargs):
-    #     self.slug = self.slugify_function(self.name)  # Get value from self.name...
-    #     return super(Item, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['-created_at']
@@ -50,6 +51,6 @@ class Item(MyBaseModel):
 
 
 class Image(models.Model):
-    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='images/')
     default = models.BooleanField(default=False)
