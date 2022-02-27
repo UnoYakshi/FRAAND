@@ -1,0 +1,216 @@
+.sidebar {
+    position: fixed;
+    height: 100vh;
+    background-color: #C4C4C4;
+    z-index: 101;
+}
+
+.page-content {
+    margin-left: 20%;
+}
+
+.header-container {
+    z-index: 100;
+}
+
+.header-container .header {
+    display: flex;
+}
+
+.header-container .header .input-control {
+    right: 1rem;
+}
+
+.header-container .subheader {
+    height: 80px;
+    box-shadow: 0px 10px 10px gray;
+}
+
+.tags-input {
+    width: 16%!important;
+}
+
+.item-card {
+    height: 280px;
+    background-color: #E5E5E5;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.item-card .text-content {
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.item-header {
+    font-size: 30px;
+}
+
+.item-description {
+    font-size: 13px;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.slider {
+    width: 100%;
+    max-width: 200px;
+    height: 240px;
+    margin: auto;
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.slides {
+    display: flex;
+    overflow-x: scroll;
+    position: relative;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+}
+
+.slide:nth-of-type(even) {
+    background-color: white;
+}
+
+.slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    width: 200px;
+    height: 240px;
+    margin-right: 0px;
+    box-sizing: border-box;
+    background-color: white;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform-origin: center center;
+    transform: scale(1);
+    scroll-snap-align: center;
+}
+
+.slide__text {
+    font-size: 40px;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+.slide a {
+    position: absolute;
+    top: 48%;
+    width: 35px;
+    height: 35px;
+    border: solid black;
+    border-width: 0 4px 4px 0;
+    padding: 3px;
+    box-sizing: border-box;
+    z-index: 0;
+}
+
+a.slide__prev {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    left: 5%;
+}
+
+a.slide__next {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    right: 5%;
+}
+
+.slide a {
+    background: none;
+    border: none;
+}
+
+a.slide__prev,
+.slider::before {
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+    left: 5%;
+}
+
+a.slide__next,
+.slider::after {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    right: 5%;
+}
+
+.slider::before,
+.slider::after,
+.slide__prev,
+.slide__next {
+    position: absolute;
+    top: 48%;
+    width: 25px;
+    height: 25px;
+    border: solid white;
+    border-width: 0 4px 4px 0;
+    padding: 3px;
+    box-sizing: border-box;
+    opacity: 0.5;
+}
+
+.slider::before,
+.slider::after {
+    content: '';
+    z-index: 1;
+    background: none;
+    pointer-events: none;
+}
+
+.slider__nav {
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    width: 200px;
+    margin-left: -100px;
+    text-align: center;
+}
+
+.slider__navlink {
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    background-color: white;
+    margin: 0 10px 0 10px;
+    opacity: 0.5;
+}
+
+.card-padding {
+    padding: 20px;
+}
+
+.text-content {
+    padding-left: 0;
+}
+
+.eye-icon {
+    margin: 20px;
+}
+
+input[type="checkbox"][name="visibility"]:checked+label i.fa-eye::before {
+    content: "\f070";
+}
+
+.item-description {
+    max-width: 70%;
+}
+
+/* узнай что енто!! */
+.item-tags .tag:not(:last-of-type) {
+    margin-right: 0.5rem;
+}

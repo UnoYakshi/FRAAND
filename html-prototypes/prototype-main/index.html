@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/cirrus-ui">
+  <script src="https://kit.fontawesome.com/16af079caf.js" crossorigin="anonymous"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,300,400,600,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+  <title>FRAAND</title>
+</head>
+
+<body>
+  <header class="header-container u-fixed w-100">
+    <div class="header header-dark m-0 px-0">
+      <div class="header-brand u-absolute ml-4 mt-1">
+        <a class="avatar p-0" href="profile.html">
+          <img src="img/Avatar.png" alt="avatar">
+        </a>
+      </div>
+
+      <div class="search-bar row p-0">
+        <div class="form-group offset-2 pl-2">
+          <input type="search" class="form-group-input" placeholder="Search" size="60">
+        </div>
+      </div>
+
+      <div class="input-control">
+        <select class="select input text-light" placeholder="City">
+          <option value="Kazan">Kazan</option>
+          <option value="Innopolis">Innopolis</option>
+          <option value="Moscow">Moscow</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="header subheader w-100 px-0 py-2">
+      <div class="u-absolute ml-4">
+        <button>Filter</button>
+      </div>
+
+      <div class="row p-0 w-100">
+        <input class="tags-input offset-2 pl-2" placeholder="Input field" size="20">
+      </div>
+
+      <div class="u-absolute input-control">
+        <button class="btn-transparent"><img src="img/list_view.png"></button>
+      </div>
+    </div>
+  </header>
+  <main class="row pt-24">
+    <section class="items col-8 offset-2 p-0">
+      <article class="item-card u-flex">
+        <div class="media-content p-2">
+          <div class="slider-container">
+            <div class="slider">
+              <div class="slides">
+                <div id="slides__1" class="slide" style="background-image: url(img/lada_mustang.jpeg);">
+                  <a class="slide__prev" href="#slides__3" title="Next"></a>
+                  <a class="slide__next" href="#slides__2" title="Next"></a>
+                </div>
+                <div id="slides__2" class="slide" style="background-image: url(img/lada_niva2.jpeg);">
+                  <a class="slide__prev" href="#slides__1" title="Prev"></a>
+                  <a class="slide__next" href="#slides__3" title="Next"></a>
+                </div>
+                <div id="slides__3" class="slide" style="background-image: url(img/avatar.png);">
+                  <a class="slide__prev" href="#slides__2" title="Prev"></a>
+                  <a class="slide__next" href="#slides__1" title="Prev"></a>
+                </div>
+              </div>
+              <div class="slider__nav">
+                <a class="slider__navlink" href="#slides__1"></a>
+                <a class="slider__navlink" href="#slides__2"></a>
+                <a class="slider__navlink" href="#slides__3"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-content p-2">
+          <div class="title-row u-flex u-items-center u-justify-space-between">
+            <h3 class="item-header">Lada Mustang</h3>
+            <div>
+              <div class="u-inline">
+                <input class="u-none" type="checkbox" name="visibility" id="visibility-{{item_id}}">
+                <label for="visibility-{{item_id}}"><i class="eye-icon fa-solid fa-eye fa-lg"></i></label>
+              </div>
+              <button>copy telegram</button>
+            </div>
+          </div>
+          <div class="description-row u-flex" style="flex-grow: 1;">
+            <p class="item-description">
+              My lovely car I’ve fixed myself. Can share this baby while my driving license is on-hold for
+              driving
+              high. It’s a 1976 Lada Mustang with a custom 4-cylinders engine and off-road suspension.
+              Great for rally
+              and snow drifting. It also has crocodile skin interior with a rare red wood finishing. Good
+              ol’
+              radio-recivier my grand-dad made in school will give you tons of fun.
+            </p>
+          </div>
+          <div class="tags-row u-flex">
+            <div class="item-tags">
+              <div class="tag">#car<div class="tag tag__delete"></div>
+              </div>
+              <div class="tag">#white<div class="tag tag__delete"></div>
+              </div>
+              <div class="tag">#1976<div class="tag tag__delete"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="item-card u-flex">
+        <div class="media-content p-2">
+          <div class="slider-container">
+            <div class="slider">
+              <div class="slides">
+                <div id="slides__1" class="slide" style="background-image: url(img/lada_mustang.jpeg);">
+                  <a class="slide__prev" href="#slides__3" title="Next"></a>
+                  <a class="slide__next" href="#slides__2" title="Next"></a>
+                </div>
+                <div id="slides__2" class="slide" style="background-image: url(img/lada_niva2.jpeg);">
+                  <a class="slide__prev" href="#slides__1" title="Prev"></a>
+                  <a class="slide__next" href="#slides__3" title="Next"></a>
+                </div>
+                <div id="slides__3" class="slide" style="background-image: url(img/avatar.png);">
+                  <a class="slide__prev" href="#slides__2" title="Prev"></a>
+                  <a class="slide__next" href="#slides__1" title="Prev"></a>
+                </div>
+              </div>
+              <div class="slider__nav">
+                <a class="slider__navlink" href="#slides__1"></a>
+                <a class="slider__navlink" href="#slides__2"></a>
+                <a class="slider__navlink" href="#slides__3"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-content p-2">
+          <div class="title-row u-flex u-items-center u-justify-space-between">
+            <h3 class="item-header">Beretta M9A3 (CO2)</h3>
+            <div>
+              <div class="u-inline">
+                <input class="u-none" type="checkbox" name="visibility" id="visibility-{{item_id}}">
+                <label for="visibility-{{item_id}}"><i class="eye-icon fa-solid fa-eye fa-lg"></i></label>
+              </div>
+              <button>copy telegram</button>
+            </div>
+          </div>
+          <div class="description-row u-flex" style="flex-grow: 1;">
+            <p class="item-description">
+              Bought in Germany. Official Beretta CO2 replica of its M9A3. Blowback action slide. Metal slide, polymer
+              frame. Double- and single-action. Has a three-point Picatinny rail for a flashlight or a laser designator.
+              The only downfall is that it’s not a full-auto version.
+
+              Weight: 0.9 kg.
+              Caliber: 6 mm BB
+              Velocity: ~300 FPS
+              Full size 18-round BB magazine
+            </p>
+          </div>
+          <div class="tags-row u-flex">
+            <div class="item-tags">
+              <div class="tag">#firearms<div class="tag tag__delete"></div>
+              </div>
+              <div class="tag">#handgun<div class="tag tag__delete"></div>
+              </div>
+              <div class="tag">#beretta<div class="tag tag__delete"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="item-card u-flex">
+        <div class="media-content p-2">
+          <div class="slider-container">
+            <div class="slider">
+              <div class="slides">
+                <div id="slides__1" class="slide" style="background-image: url(img/lada_mustang.jpeg);">
+                  <a class="slide__prev" href="#slides__3" title="Next"></a>
+                  <a class="slide__next" href="#slides__2" title="Next"></a>
+                </div>
+                <div id="slides__2" class="slide" style="background-image: url(img/lada_niva2.jpeg);">
+                  <a class="slide__prev" href="#slides__1" title="Prev"></a>
+                  <a class="slide__next" href="#slides__3" title="Next"></a>
+                </div>
+                <div id="slides__3" class="slide" style="background-image: url(img/avatar.png);">
+                  <a class="slide__prev" href="#slides__2" title="Prev"></a>
+                  <a class="slide__next" href="#slides__1" title="Prev"></a>
+                </div>
+              </div>
+              <div class="slider__nav">
+                <a class="slider__navlink" href="#slides__1"></a>
+                <a class="slider__navlink" href="#slides__2"></a>
+                <a class="slider__navlink" href="#slides__3"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-content p-2">
+          <div class="title-row u-flex u-items-center u-justify-space-between">
+            <h3 class="item-header">Lada Mustang</h3>
+            <div>
+              <div class="u-inline">
+                <input class="u-none" type="checkbox" name="visibility" id="visibility-{{item_id}}">
+                <label for="visibility-{{item_id}}"><i class="eye-icon fa-solid fa-eye fa-lg"></i></label>
+              </div>
+              <button>copy telegram</button>
+            </div>
+          </div>
+          <div class="description-row u-flex" style="flex-grow: 1;">
+            <p class="item-description">
+              My lovely car I’ve fixed myself. Can share this baby while my driving license is on-hold for
+              driving
+              high. It’s a 1976 Lada Mustang with a custom 4-cylinders engine and off-road suspension.
+              Great for rally
+              and snow drifting. It also has crocodile skin interior with a rare red wood finishing. Good
+              ol’
+              radio-recivier my grand-dad made in school will give you tons of fun.
+            </p>
+          </div>
+          <div class="tags-row u-flex">
+            <div class="item-tags">
+              <div class="tag">#car<div class="tag tag__delete"></div>
+              </div>
+              <div class="tag">#white<div class="tag tag__delete"></div>
+              </div>
+              <div class="tag">#1976<div class="tag tag__delete"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="item-card u-flex">
+        <div class="media-content p-2">
+          <div class="slider-container">
+            <div class="slider">
+              <div class="slides">
+                <div id="slides__1" class="slide" style="background-image: url(img/lada_mustang.jpeg);">
+                  <a class="slide__prev" href="#slides__3" title="Next"></a>
+                  <a class="slide__next" href="#slides__2" title="Next"></a>
+                </div>
+                <div id="slides__2" class="slide" style="background-image: url(img/lada_niva2.jpeg);">
+                  <a class="slide__prev" href="#slides__1" title="Prev"></a>
+                  <a class="slide__next" href="#slides__3" title="Next"></a>
+                </div>
+                <div id="slides__3" class="slide" style="background-image: url(img/avatar.png);">
+                  <a class="slide__prev" href="#slides__2" title="Prev"></a>
+                  <a class="slide__next" href="#slides__1" title="Prev"></a>
+                </div>
+              </div>
+              <div class="slider__nav">
+                <a class="slider__navlink" href="#slides__1"></a>
+                <a class="slider__navlink" href="#slides__2"></a>
+                <a class="slider__navlink" href="#slides__3"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-content p-2">
+          <div class="title-row u-flex u-items-center u-justify-space-between">
+            <h3 class="item-header">Lada Mustang</h3>
+            <div>
+              <div class="u-inline">
+                <input class="u-none" type="checkbox" name="visibility" id="visibility-{{item_id}}">
+                <label for="visibility-{{item_id}}"><i class="eye-icon fa-solid fa-eye fa-lg"></i></label>
+              </div>
+              <button>copy telegram</button>
+            </div>
+          </div>
+          <div class="description-row u-flex" style="flex-grow: 1;">
+            <p class="item-description">
+              My lovely car I’ve fixed myself. Can share this baby while my driving license is on-hold for
+              driving
+              high. It’s a 1976 Lada Mustang with a custom 4-cylinders engine and off-road suspension.
+              Great for rally
+              and snow drifting. It also has crocodile skin interior with a rare red wood finishing. Good
+              ol’
+              radio-recivier my grand-dad made in school will give you tons of fun.
+            </p>
+          </div>
+          <div class="tags-row u-flex">
+            <div class="item-tags">
+              <div class="tag">#car<div class="tag tag__delete"></div>
+              </div>
+              <div class="tag">#white<div class="tag tag__delete"></div>
+              </div>
+              <div class="tag">#1976<div class="tag tag__delete"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="pagination col-6 offset-2">
+      <div class="pagination-item short disabled"><a href="!#" class="disabled">Prev</a></div>
+      <div class="pagination-item short selected"><a href="!#">1</a></div>
+      <div class="pagination-item short"><a href="!#">2</a></div>
+      <div class="pagination-item short"><a href="!#">3</a></div>
+      <div class="pagination-item short"><a href="!#">4</a></div>
+      <div class="pagination-item short"><a>...</a></div>
+      <div class="pagination-item short"><a href="!#">13</a></div>
+      <div class="pagination-item short"><a href="!#">Next</a></div>
+    </section>
+  </main>
+</body>
+
+</html>
