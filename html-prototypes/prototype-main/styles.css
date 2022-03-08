@@ -26,6 +26,12 @@
     box-shadow: 0px 10px 10px gray;
 }
 
+.city-select {
+    width: 8rem;
+    padding-right: 2rem;
+    text-overflow: ellipsis;
+}
+
 .tags-input {
     width: 16%!important;
 }
@@ -210,7 +216,6 @@ input[type="checkbox"][name="visibility"]:checked+label i.fa-eye::before {
     max-width: 70%;
 }
 
-/* узнай что енто!! */
 .item-tags .tag:not(:last-of-type) {
     margin-right: 0.5rem;
 }
