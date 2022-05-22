@@ -1,0 +1,20 @@
+<div class="row level">
+    <div class="col-xl-1"></div>
+    <div class="col-xl-9 level-item">
+        <input type="search" placeholder="Search...">
+    </div>
+</div>
+
+<div class="page-header">
+    <div id="navbar" class="navbar-collapse collapse">
+        <form class="navbar-form" method="post" action="{% url 'search' %}">
+            <!-- avoid CSRF verification failed error. -->
+            {% csrf_token %}
+            <div class="form-group">
+                <input name="name" type="search" placeholder="Search..."
+                       class="form-control" value="{{ search_item_name }}">
+            </div>
+            <button type="submit" class="btn btn-success">Search</button>
+        </form>
+    </div>
+</div>

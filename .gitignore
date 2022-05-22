@@ -104,6 +104,7 @@ celerybeat.pid
 # Environments
 .env
 .venv
+.venv/
 env/
 venv/
 ENV/
@@ -127,3 +128,15 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea
+
+# ----
+# Project-wise settings...
+# ----
+fraand/static/vendor/
+fraand/media/

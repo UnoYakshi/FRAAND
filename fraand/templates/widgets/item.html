@@ -1,0 +1,40 @@
+<div class="card">
+
+    {# Title... #}
+    <div class="card__header">
+        <p class="font-bold px-3"><a href="{% url 'get_item' pk=item.id %}">{{ item.name }}</a></p>
+    </div>
+
+    {# Decsription... #}
+    <div class="content">
+        {# Carousel for Item's images... #}
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                {% for image in item.images.all %}
+                <div class="carousel-item active">
+                    <img src="{{ image.image.url }}" class="d-block w-100" alt="...">
+                </div>
+                {% endfor %}
+
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+        <p class="u-text-left">{{ item.description }}</p>
+    </div>
+
+    <div class="card__footer level content">6:32 PM - 3 Jul 18</div>
+    <div class="card__action-bar u-center">
+        {% for key, value in item.get_contacts.items %}
+        <button class="btn-transparent outline">copy <a href="{{ value }}">{{ key }}</a></button>
+        {% endfor %}
+
+    </div>
+</div>

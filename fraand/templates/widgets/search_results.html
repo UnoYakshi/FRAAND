@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+
+{% block body_content %}
+
+<h1>SOME VISUAL HEIGHT BUG -- DELETE THIS LINE!</h1>
+<h1>SOME VISUAL HEIGHT BUG -- DELETE THIS LINE!</h1>
+
+{% if user.is_authenticated %}
+
+{% for item in items_results %}
+{% include "widgets/item.html" with item=item %}
+{% endfor %}
+
+{% include "widgets/pagination_cirrus.html" with results=items_results %}
+
+{% endif %}
+
+{% endblock %}

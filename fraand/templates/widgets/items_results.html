@@ -1,0 +1,31 @@
+{% load admin_urls %}
+
+<a href="{% url 'add_item' %}" target="_blank" rel="noreferrer noopener">Add Item</a>
+
+{# Item cards... #}
+
+{% for item in items_results %}
+{% include "widgets/item.html" with item=item %}
+{% endfor %}
+
+
+
+{# Dropdown options... #}
+
+<div class="btn-group">
+    <button type="button" class="btn btn-danger">Action</button>
+    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Action</a>
+        <a class="dropdown-item" href="#">Another action</a>
+        <a class="dropdown-item" href="#">Something else here</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="#">Separated link</a>
+    </div>
+</div>
+
+
+{# Pagination... #}
+{% include "widgets/pagination_cirrus.html" with results=items_results %}

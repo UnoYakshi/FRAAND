@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block body_content %}
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<h1>{{ object.name }}</h1>
+<p>{{ object.description }}</p>
+
+{% for tag in object.tags.all %}
+{{ tag }}
+{% endfor %}
+
+{% for img in object.images.all %}
+<img src="{{img.image.url}}">
+{% endfor %}
+
+<a href="{% url 'edit_item' pk=object.pk %}">EDIT</a>
+<a href="{% url 'delete_item' pk=object.pk %}">REMOVE</a>
+
+{% endblock %}

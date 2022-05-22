@@ -1,0 +1,23 @@
+{# Index sub-header... #}
+{# Global header... #}
+<nav class="navbar header">
+
+    {# Filters... #}
+
+    {# New tags input... #}
+    <input type="text" placeholder="new tag..."/>
+
+    {# Added tags... #}
+    {% for tag in selected_tages %}
+    <div class="tag tag--success">
+        {{tag.name}}
+        {{tag.url}}
+        <div class="tag tag__delete"></div>
+    </div>
+    {% endfor %}
+    <div class="tag tag--success">
+        AI
+        <div class="tag tag__delete"></div>
+    </div>
+
+</nav>

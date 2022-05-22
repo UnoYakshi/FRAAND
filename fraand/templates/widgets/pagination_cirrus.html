@@ -1,0 +1,24 @@
+<div class="pagination">
+    <!-- previous page link -->
+    {% if results.has_previous %}
+    <a href="{{ base_url }}page={{ results.previous_page_number }}">Prev</a></li>
+    {% else %}
+    <span class="disabled">Prev</span>
+    {% endif %}
+
+    <!-- page number link-->
+    {% for i in paginator.page_range %}
+    {% if results.number == i %}
+    <span class="active">{{ i }} <span class="sr-only">(current)</span></span>
+    {% else %}
+    <a href="{{ base_url }}page={{ i }}">{{ i }}</a></li>
+    {% endif %}
+    {% endfor %}
+
+    <!-- next page link -->
+    {% if results.has_next %}
+    <a href="{{ base_url }}page={{ results.next_page_number }}">Next</a>
+    {% else %}
+    <span class="disabled">Next</span>
+    {% endif %}
+</div>
