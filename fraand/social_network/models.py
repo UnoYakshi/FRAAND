@@ -53,7 +53,9 @@ class Item(MyBaseModel):
     # Access granted to specific users or groups...
     # access = ...
 
-    owner_uid = models.ForeignKey(User, unique=False, on_delete=models.CASCADE, related_name='items')
+    owner_uid = models.ForeignKey(
+        User, unique=False, on_delete=models.CASCADE, related_name='items'
+    )
 
     tags = TaggableManager(through=UUIDTaggedItem)
 
@@ -80,6 +82,7 @@ class Image(models.Model):
     FIXME: READ IT https://docs.djangoproject.com/en/4.0/topics/db/examples/many_to_one/ !
 
     """
+
     item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name='images')
     image = models.ImageField(upload_to='images/')
     default = models.BooleanField(default=False)
@@ -99,7 +102,9 @@ class Deal(MyBaseModel):
     to_user_uid = models.UUIDField()
     item_uid = models.UUIDField()
 
-    due_date = models.DateTimeField(default=datetime.datetime.now() + datetime.timedelta(days=14))
+    due_date = models.DateTimeField(
+        default=datetime.datetime.now() + datetime.timedelta(days=14)
+    )
     status = models.IntegerField(choices=DealStatus.choices, default=DealStatus.INIT)
 
     class Meta:
@@ -111,5 +116,3 @@ class Deal(MyBaseModel):
             )
         ]
         # unique_together = (('from_user_uid', 'to_user_uid', 'item_uid'),)
-
-

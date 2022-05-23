@@ -12,15 +12,25 @@ class InlineImage(admin.TabularInline):
 
 # @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    inlines = [InlineImage, ]
+    inlines = [
+        InlineImage,
+    ]
 
     def children_display(self, obj):
-        display_text = ', '.join([
-            "<a href={}>{}</a>".format(
-                reverse('admin:{}_{}_change'.format(
-                    obj._meta.app_label, obj._meta.model_name)
-                    , args=(child.pk,)), child.name) for child in obj.children.all()
-        ])
+        display_text = ', '.join(
+            [
+                "<a href={}>{}</a>".format(
+                    reverse(
+                        'admin:{}_{}_change'.format(
+                            obj._meta.app_label, obj._meta.model_name
+                        ),
+                        args=(child.pk,),
+                    ),
+                    child.name,
+                )
+                for child in obj.children.all()
+            ]
+        )
         if display_text:
             return mark_safe(display_text)
         return "-"

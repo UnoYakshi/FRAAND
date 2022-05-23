@@ -53,8 +53,10 @@ class ItemForm(forms.ModelForm):
             Field('public'),
             Field('city'),
             Field('tags'),
-            Alert(content="<strong>Warning!</strong> Images are buggy a bit, please, don't remove any of it. "
-                          "Adding new ones should work fine, though."),
+            Alert(
+                content="<strong>Warning!</strong> Images are buggy a bit, please, don't remove any of it. "
+                "Adding new ones should work fine, though."
+            ),
             Fieldset('Add images', Formset('images_form')),
             Submit('submit', 'Submit'),
         )

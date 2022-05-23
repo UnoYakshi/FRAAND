@@ -1,11 +1,9 @@
-import logging
-
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db import transaction
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
@@ -38,11 +36,11 @@ def search(request):
         'items_results': paginated_items,
         'paginator': paginator,
         'base_url': base_url,
-        'search_item_name': name_filter
+        'search_item_name': name_filter,
     }
-    return render(request=request,
-                  template_name='widgets/search_results.html',
-                  context=context)
+    return render(
+        request=request, template_name='widgets/search_results.html', context=context
+    )
 
 
 def do_paginate(data_list, page_number):
@@ -71,7 +69,9 @@ class AddItemView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = ItemForm
 
     def get_success_message(self, cleaned_data):
-        return self.success_message % dict(cleaned_data, )
+        return self.success_message % dict(
+            cleaned_data,
+        )
 
     def get(self, request, *args, **kwargs):
         self.object = None
@@ -79,9 +79,7 @@ class AddItemView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
 
-        return self.render_to_response(
-            context=self.get_context_data(form=form)
-        )
+        return self.render_to_response(context=self.get_context_data(form=form))
 
     def post(self, request, *args, **kwargs):
         self.object = None
@@ -98,7 +96,9 @@ class AddItemView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         context = super(AddItemView, self).get_context_data(**kwargs)
 
         if self.request.POST:
-            context['images_form'] = ItemImageFormSet(self.request.POST, self.request.FILES)
+            context['images_form'] = ItemImageFormSet(
+                self.request.POST, self.request.FILES
+            )
         else:
             context['images_form'] = ItemImageFormSet()
 
@@ -122,10 +122,6 @@ class AddItemView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
                 images_form.save()
 
         return super(AddItemView, self).form_valid(form)
-
-        # TODO: For some reason, it tells...
-        #     "Upload a valid image. The file you uploaded was either not an image or a corrupted image."
-        # return self.render_to_response(self.get_context_data(form=form, images_form=images_form, success_notification=True))
 
 
 class GetItemView(LoginRequiredMixin, DetailView):

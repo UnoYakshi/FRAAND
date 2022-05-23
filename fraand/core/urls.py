@@ -18,8 +18,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from django.views.generic import TemplateView
-from social_network.views import index, search, AddItemView, GetItemView, EditItemView, DeleteItemView
+from social_network.views import (
+    index,
+    search,
+    AddItemView,
+    GetItemView,
+    EditItemView,
+    DeleteItemView,
+)
 
 # fmt: off
 # (Skip Black formatting in this section)
