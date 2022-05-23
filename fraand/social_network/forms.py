@@ -1,16 +1,11 @@
 from crispy_forms.bootstrap import Alert
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import TEMPLATE_PACK, Field, Fieldset, Layout, LayoutObject, Submit
 from django import forms
 from django.forms.models import inlineformset_factory
-
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, Fieldset, Div, HTML, ButtonHolder, Submit
-
-from .models import Item, Image
-
-
-from crispy_forms.layout import LayoutObject, TEMPLATE_PACK
-from django.shortcuts import render
 from django.template.loader import render_to_string
+
+from .models import Image, Item
 
 
 class Formset(LayoutObject):

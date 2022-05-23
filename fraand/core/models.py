@@ -8,6 +8,7 @@
 import uuid
 
 from django.db import models
+
 from fraand.core.managers import MyBaseQuerySet
 
 

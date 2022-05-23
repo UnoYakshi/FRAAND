@@ -14,18 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin
-from django.urls import path, include
-from django.conf.urls.static import static
 from django.conf import settings
-from social_network.views import (
-    index,
-    search,
-    AddItemView,
-    GetItemView,
-    EditItemView,
-    DeleteItemView,
-)
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import include, path
+
+from social_network.views import AddItemView, DeleteItemView, EditItemView, GetItemView, index, search
 
 # fmt: off
 # (Skip Black formatting in this section)

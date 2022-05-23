@@ -18,9 +18,10 @@ jobs:
         run: |
           pip install pdm
           pdm install -G dev
+          pdm list
 
       - name: Black check
-        run: pdm run black --check --verbose --line-length 120 --exclude="social_network/migrations" -S fraand
+        run: pdm run black --check fraand
 
       - name: Isort check
         run: pdm run isort --check fraand

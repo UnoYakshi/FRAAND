@@ -31,11 +31,22 @@ dev = [
     "pytest-django>=4.5.2",
     "isort>=5.10.1",
 ]
+
 [tool.black]
+verbose = true
 line-length = 120
 target-version = ['py39']
+src = "fraand"
 skip-string-normalization = true
-exclude = "fraand/migrations"
+exclude = "fraand/social_network/migrations"
+
+[tool.isort]
+py_version=39
+verbose = true
+src_paths = ["fraand"]
+line_length = 120
+profile = "django"
+skip = "fraand/social_network/migrations"
 
 [build-system]
 requires = ["pdm-pep517"]

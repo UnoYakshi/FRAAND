@@ -2,7 +2,7 @@
 All totally optional, of course.
 """
 
-from typing import Union
 import datetime
+from typing import Union
 
 DTType = Union[datetime.datetime, datetime.date]

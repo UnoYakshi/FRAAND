@@ -1,9 +1,8 @@
 from django.contrib import admin
-
-from social_network.models import Item, Image, Deal
-
 from django.urls import reverse
 from django.utils.safestring import mark_safe
+
+from social_network.models import Deal, Image, Item
 
 
 class InlineImage(admin.TabularInline):
