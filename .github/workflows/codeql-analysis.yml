@@ -16,7 +16,7 @@ jobs:
 
       - name: Run script
         run: |
-          pip pdm
+          pip install pdm
           pdm add -dG test pytest
 
       - name: Black check
