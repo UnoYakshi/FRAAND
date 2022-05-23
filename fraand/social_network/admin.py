@@ -21,9 +21,7 @@ class ItemAdmin(admin.ModelAdmin):
             [
                 "<a href={}>{}</a>".format(
                     reverse(
-                        'admin:{}_{}_change'.format(
-                            obj._meta.app_label, obj._meta.model_name
-                        ),
+                        'admin:{}_{}_change'.format(obj._meta.app_label, obj._meta.model_name),
                         args=(child.pk,),
                     ),
                     child.name,

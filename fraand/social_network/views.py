@@ -38,9 +38,7 @@ def search(request):
         'base_url': base_url,
         'search_item_name': name_filter,
     }
-    return render(
-        request=request, template_name='widgets/search_results.html', context=context
-    )
+    return render(request=request, template_name='widgets/search_results.html', context=context)
 
 
 def do_paginate(data_list, page_number):
@@ -96,9 +94,7 @@ class AddItemView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         context = super(AddItemView, self).get_context_data(**kwargs)
 
         if self.request.POST:
-            context['images_form'] = ItemImageFormSet(
-                self.request.POST, self.request.FILES
-            )
+            context['images_form'] = ItemImageFormSet(self.request.POST, self.request.FILES)
         else:
             context['images_form'] = ItemImageFormSet()
 

@@ -16,11 +16,14 @@ jobs:
 
       - name: Run script
         run: |
-          pip install black
-          pip install isort
+          pip pdm
+          pdm add -dG test pytest
 
       - name: Black check
-        run: black --check .
+        run: pdm run black --check --verbose --line-length 120 --exclude="social_network/migrations" -S fraand
 
       - name: Isort check
-        run: isort --check .
+        run: pdm run isort --check fraand
+
+      - name: Flake8 check
+        run: pdm run flake8 fraand
