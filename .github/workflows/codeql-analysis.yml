@@ -16,8 +16,8 @@ jobs:
 
       - name: Run script
         run: |
-            pdm install black
-            pdm install isort
+          pip install black
+          pip install isort
 
       - name: Black check
         run: black --check .
