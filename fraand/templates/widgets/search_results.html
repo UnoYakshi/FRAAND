@@ -1,18 +1,22 @@
 {% extends "base.html" %}
 
+{% block head_title %}search: {% endblock %}
 
 {% block body_content %}
 
-<h1>SOME VISUAL HEIGHT BUG -- DELETE THIS LINE!</h1>
-<h1>SOME VISUAL HEIGHT BUG -- DELETE THIS LINE!</h1>
-
 {% if user.is_authenticated %}
 
+{% if items_results %}
 {% for item in items_results %}
 {% include "widgets/item.html" with item=item %}
 {% endfor %}
 
 {% include "widgets/pagination_cirrus.html" with results=items_results %}
+{% else %}
+No results found for ...
+
+    # TODO: Put search query to the search bar, use it for the previous line...
+{% endif %}
 
 {% endif %}
 

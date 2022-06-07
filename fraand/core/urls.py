@@ -19,11 +19,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
-from social_network.views import AddItemView, DeleteItemView, EditItemView, GetItemView, index, search
+from social_network.views import AddItemView, DeleteItemView, EditItemView, GetItemView, index, search, rent
 
 # fmt: off
 # (Skip Black formatting in this section)
-
 
 urlpatterns = [
     # NOTE: change the URL for Admin, for added security.
@@ -31,6 +30,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('', index, name='homepage'),
     path('search/', search, name='search'),
+    path('rent/<str:item_id>', rent, name='rent'),
     path('add_item/', AddItemView.as_view(), name='add_item'),
     path('get_item/<str:pk>', GetItemView.as_view(), name='get_item'),
     path('edit_item/<str:pk>', EditItemView.as_view(), name='edit_item'),

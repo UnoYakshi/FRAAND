@@ -35,6 +35,13 @@
         {% for key, value in item.get_contacts.items %}
         <button class="btn-transparent outline">copy <a href="{{ value }}">{{ key }}</a></button>
         {% endfor %}
-
     </div>
+
+    {# Only show RENT-button for other users' items... #}
+    {% if user.id != item.owner_uid.id %}
+    <a href="{% url 'rent' item.id %}" target="_blank"  class="btn btn-info pull-right">
+        RENT
+    </a>
+    {% endif %}
+
 </div>

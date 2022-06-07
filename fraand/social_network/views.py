@@ -9,7 +9,7 @@ from django.template import loader
 from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 
 from .forms import ItemForm, ItemImageFormSet
-from .models import Item
+from .models import Item, Deal
 
 
 def index(request):
@@ -25,12 +25,15 @@ def search(request):
     if len(name_filter) == 0:
         name_filter = request.GET.get('name', '').strip()
 
-    items = Item.objects.filter(name__icontains=name_filter)
+    # Filter by name (case insensitive) and user ID != current user...
+    name_filtered_items = Item.objects.filter(name__icontains=name_filter)
+    items = name_filtered_items.exclude(owner_uid=request.user)
+
     page_number = request.GET.get('page', 1)
     paginate_result = do_paginate(items, page_number)
-
     paginated_items = paginate_result[0]
     paginator = paginate_result[1]
+
     base_url = f'/search/?name={name_filter}&'
     context = {
         'items_results': paginated_items,
@@ -136,3 +139,20 @@ class DeleteItemView(LoginRequiredMixin, DeleteView):
     model = Item
     template_name = 'widgets/item_confirm_delete.html'
     success_url = '/'
+
+
+@login_required
+def rent(request, item_id: str):
+    """A request to borrow an item from one user to another..."""
+
+    borrower = request.user
+    item = Item.objects.get(pk=item_id)
+    item_owner = item.owner_uid
+
+    assert borrower != item_owner
+
+    new_deal = Deal.objects.create(
+        from_user_uid=item_owner.id, to_user_uid=borrower.id,
+        item_uid=item.id,
+        status=Deal.DealStatus.INIT
+    )

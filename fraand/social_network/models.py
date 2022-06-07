@@ -37,6 +37,8 @@ class UUIDTaggedItem(GenericUUIDTaggedItemBase, TaggedItemBase):
         verbose_name = 'Tag'
         verbose_name_plural = 'Tags'
 
+        # app_label = 'social_network'
+
 
 class Item(MyBaseModel):
     """Items people can share with each other..."""
@@ -91,9 +93,10 @@ class Deal(MyBaseModel):
     class DealStatus(models.IntegerChoices):
         INIT = (1, 'Initiated')
         PENDING = (2, 'Pending')
-        COMPLETED = (3, 'Completed')
-        FAILED = (4, 'Failed')
-        ERROR = (5, 'Error')
+        BORROWED = (3, 'Borrowed')
+        COMPLETED = (4, 'Completed')
+        FAILED = (5, 'Failed')
+        ERROR = (6, 'Error')
 
     from_user_uid = models.UUIDField()
     to_user_uid = models.UUIDField()
