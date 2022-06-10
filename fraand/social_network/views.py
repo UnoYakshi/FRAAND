@@ -13,9 +13,12 @@ from .models import Item, Deal
 
 
 def index(request):
-    items = Item.objects.order_by('-created_at').all()
-    context = {'items_results': items}
+    all_items = Item.objects.order_by('-created_at').all()
+    items_to_display = all_items.exclude(rent=True)
+
+    context = {'items_results': items_to_display}
     template = loader.get_template('index.html')
+
     return HttpResponse(template.render(context, request))
 
 
@@ -25,12 +28,15 @@ def search(request):
     if len(name_filter) == 0:
         name_filter = request.GET.get('name', '').strip()
 
-    # Filter by name (case insensitive) and user ID != current user...
+    # Filter by name (case insensitive)...
     name_filtered_items = Item.objects.filter(name__icontains=name_filter)
-    items = name_filtered_items.exclude(owner_uid=request.user)
+    # ...and user ID != current user...
+    non_items = name_filtered_items.exclude(owner_uid=request.user)
+    # ...and non-reserved...
+    items_to_display = non_items.exclude(rent=True)
 
     page_number = request.GET.get('page', 1)
-    paginate_result = do_paginate(items, page_number)
+    paginate_result = do_paginate(items_to_display, page_number)
     paginated_items = paginate_result[0]
     paginator = paginate_result[1]
 
@@ -156,3 +162,7 @@ def rent(request, item_id: str):
         item_uid=item.id,
         status=Deal.DealStatus.INIT
     )
+    item.rent = True
+    item.save()
+
+    return HttpResponse(f'Item "{item.name}" is booked for you ({borrower.username}).\nDeal ID is "{new_deal.id}".')

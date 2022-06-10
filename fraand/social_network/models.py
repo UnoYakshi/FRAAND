@@ -43,11 +43,17 @@ class UUIDTaggedItem(GenericUUIDTaggedItemBase, TaggedItemBase):
 class Item(MyBaseModel):
     """Items people can share with each other..."""
 
+    class Meta:
+        ordering = ['-created_at']
+        app_label = 'social_network'
+
     name = models.CharField(max_length=255)
     description = models.TextField()
 
     # If the item should be browsable...
     public = models.BooleanField(default=True)
+
+    rent = models.BooleanField(default=False)
 
     city = models.CharField(max_length=255, default='Innopolis, RU')
 
@@ -58,21 +64,19 @@ class Item(MyBaseModel):
 
     tags = TaggableManager(through=UUIDTaggedItem)
 
-    class Meta:
-        ordering = ['-created_at']
-        app_label = 'social_network'
-
     def __str__(self):
         return self.name
 
     def get_contacts(self) -> Dict[str, str]:
-        return {'email': 'some_email@mail.inpls', 'Telegram': '@grociepo'}
+        """
+        Returns all the contacts for the Item card...
 
-    # def get_owner_contacts(self) -> Dict[str, str]:
-    #     """Returns all the contacts for the Item card..."""
-    #     user = User.objects.get(pk=self.owner_uid)
-    #     contacts = user.contacts.all()
-    #     return contacts
+        A la:
+        user = User.objects.get(pk=self.owner_uid)
+        contacts = user.contacts.all()
+        return contacts
+        """
+        return {'email': 'some_email@mail.inpls', 'Telegram': '@grociepo'}
 
 
 class Image(models.Model):
