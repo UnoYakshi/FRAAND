@@ -1,9 +1,8 @@
 {% load admin_urls %}
 
-<a href="{% url 'add_item' %}" target="_blank" rel="noreferrer noopener">Add Item</a>
+<a href="{% url 'add_item' %}" target="_blank" rel="noreferrer noopener" class="btn btn-primary">Add Item</a>
 
 {# Item cards... #}
-
 {% for item in items_results %}
 {% include "widgets/item.html" with item=item %}
 {% endfor %}
@@ -11,20 +10,12 @@
 
 
 {# Dropdown options... #}
-
-<div class="btn-group">
-    <button type="button" class="btn btn-danger">Action</button>
-    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <span class="sr-only">Toggle Dropdown</span>
-    </button>
-    <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Action</a>
-        <a class="dropdown-item" href="#">Another action</a>
-        <a class="dropdown-item" href="#">Something else here</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#">Separated link</a>
-    </div>
-</div>
+<form class="btn-group">
+	<select class="dropdown-menu" name="Actions">
+		<option class="dropdown-item" href="#" value="action_1">Action 1</option>
+		<option class="dropdown-item" href="#" value="action_2">Action 2</option>
+	</select>
+</form>
 
 
 {# Pagination... #}
