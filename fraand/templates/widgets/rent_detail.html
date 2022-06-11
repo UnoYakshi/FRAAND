@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block body_content %}
+    <br/>
+
+    <h1>Towards getting [{{ object.get_item.name | upper }}]!</h1>
+    <h3>Meta:</h3>
+    <p>
+        From user ID: {{ object.from_user_uid | upper }}<br/>
+        To user ID (you): {{ object.to_user_uid | upper }}<br/>
+        Deal ID: {{ object.id | upper }}
+    </p>
+
+    <h3>ContACTS:</h3>
+    <p>
+        {% for contact_type, contact_data in object.get_item.get_contacts.items %}
+            {{ contact_type }}: {{ contact_data }}<br/>
+        {% endfor %}
+    </p>
+    <a href="{% url 'edit_rent' pk=object.pk %}">EDIT</a>
+    <a href="{% url 'delete_rent' pk=object.pk %}">REMOVE</a>
+
+{% endblock %}

@@ -3,7 +3,10 @@
     {# Title... #}
     <div class="card__header">
         <p class="font-bold px-3"><a href="{% url 'get_item' pk=item.id %}">{{ item.name }}</a></p>
+
     </div>
+    <div class="card__footer level content">Created: 6:32 PM - 3 Jul 18</div>
+    <div class="card__footer level content">Last edited: 6:32 PM - 3 Jul 18</div>
 
     {# Decsription... #}
     <div class="content">
@@ -11,9 +14,9 @@
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 {% for image in item.images.all %}
-                <div class="carousel-item active">
-                    <img src="{{ image.image.url }}" class="d-block w-100" alt="...">
-                </div>
+                    <div class="carousel-item active">
+                        <img src="{{ image.image.url }}" class="d-block w-100" alt="...">
+                    </div>
                 {% endfor %}
 
             </div>
@@ -30,18 +33,29 @@
         <p class="u-text-left">{{ item.description }}</p>
     </div>
 
-    <div class="card__footer level content">6:32 PM - 3 Jul 18</div>
-    <div class="card__action-bar u-center">
-        {% for key, value in item.get_contacts.items %}
-        <button class="btn-transparent outline">copy <a href="{{ value }}">{{ key }}</a></button>
-        {% endfor %}
-    </div>
 
     {# Only show RENT-button for other users' items... #}
     {% if user.id != item.owner_uid.id %}
-    <a href="{% url 'rent' item.id %}" target="_blank"  class="btn btn-info pull-right">
-        RENT
-    </a>
+        {% if item.get_deal_or_none and item.get_deal_or_none.to_user_uid == user.id %}
+
+            <div class="card__action-bar u-center">
+
+                <a href="{% url 'get_rent' item.get_deal_or_none.id %}" target="_blank"
+                   class="btn btn-info pull-right">
+                    CURRENT DEAL
+                </a>
+
+                {% for key, value in item.get_contacts.items %}
+                    <button class="btn-transparent outline">copy <a href="{{ value }}">{{ key }}</a></button>
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+            <a href="{% url 'add_rent' item.id %}" target="_blank" class="btn btn-info pull-right">
+                RENT
+            </a>
+        {% endif %}
     {% endif %}
 
 </div>

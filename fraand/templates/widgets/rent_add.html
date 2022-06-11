@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block body_content %}
+    <br/>
+
+    {% block add_item_form %}
+
+        {% if success_notification %}
+            <h2>You have successfully initiated a rent process for [{{ deal.get_item.name }}]!</h2>
+            Deal ID: {{ deal.id | upper }}<br/>
+
+            <h3>Meta:</h3>
+            <p>
+                From user ID: {{ deal.from_user_uid | upper }}<br/>
+                To user ID (you): {{ deal.to_user_uid | upper }}<br/>
+                STATUS: {{ deal.status.label }}
+            </p>
+
+            <h3>You can contact the item owner:</h3>
+            <p>
+                {% for contact_type, contact_data in deal.get_item.get_contacts.items %}
+                    {{ contact_type }}: {{ contact_data }}<br/>
+                {% endfor %}
+            </p>
+
+        {% endif %}
+
+        <p class="font-bold px-3"><a href="{% url 'get_rent' pk=deal.id %}">GO NEXT</a></p>
+
+
+    {% endblock %}
+{% endblock %}

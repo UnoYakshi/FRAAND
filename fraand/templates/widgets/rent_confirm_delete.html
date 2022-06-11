@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block body_content %}
+<br />
+<br />
+<br />
+<br />
+<br />
+
+<form method="post">{% csrf_token %}
+  <p>
+    Are you sure you want to delete the deal [{{ object.id | upper }}]?
+  </p>
+  <input type="submit" value="Yes, I consent!">
+</form>
+
+{% endblock %}
