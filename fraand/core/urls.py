@@ -19,7 +19,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
-from social_network.views import AddItemView, DeleteItemView, EditItemView, GetItemView, index, search, rent
+from social_network.views import (
+    index, search,
+    AddItemView, DeleteItemView, EditItemView, GetItemView,
+    rent, GetRentView, EditRentView, DeleteRentView
+)
 
 # fmt: off
 # (Skip Black formatting in this section)
@@ -27,14 +31,21 @@ from social_network.views import AddItemView, DeleteItemView, EditItemView, GetI
 urlpatterns = [
     # NOTE: change the URL for Admin, for added security.
     # See #2 here: https://opensource.com/article/18/1/10-tips-making-django-admin-more-secure
-    path("admin/", admin.site.urls),
+
+    path('admin/', admin.site.urls),
     path('', index, name='homepage'),
     path('search/', search, name='search'),
-    path('rent/<str:item_id>', rent, name='rent'),
+
     path('add_item/', AddItemView.as_view(), name='add_item'),
     path('get_item/<str:pk>', GetItemView.as_view(), name='get_item'),
     path('edit_item/<str:pk>', EditItemView.as_view(), name='edit_item'),
     path('delete_item/<str:pk>', DeleteItemView.as_view(), name='delete_item'),
+
+    path('add_rent/<str:item_id>', rent, name='add_rent'),
+    path('get_rent/<str:pk>', GetRentView.as_view(), name='get_rent'),
+    path('edit_rent/<str:pk>', EditRentView.as_view(), name='edit_rent'),
+    path('delete_rent/<str:pk>', DeleteRentView.as_view(), name='delete_rent'),
+
     path('accounts/', include('django.contrib.auth.urls')),
 ]
 # fmt: on

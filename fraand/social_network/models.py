@@ -21,15 +21,22 @@ Soon the number of models will be bigger. Probably, the separation onto a few ap
 
 
 import datetime
-from typing import Dict
+import uuid
+from typing import Dict, Optional
 
-from django.contrib.auth.models import User
+from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models import Deferrable, UniqueConstraint
+from django.dispatch import receiver
 from taggit.managers import TaggableManager
 from taggit.models import GenericUUIDTaggedItemBase, TaggedItemBase
 
 from fraand.core.models import MyBaseModel
+
+
+class User(AbstractUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
 
 
 class UUIDTaggedItem(GenericUUIDTaggedItemBase, TaggedItemBase):
@@ -60,7 +67,7 @@ class Item(MyBaseModel):
     # Access granted to specific users or groups...
     # access = ...
 
-    owner_uid = models.ForeignKey(User, unique=False, on_delete=models.CASCADE, related_name='items')
+    owner_uid = models.ForeignKey(settings.AUTH_USER_MODEL, unique=False, on_delete=models.CASCADE, related_name='items')
 
     tags = TaggableManager(through=UUIDTaggedItem)
 
@@ -77,6 +84,10 @@ class Item(MyBaseModel):
         return contacts
         """
         return {'email': 'some_email@mail.inpls', 'Telegram': '@grociepo'}
+
+    def get_deal_or_none(self) -> Optional['Deal']:
+        deal = Deal.objects.get(item_uid=self.id)
+        return deal if deal else None
 
 
 class Image(models.Model):
@@ -117,4 +128,21 @@ class Deal(MyBaseModel):
                 deferrable=Deferrable.DEFERRED,
             )
         ]
-        # unique_together = (('from_user_uid', 'to_user_uid', 'item_uid'),)
+
+    def get_item(self) -> Item:
+        return Item.objects.get(pk=self.item_uid)
+
+    # def delete(self, using=None, keep_parents=False):
+    #     item = Item.objects.get(self.item_uid)
+    #     item.rent = False
+    #     item.save()
+    #
+    #     super(Deal, self).delete(using, keep_parents)
+
+
+@receiver(models.signals.post_delete, sender=Deal)
+def release_rent_item(sender, instance, *args, **kwargs):
+    """Un-rents an Item (`rent=False` once Deal is removed..."""
+    item = Item.objects.get(pk=instance.item_uid)
+    item.rent = False
+    item.save()

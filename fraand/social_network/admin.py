@@ -1,8 +1,9 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 
-from social_network.models import Deal, Image, Item
+from social_network.models import Deal, Image, Item, User
 
 
 class InlineImage(admin.TabularInline):
@@ -35,3 +36,4 @@ class ItemAdmin(admin.ModelAdmin):
 
 admin.site.register(Item, ItemAdmin)
 admin.site.register(Deal)
+admin.site.register(User, UserAdmin)

@@ -13,8 +13,7 @@ from .models import Item, Deal
 
 
 def index(request):
-    all_items = Item.objects.order_by('-created_at').all()
-    items_to_display = all_items.exclude(rent=True)
+    items_to_display = Item.objects.order_by('-created_at').all()
 
     context = {'items_results': items_to_display}
     template = loader.get_template('index.html')
@@ -111,7 +110,6 @@ class AddItemView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     def form_valid(self, form):
         # Auto-assign `owner_uid` as the current user...
-        # TODO: It should be a raw UUID in the future instead of User object...
         form.instance.owner_uid = self.request.user
 
         # Add images fields [reading]...
@@ -165,4 +163,30 @@ def rent(request, item_id: str):
     item.rent = True
     item.save()
 
-    return HttpResponse(f'Item "{item.name}" is booked for you ({borrower.username}).\nDeal ID is "{new_deal.id}".')
+    contacts = item.get_contacts().items()
+
+    context = {
+        'deal': new_deal,
+        'contacts': contacts,
+        'success_notification': True
+    }
+
+    return render(request, template_name='widgets/rent_add.html', context=context)
+
+
+class GetRentView(LoginRequiredMixin, DetailView):
+    model = Deal
+    template_name = 'widgets/rent_detail.html'
+
+
+class EditRentView(LoginRequiredMixin, UpdateView):
+    model = Deal
+    fields = '__all__'
+    template_name = 'widgets/rent_edit.html'
+    success_url = '/'
+
+
+class DeleteRentView(LoginRequiredMixin, DeleteView):
+    model = Deal
+    template_name = 'widgets/rent_confirm_delete.html'
+    success_url = '/'
