@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block body_content %}
+
+    <h2>You have successfully initiated a rent process for [{{ deal.get_item.name }}]!</h2>
+
+    Also, a deal [{{ deal.id }}] has benn closed.
+
+{% endblock %}

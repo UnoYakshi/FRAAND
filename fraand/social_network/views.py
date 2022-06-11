@@ -174,6 +174,50 @@ def rent(request, item_id: str):
     return render(request, template_name='widgets/rent_add.html', context=context)
 
 
+@login_required
+def confirm_rent(request, pk: str):
+    deal = Deal.objects.get(pk=pk)
+    deal.status = Deal.DealStatus.PENDING
+
+    # assert deal.to_user_uid != request.user
+
+    context = {
+        'deal': deal,
+        'success_notification': True
+    }
+
+    return render(request, template_name='widgets/rent_confirm.html', context=context)
+
+
+@login_required
+def give_away(request, from_uid: str, to_uid: str, item_uid: str):
+    assert from_uid != to_uid
+    assert request.user == from_uid
+
+    item = Item.objects.get(pk=item_uid)
+    item.owner_uid = to_uid
+    item.save()
+
+    deal = Deal.objects.get()
+
+    context = {
+        'item': item,
+        'from_uid': from_uid,
+        'to_uid': to_uid,
+        'deal': deal
+    }
+
+    # Remove the deal?..
+    ...
+
+    return render(request, template_name='widgets/wip.html')
+
+
+@login_required
+def change_due_item(request, pk: str):
+    return render(request, template_name='widgets/wip.html')
+
+
 class GetRentView(LoginRequiredMixin, DetailView):
     model = Deal
     template_name = 'widgets/rent_detail.html'

@@ -22,12 +22,13 @@ from django.urls import include, path
 from social_network.views import (
     index, search,
     AddItemView, DeleteItemView, EditItemView, GetItemView,
-    rent, GetRentView, EditRentView, DeleteRentView
+    rent, GetRentView, EditRentView, DeleteRentView, confirm_rent, give_away, change_due_item
 )
 
 # fmt: off
 # (Skip Black formatting in this section)
 
+# fmt: on
 urlpatterns = [
     # NOTE: change the URL for Admin, for added security.
     # See #2 here: https://opensource.com/article/18/1/10-tips-making-django-admin-more-secure
@@ -45,10 +46,13 @@ urlpatterns = [
     path('get_rent/<str:pk>', GetRentView.as_view(), name='get_rent'),
     path('edit_rent/<str:pk>', EditRentView.as_view(), name='edit_rent'),
     path('delete_rent/<str:pk>', DeleteRentView.as_view(), name='delete_rent'),
+    path('confirm_rent/<str:pk>', confirm_rent, name='confirm_rent'),
+    path('refuse_rent/<str:pk>', rent, name='refuse_rent'),
+    path('give_away/<str:from_uid>/<str:to_uid>/<str:item_uid>', rent, name='give_away'),
+    path('change_due_date/<str:pk>', rent, name='change_due_time'),
 
     path('accounts/', include('django.contrib.auth.urls')),
 ]
-# fmt: on
 
 if settings.DEBUG:
     # Serve media files in development server.

@@ -8,15 +8,70 @@
     <p>
         From user ID: {{ object.from_user_uid | upper }}<br/>
         To user ID (you): {{ object.to_user_uid | upper }}<br/>
+        Item ID: {{ object.get_item.id | upper }}<br/>
         Deal ID: {{ object.id | upper }}
     </p>
 
-    <h3>ContACTS:</h3>
+    <h3>Step 1. ContACT the owner:</h3>
     <p>
         {% for contact_type, contact_data in object.get_item.get_contacts.items %}
             {{ contact_type }}: {{ contact_data }}<br/>
         {% endfor %}
     </p>
+
+    <h3>Step 2. Agreement...</h3>
+    <p>
+{#        TODO: Should be buttons instead...#}
+
+        <a href="{% url 'confirm_rent' pk=object.pk %}">Confirm the meeting agreement from your side.</a>
+        OR
+        <a href="{% url 'delete_rent' pk=object.pk %}">Refuse the deal.</a>
+    </p>
+    <p>
+        This step is important for both of you not to waste your precious IRL time.
+    </p>
+
+    <h3>Step 3. Meet!</h3>
+    <p>
+        Remember the <a href="https://www.wikihow.com/Safely-Meet-a-Person-You-Met-Online"> safety rules!</a>
+        By the end of the meeting, the item should has been given.
+
+{#        TODO: Add users' statistics...#}
+    </p>
+
+    <h3>Step 4. Once it's done...</h3>
+    <p>
+{#        TODO: Should be buttons instead...#}
+
+        <a href="{% url 'confirm_rent' pk=object.pk %}">Confirm the item has been given.</a>
+        OR
+        <a href="{% url 'delete_rent' pk=object.pk %}">Refuse the deal.</a>
+    </p>
+
+    <h3>Step 5. Usage...</h3>
+    <p>
+        Don't forget about the due time!
+    </p>
+
+    <h3>Step 6. Return...</h3>
+    <p>
+    <ul>
+        <li>Once time's up, the item should has been returned back.</li>
+        <li>Otherwise, you can <a href="{% url 'change_due_time' pk=object.id %}">change due time</a>.</li>
+        <li>If the Borrower really loves the item and the Owner doesn't mind,
+            <a href="{% url 'give_away' from_uid=object.from_user_uid to_uid=object.to_user_uid item_uid=object.item_uid %}">
+                giving it away</a> is possible.
+        </li>
+    </ul>
+    </p>
+    <p>
+        If the item is simply not returned w/o a reason (and there is complete radio silence from the Borrower),
+        it's considered stolen. It's up to the Owner what to do next.
+
+        From the platform's side, we can only change the Borrower statistics accordingly;
+        since the platform tries not mess with your anonymity. Be cautious!
+    </p>
+
     <a href="{% url 'edit_rent' pk=object.pk %}">EDIT</a>
     <a href="{% url 'delete_rent' pk=object.pk %}">REMOVE</a>
 
