@@ -132,6 +132,14 @@ class Deal(MyBaseModel):
     def get_item(self) -> Item:
         return Item.objects.get(pk=self.item_uid)
 
+    @property
+    def from_user(self):
+        return User.objects.get(pk=self.from_user_uid)
+
+    @property
+    def to_user(self):
+        return User.objects.get(pk=self.to_user_uid)
+
     # def delete(self, using=None, keep_parents=False):
     #     item = Item.objects.get(self.item_uid)
     #     item.rent = False

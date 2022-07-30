@@ -20,7 +20,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 from social_network.views import (
-    index, search,
+    index, search, profile,
     AddItemView, DeleteItemView, EditItemView, GetItemView,
     rent, GetRentView, EditRentView, DeleteRentView, confirm_rent, give_away, change_due_item
 )
@@ -36,6 +36,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='homepage'),
     path('search/', search, name='search'),
+
+    path('profile/', profile, name='profile'),
+    # path('pwd/', change_password, name='profile'),
 
     path('add_item/', AddItemView.as_view(), name='add_item'),
     path('get_item/<str:pk>', GetItemView.as_view(), name='get_item'),

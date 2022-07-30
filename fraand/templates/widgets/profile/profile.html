@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block head_title %}{{ user.name }}{% endblock %}
+
+{% block body_content %}
+
+    <h2>MAIN INFO</h2>
+
+    Login: {{ user.username }}
+    Registered: {{ user.date_joined | naturalday }}
+    Email: {{ user.email|truncatechars:3 }}
+
+
+    <h2>YOUR DEALS</h2>
+
+    {% if to_you_deals %}
+        TO YOU:
+        {% for deal in to_you_deals %}
+            <br/>
+            {{ deal.get_item.name }} ({{ deal.item_uid }})
+            <br/>
+            FROM: {{ deal.from_user }} ({{ deal.from_user_uid }})
+
+            <br/>
+            STATUS: {{ deal.get_status_display }}
+            {% if deal.due_date %}
+            DUE DATE: {{ deal.due_date }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% if from_you_deals %}
+        <br/>
+        FROM YOU:
+        {% for deal in from_you_deals %}
+            <br/>
+            {{ deal.get_item.name }} ({{ deal.item_uid }})
+            <br/>
+            TO: {{ deal.to_user }} ({{ deal.to_user_uid }})
+
+            <br/>
+            STATUS: {{ deal.get_status_display }}
+            {% if deal.due_date %}
+            DUE DATE: {{ deal.due_date }}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    <br/>
+
+    <br/>
+    <br/>
+
+{% endblock %}

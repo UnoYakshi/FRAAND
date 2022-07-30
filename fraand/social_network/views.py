@@ -22,6 +22,17 @@ def index(request):
 
 
 @login_required
+def profile(request):
+    context = {
+        'to_you_deals': Deal.objects.filter(to_user_uid=request.user.id),
+        'from_you_deals': Deal.objects.filter(from_user_uid=request.user.id)
+    }
+    template = loader.get_template('widgets/profile/profile.html')
+
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
 def search(request):
     name_filter = request.POST.get('name', '').strip()
     if len(name_filter) == 0:
