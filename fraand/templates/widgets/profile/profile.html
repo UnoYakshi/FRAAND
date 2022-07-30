@@ -11,6 +11,7 @@
     Registered: {{ user.date_joined | naturalday }}
     Email: {{ user.email|truncatechars:3 }}
 
+    <h6><a href="{% url 'password_change' %}">CHANGE PASSWORD</a></h6>
 
     <h2>YOUR DEALS</h2>
 
@@ -29,6 +30,7 @@
             {% endif %}
         {% endfor %}
     {% endif %}
+
     {% if from_you_deals %}
         <br/>
         FROM YOU:

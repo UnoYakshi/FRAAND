@@ -38,6 +38,12 @@ urlpatterns = [
     path('search/', search, name='search'),
 
     path('profile/', profile, name='profile'),
+    # path('password_change/',
+    #      PasswordChangeView.as_view(template_name="fraand/templates/registration/password_change.html"),
+    #      name='password_change'),
+    # path('password_change/done/',
+    #      PasswordChangeDoneView.as_view(template_name="fraand/templates/registration/password_change_done.html"),
+    #      name='password_change_done'),
     # path('pwd/', change_password, name='profile'),
 
     path('add_item/', AddItemView.as_view(), name='add_item'),
