@@ -18,7 +18,7 @@
         TO YOU:
         {% for deal in to_you_deals %}
             <br/>
-            {{ deal.get_item.name }} ({{ deal.item_uid }})
+            <a href="{% url 'get_item' pk=deal.item_uid %}">{{ deal.get_item.name }}</a>
             <br/>
             FROM: {{ deal.from_user }} ({{ deal.from_user_uid }})
 
@@ -34,7 +34,7 @@
         FROM YOU:
         {% for deal in from_you_deals %}
             <br/>
-            {{ deal.get_item.name }} ({{ deal.item_uid }})
+            <a href="{% url 'get_item' pk=deal.item_uid %}">{{ deal.get_item.name }}</a>
             <br/>
             TO: {{ deal.to_user }} ({{ deal.to_user_uid }})
 
