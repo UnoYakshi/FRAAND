@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  db:
+    container_name: db
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    restart: always
+    network_mode: host
+    environment:
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_HOST=0.0.0.0
+      - POSTGRES_PORT=5432
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    container_name: app
+    restart: always
+    network_mode: host
+    #command: bash -c "python fraand/manage.py makemigrations && python ./fraand/manage.py migrate && python fraand/manage.py runserver 0.0.0.0:8000"
+    command: bash -c "sleep 999999"
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+      - PYTHONPATH="/app/__pypackages__/3.9/lib/:/app/fraand/:/app/"

@@ -1,0 +1,10 @@
+FROM frostming/pdm:latest
+
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
+COPY . /app
+
+RUN pdm install
+
