@@ -23,9 +23,8 @@ services:
     container_name: app
     restart: always
     network_mode: host
-    #command: bash -c "python fraand/manage.py makemigrations && python ./fraand/manage.py migrate && python fraand/manage.py runserver 0.0.0.0:8000"
-    command: bash -c "sleep 999999"
+    command: python3 fraand/manage.py runserver 0.0.0.0:8000
     environment:
       - PYTHONDONTWRITEBYTECODE=1
       - PYTHONUNBUFFERED=1
-      - PYTHONPATH="/app/__pypackages__/3.9/lib/:/app/fraand/:/app/"
+      - PYTHONPATH=/app/__pypackages__/3.9/lib/:/app/fraand/:/app/
