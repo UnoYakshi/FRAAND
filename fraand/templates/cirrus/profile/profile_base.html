@@ -1,0 +1,20 @@
+{% extends "cirrus/base.html" %}
+
+{% block head_title %}
+    {{ user.username }}'s
+    {% block profile_head_title %}
+        Profile
+    {% endblock %}
+{% endblock %}
+
+{% block body_content %}
+    {% include "cirrus/profile/profile_tabs.html" %}
+
+    {# Main container...#}
+    <div class="row">
+        {% block profile_content %}
+
+        {% endblock %}
+    </div>
+
+{% endblock %}

@@ -24,8 +24,8 @@
 /*!* Not required for template or sticky footer method. *!*/
 
 body {
-  color: cirrus-dark;
-  /*padding: 60px 15px 0;*/
+    color: cirrus-dark;
+    /*padding: 60px 15px 0;*/
 }
 
 /*.footer > .container {*/
@@ -40,5 +40,4 @@ body {
 /*@media print {*/
 /*  .footer { display: none!important; }*/
 /*}*/
-
 

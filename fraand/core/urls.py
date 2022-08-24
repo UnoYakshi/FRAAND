@@ -20,7 +20,8 @@ from django.contrib import admin
 from django.urls import include, path
 
 from social_network.views import (
-    index, search, profile,
+    index, search,
+    profile_deals, profile_items, profile_settings, profile_security,
     AddItemView, DeleteItemView, EditItemView, GetItemView,
     rent, GetRentView, EditRentView, DeleteRentView, confirm_rent, give_away, change_due_item
 )
@@ -37,7 +38,11 @@ urlpatterns = [
     path('', index, name='homepage'),
     path('search/', search, name='search'),
 
-    path('profile/', profile, name='profile'),
+    path('profile/deals', profile_deals, name='profile_deals'),
+    path('profile/items', profile_items, name='profile_items'),
+    path('profile/settings', profile_settings, name='profile_settings'),
+    path('profile/security', profile_security, name='profile_security'),
+
     # path('password_change/',
     #      PasswordChangeView.as_view(template_name="fraand/templates/registration/password_change.html"),
     #      name='password_change'),

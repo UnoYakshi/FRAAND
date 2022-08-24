@@ -1,0 +1,7 @@
+{% extends "cirrus/base.html" %}
+
+{% block head_title %}Home{% endblock %}
+
+{% block body_content %}
+    {% include "cirrus/search/results.html" with items=items_results %}
+{% endblock %}

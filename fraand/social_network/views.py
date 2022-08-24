@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import transaction
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
@@ -14,56 +15,96 @@ from .models import Item, Deal
 
 def index(request):
     items_to_display = Item.objects.order_by('-created_at').all()
+    context = {'items_results': items_to_display, 'deals_selected': True}
 
-    context = {'items_results': items_to_display}
-    template = loader.get_template('index.html')
+    # template = loader.get_template('index.html')
+    template = loader.get_template('cirrus/index.html')
+    # template = loader.get_template('cirrus/test.html')
+
+    return render_items(request, items_to_render=items_to_display)
+
+    # return HttpResponse(template.render(context, request))
+
+
+@login_required
+def profile_deals(request):
+    context = {
+        'user_deals_selected': True,
+        'to_you_deals': Deal.objects.filter(to_user_uid=request.user.id),
+        'from_you_deals': Deal.objects.filter(from_user_uid=request.user.id)
+    }
+    template = loader.get_template('cirrus/profile/deals.html')
 
     return HttpResponse(template.render(context, request))
 
 
 @login_required
-def profile(request):
+def profile_items(request):
     context = {
-        'to_you_deals': Deal.objects.filter(to_user_uid=request.user.id),
-        'from_you_deals': Deal.objects.filter(from_user_uid=request.user.id)
+        'user_items_selected': True,
+        'user_items': Item.objects.filter(owner_uid=request.user.id),
     }
-    template = loader.get_template('widgets/profile/profile.html')
+    template = loader.get_template('cirrus/profile/items.html')
 
     return HttpResponse(template.render(context, request))
+
+
+@login_required
+def profile_settings(request):
+    template = loader.get_template('cirrus/profile/settings.html')
+    context = {'user_settings_selected': True}
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def profile_security(request):
+    template = loader.get_template('cirrus/profile/security.html')
+    context = {'user_security_selected': True}
+    return HttpResponse(template.render(context, request))
+
+
+@login_required
+def render_items(request, items_to_render, query: str = ''):
+    page_number = request.GET.get('page', 1)
+    paginate_result = do_paginate(items_to_render, page_number, result_per_page=3)
+    paginated_items = paginate_result[0]
+    paginator = paginate_result[1]
+
+    base_url = f'/search/?name={query}&'
+    context = {
+        'items_results': paginated_items,
+        'paginator': paginator,
+        'base_url': base_url,
+        'search_item_name': query,
+    }
+    return render(request=request, template_name='cirrus/search_results.html', context=context)
 
 
 @login_required
 def search(request):
     name_filter = request.POST.get('name', '').strip()
-    if len(name_filter) == 0:
+    if not name_filter:
         name_filter = request.GET.get('name', '').strip()
 
-    # Filter by name (case insensitive)...
-    name_filtered_items = Item.objects.filter(name__icontains=name_filter)
-    # ...and user ID != current user...
-    non_items = name_filtered_items.exclude(owner_uid=request.user)
-    # ...and non-reserved...
-    items_to_display = non_items.exclude(rent=True)
+    if name_filter:
+        # Filter by...
+        items_to_display = Item.objects.filter(
+            Q(name__icontains=name_filter) |  # ...name (case insensitive)...
+            Q(description__icontains=name_filter)  # ...description (case insensitive)...
+        ).exclude(
+            owner_uid=request.user  # ...and user ID != current user...
+        ).exclude(
+            rent=True  # ...and non-reserved...
+        )
+    else:
+        items_to_display = []
 
-    page_number = request.GET.get('page', 1)
-    paginate_result = do_paginate(items_to_display, page_number)
-    paginated_items = paginate_result[0]
-    paginator = paginate_result[1]
-
-    base_url = f'/search/?name={name_filter}&'
-    context = {
-        'items_results': paginated_items,
-        'paginator': paginator,
-        'base_url': base_url,
-        'search_item_name': name_filter,
-    }
-    return render(request=request, template_name='widgets/search_results.html', context=context)
+    return render_items(request, items_to_render=items_to_display, query=name_filter)
 
 
-def do_paginate(data_list, page_number):
+def do_paginate(data_list, page_number, result_per_page: int = 3):
     ret_data_list = data_list
     # suppose we display at most 2 records in each page.
-    result_per_page = 2
     # build the paginator object.
     paginator = Paginator(data_list, result_per_page)
     try:
@@ -80,7 +121,7 @@ def do_paginate(data_list, page_number):
 
 class AddItemView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Item
-    template_name = 'widgets/item_add.html'
+    template_name = 'cirrus/items/add.html'
     success_url = '/'
     success_message = 'Item [%(name)s] added successfully!'
     form_class = ItemForm
@@ -140,19 +181,19 @@ class AddItemView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
 class GetItemView(LoginRequiredMixin, DetailView):
     model = Item
-    template_name = 'widgets/item_detail.html'
+    template_name = 'cirrus/items/detail.html'
 
 
 class EditItemView(LoginRequiredMixin, UpdateView):
     model = Item
-    fields = '__all__'
-    template_name = 'widgets/item_edit.html'
+    fields = ['name', 'description', 'public', 'city', 'tags']
+    template_name = 'cirrus/items/edit.html'
     success_url = '/'
 
 
 class DeleteItemView(LoginRequiredMixin, DeleteView):
     model = Item
-    template_name = 'widgets/item_confirm_delete.html'
+    template_name = 'cirrus/items/confirm_delete.html'
     success_url = '/'
 
 

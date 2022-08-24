@@ -1,0 +1,38 @@
+{% extends "cirrus/profile/profile_base.html" %}
+
+
+{% block profile_head_title %}Deals{% endblock %}
+
+
+{% block profile_content %}
+
+    <div class="col-4">
+        {# TODO: Search/filter field through user items... #}
+        <div class="row">
+        </div>
+
+        {# TODO: Tags filtering... #}
+        <div class="row">
+            {% for tag in object.tags.all %}
+                {{ tag }}
+            {% endfor %}
+        </div>
+
+        {# TODO: AddItem field... #}
+        <div class="row">
+            <a href="{% url 'add_item' %}" target="_blank" rel="noreferrer noopener"
+               class="btn btn-primary w-50p btn--circle u-center">Add Item</a>
+        </div>
+    </div>
+
+    <div class="col-8" style="max-height: 600px;">
+        {# TODO: Existing user items... #}
+        {% for item in user_items %}
+            <div class="col">
+                {% include "cirrus/search/item_card.html" with item=item %}
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

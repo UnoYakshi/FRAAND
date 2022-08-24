@@ -1,0 +1,22 @@
+<div class="row">
+    <div id="tab" class="tab-container tabs--left">
+        <ul>
+            <li {% if user_deals_selected %}class="selected"{% endif %}>
+                <a href="{% url 'profile_deals' %}" class="tab-item-content"><h6>DEALS</h6></a>
+            </li>
+            <li {% if user_items_selected %}class="selected"{% endif %}>
+                <a href="{% url 'profile_items' %}" class="tab-item-content"><h6>MY ITEMS</h6></a>
+            </li>
+
+            {# It's just a spacer-divider...#}
+            <hr style="opacity: 0; padding-left: 40px; padding-right: 40px;"/>
+
+            <li {% if user_settings_selected %}class="selected"{% endif %}>
+                <a href="{% url 'profile_settings' %}" class="tab-item-content"><h6>Settings</h6></a>
+            </li>
+            <li {% if user_security_selected %}class="selected"{% endif %}>
+                <a href="{% url 'profile_security' %}" class="tab-item-content"><h6>Security</h6></a>
+            </li>
+        </ul>
+    </div>
+</div>

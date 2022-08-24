@@ -1,0 +1,40 @@
+{% extends "cirrus/base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block head_title %}Add New Item{% endblock %}
+
+
+{% block body_content %}
+    <div class="row">
+        <div class="col-8">
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Save">
+                <input type="button" value="Cancel" onclick="window.location.href='{{ request.META.HTTP_REFERER }}'">
+
+{#                {% for field in form %}#}
+{#                    <label class="form-bold">#}
+{#                        {{ field.label }}#}
+{#                    </label>#}
+{##}
+{#                    {% if not form.name.help_text %}#}
+{#                        <span class="info inline font-light">{{ field.help_text }}</span>#}
+{#                    {% endif %}#}
+{##}
+{#                    <div class="form-group">#}
+{#                        <input type="{{ field.field.widget.input_type }}" class="form-group-input"#}
+{#                               value="{{ field.value }}">#}
+{#                    </div>#}
+{#                    {% if not form.name.errors %}#}
+{#                        <span class="required info">{% for error in field.errors %}{{ error }}{% endfor %}</span>#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
+
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "cirrus/profile/profile_base.html" %}
+
+
+{% block profile_head_title %}Deals{% endblock %}
+
+
+{% block profile_content %}
+
+    {% if to_you_deals and from_you_deals %}
+
+        <div class="col u-overflow-y-scroll" style="max-height: 500px;">
+            <details open>
+                <summary style="cursor: pointer; list-style: none;">
+                    <div class="divider" data-content="TO YOU"></div>
+                </summary>
+                {% for deal in to_you_deals %}
+                    {% include 'cirrus/profile/to_deal_card.html' with deal=deal %}
+                {% endfor %}
+            </details>
+        </div>
+        <div class="col u-overflow-y-scroll" style="max-height: 500px;">
+            <details open>
+                <summary style="cursor: pointer; list-style: none;">
+                    <div class="divider" data-content="FROM YOU"></div>
+                </summary>
+                {% for deal in from_you_deals %}
+                    {% include 'cirrus/profile/from_deal_card.html' with deal=deal %}
+                {% endfor %}
+            </details>
+        </div>
+
+    {% elif from_you_deals %}
+
+        <div class="col u-overflow-y-scroll" style="max-height: 500px;">
+            <div class="divider" data-content="FROM YOU"></div>
+            {% for deal in from_you_deals %}
+                {% include 'cirrus/profile/from_deal_card.html' with deal=deal %}
+            {% endfor %}
+        </div>
+
+    {% elif to_you_deals %}
+
+        <div class="col u-overflow-y-scroll" style="max-height: 500px;">
+            <div class="divider" data-content="TO YOU"></div>
+            {% for deal in to_you_deals %}
+                {% include 'cirrus/profile/to_deal_card.html' with deal=deal %}
+            {% endfor %}
+        </div>
+
+    {% else %}
+
+        <div class="col">
+            <div class="divider" data-content="you have no deals"></div>
+        </div>
+
+    {% endif %}
+
+{% endblock %}

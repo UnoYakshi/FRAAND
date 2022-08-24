@@ -1,0 +1,12 @@
+<div class="tile bg-gray-100 p-2 u-round-xs">
+    <div class="tile__container">
+        <p class="tile__title m-0"><a href="{% url 'get_item' pk=deal.item_uid %}">{{ deal.get_item.name }}</a></p>
+
+        <p class="tile__subtitle m-0">From: {{ deal.to_user }} ({{ deal.to_user_uid }})</p>
+        <span class="info">STATUS: {{ deal.get_status_display }}</span>
+    </div>
+
+    {% if deal.due_date %}
+        DUE DATE: {{ deal.due_date }}
+    {% endif %}
+</div>

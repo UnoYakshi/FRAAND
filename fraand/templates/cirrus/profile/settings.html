@@ -1,0 +1,68 @@
+{% extends "cirrus/profile/profile_base.html" %}
+{% load humanize %}
+
+
+{% block profile_head_title %}Settings{% endblock %}
+
+
+{% block profile_content %}
+
+    <div class="col">
+
+        <div class="row">
+            <div class="tile m-0 level">
+                <div class="tile__icon">
+                    <figure class="avatar avatar--xl" data-text="{{ user.username.0.upper }}"
+                            style="background: rgb(53, 64, 79);"></figure>
+                </div>
+                <div class="tile__container">
+                    <p class="tile__title m-0">{{ user.username }}</p>
+                    <p class="tile__subtitle m-0"><a href="!#">@{{ user.username }}</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <p><a href="{% url 'logout' %}">logout</a></p>
+        </div>
+
+        {# META-DATA... #}
+        <div class="row u-pull-left p-3">
+            {# TODO: Check `tree-nav-header` or `tree` for collapsible areas...  #}
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th class="u-text-right">username</th>
+                    <td class="u-text-left">{{ user.username }}</td>
+                </tr>
+                <tr>
+                    <th class="u-text-right">account e-mail</th>
+                    <td class="u-text-left">{{ user.email|truncatechars:3 }}</td>
+                </tr>
+                <tr>
+                    <th class="u-text-right">registered</th>
+                    <td class="u-text-left">{{ user.date_joined | naturalday }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        {# CONTACTS... #}
+        <div class="row u-pull-left p-3">
+            <table class="table">
+                <tbody>
+                {% for key, value in user.get_contacts.items %}
+                    <tr>
+                        <th class="u-text-right">{{ key }}</th>
+                        <td class="u-text-left">{{ value }}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <th class="u-text-right">e-mail</th>
+                    <td class="u-text-left">default.email@gov.org</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

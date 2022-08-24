@@ -1,0 +1,79 @@
+<div class="header header-fixed u-unselectable header-animated header-dark">
+    <div class="w-100p">
+        <div class="header__contents mx-auto">
+
+
+            <div class="header-brand" style="width: 80%;">
+
+                {# It's either FRAAND's logo or the current user's avatar.#}
+                <div class="nav-item no-hover">
+                    {% if user.is_authenticated %}
+
+                        <div class="nav-item has-sub toggle-hover">
+                            <a class="nav-dropdown-link">
+                                <div class="avatar avatar--sm" data-text={{ user.get_username.0.upper }}></div>
+                            </a>
+                            <ul class="dropdown-menu dropdown-animated" role="menu">
+                                <li role="menu-item"><a href="{% url 'profile_items' %}">Items</a></li>
+                                <li role="menu-item"><a href="{% url 'profile_deals' %}">Deals</a></li>
+                                <li role="menu-item"><a href="{% url 'profile_settings' %}">Settings</a></li>
+                                <li role="menu-item"><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        {# The last 2 tags are for blocking on smaller [than middle?] screens. #}
+                        <div class="u-none u-block-md u-flex-lg">
+                            <a href="{% url 'logout' %}?next={{ request.path }}" class="outline btn btn--sm">Logout</a>
+                        </div>
+
+                    {% else %}
+
+                        <li><a href="{% url 'login' %}?next={{ request.path }}"><h6 class="title">Logo-in</h6></a></li>
+
+                    {% endif %}
+                </div>
+
+                {# The main Search field...#}
+                <form class="form-group" method="post" action="{% url 'search' %}"
+                      style="width:100%; margin-left: 1em;">
+                    {% csrf_token %}
+                    <button type="submit" class="form-group-btn">GO!</button>
+                    <input type="search" class="form-group-input" name="name" placeholder="Search..."
+                           value="{{ search_item_name }}">
+                </form>
+
+                {#        <div class="nav-item nav-btn nav-right">#}
+                {#            <span></span>#}
+                {#            <span></span>#}
+                {#            <span></span>#}
+                {#        </div>#}
+                {#        <div class="header-nav" id="header-menu">#}
+                {#        </div>#}
+
+            </div>
+
+
+            <div class="header-nav" id="header-menu">
+
+                <div class="nav-left">
+                </div>
+
+                <div class="nav-right">
+                    <div class="nav-item has-sub toggle-hover">
+                        <a class="nav-dropdown-link">City</a>
+                        <ul class="dropdown-menu dropdown-animated" role="menu">
+                            <li role="menu-item"><a href="#">Innopolis, RU</a></li>
+                            <li role="menu-item"><a href="#">Moscow, RU</a></li>
+                            <li role="menu-item"><a href="#">Tbilisi, GE</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+

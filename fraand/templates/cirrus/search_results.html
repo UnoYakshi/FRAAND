@@ -1,0 +1,37 @@
+{% extends "cirrus/base.html" %}
+
+
+{% block head_title %}search: {% endblock %}
+
+
+{% block body_content %}
+    {% if user.is_authenticated %}
+
+        {% if items_results %}
+            <div class="row u-gap-1">
+                {% for item in items_results %}
+                    <div class="col offset-left offset-1">
+                        {% include "cirrus/search/item_card.html" with item=item %}
+                    </div>
+                {% endfor %}
+            </div>
+
+{#            <div class="row u-no-wrap u-center">#}
+                {# How to make if u-fixed for any screen?.. #}
+{#                <div class="col-12">#}
+{#                    {% include "cirrus/search/pagination.html" with items=items_results %}#}
+{#                </div>#}
+{#            </div>#}
+
+        {% else %}
+            No results found for "{{ search_item_name }}"...
+        {% endif %}
+
+    {% endif %}
+{% endblock %}
+
+{% block footer %}
+    {% if user.is_authenticated and items_results %}
+        {% include "cirrus/search/pagination.html" with items=items_results %}
+    {% endif %}
+{% endblock %}
