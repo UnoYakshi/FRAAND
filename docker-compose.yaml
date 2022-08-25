@@ -1,14 +1,16 @@
 version: '3'
 
+
 services:
   db:
-    container_name: db
     image: postgres
+    container_name: db
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - ./postgres:/var/lib/postgresql/data
     restart: always
     ports:
-      - "${POSTGRES_PORT:-5432}:5432"
+#      - "${POSTGRES_PORT:-5432}:5432"
+      - "5432:5432"
     env_file:
       - envs/dev/db.env
     networks:
@@ -20,26 +22,34 @@ services:
       retries: 30
 
   app:
+    container_name: app
     build:
       context: .
       dockerfile: Dockerfile
     depends_on:
       db:
         condition: service_healthy
-    container_name: app
     restart: always
-    ports:
-      - "8080:8000"
-    networks:
-      - backend
+#    tty: true
     env_file:
       - envs/dev/django.env
       - envs/dev/db.env
-    command: sh -c "
-        python fraand/manage.py migrate &&
-        python fraand/manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    networks:
+      - backend
+#    command: pdm run python fraand/manage.py runserver 0.0.0.0:8000
+    command: >
+      bash -c "
+      python3 fraand/manage.py makemigrations &&
+      python3 fraand/manage.py migrate &&
+      python3 fraand/manage.py runserver 0.0.0.0:8000
       "
+
+
+volumes:
+  postgres:
 
 networks:
   backend:
-    driver: "bridge"
+    driver: bridge
