@@ -9,10 +9,9 @@ services:
       - ./postgres:/var/lib/postgresql/data
     restart: always
     ports:
-#      - "${POSTGRES_PORT:-5432}:5432"
-      - "5432:5432"
+      - "${POSTGRES_PORT:-5432}:5432"
     env_file:
-      - envs/dev/db.env
+      - .env/dev/db.env
     networks:
       - backend
     healthcheck:
@@ -22,6 +21,7 @@ services:
       retries: 30
 
   app:
+    image: fraand
     container_name: app
     build:
       context: .
@@ -30,15 +30,15 @@ services:
       db:
         condition: service_healthy
     restart: always
-#    tty: true
     env_file:
-      - envs/dev/django.env
-      - envs/dev/db.env
+      - .env/dev/django.env
+      - .env/dev/db.env
     ports:
       - "8000:8000"
     networks:
       - backend
-#    command: pdm run python fraand/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
     command: >
       bash -c "
       python3 fraand/manage.py makemigrations &&
