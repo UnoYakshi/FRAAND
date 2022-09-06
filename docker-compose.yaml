@@ -14,7 +14,6 @@ services:
       - backend
     volumes:
       - ./postgres:/var/lib/postgresql/data
-    user: fraand
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_NAME} -U $${POSTGRES_USER}"]
       interval: 1s
@@ -40,7 +39,6 @@ services:
       - backend
     volumes:
       - .:/app
-    user: fraand
     command: >
       bash -c "
       python3 fraand/manage.py makemigrations &&
