@@ -16,7 +16,7 @@ import environ
 # fmt: off
 # NOTE `fmt` comments disable/enable Black formatting in this section
 env = environ.Env(
-    DEBUG=(bool, False),
+    DEBUG=(bool, True),
 )
 environ.Env.read_env()
 # fmt: on
@@ -133,4 +133,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 TAGGIT_CASE_INSENSITIVE = True
 
-DEBUG=True
+DEBUG = env('DEBUG')
