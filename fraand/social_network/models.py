@@ -32,7 +32,7 @@ from django.dispatch import receiver
 from taggit.managers import TaggableManager
 from taggit.models import GenericUUIDTaggedItemBase, TaggedItemBase
 
-from fraand.core.models import MyBaseModel
+from core.models import MyBaseModel
 
 
 class User(AbstractUser):
