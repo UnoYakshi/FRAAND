@@ -140,3 +140,6 @@ dmypy.json
 # ----
 fraand/static/vendor/
 fraand/media/
+
+# Docker-related...
+/postgres
