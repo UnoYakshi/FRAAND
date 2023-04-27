@@ -29,7 +29,7 @@ from django.db.models import Deferrable, UniqueConstraint
 from taggit.managers import TaggableManager
 from taggit.models import GenericUUIDTaggedItemBase, TaggedItemBase
 
-from fraand.core.models import MyBaseModel
+from core.models import MyBaseModel
 
 
 class UUIDTaggedItem(GenericUUIDTaggedItemBase, TaggedItemBase):

@@ -9,7 +9,7 @@ import uuid
 
 from django.db import models
 
-from fraand.core.managers import MyBaseQuerySet
+from core.managers import MyBaseQuerySet
 
 
 class MyBaseModel(models.Model):
