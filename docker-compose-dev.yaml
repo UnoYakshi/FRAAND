@@ -2,43 +2,43 @@ version: '3'
 
 
 services:
-  db:
+  postgres:
     image: postgres
     container_name: db
     restart: always
     env_file:
       - .env/dev/db.env
-    network_mode: host
     volumes:
       - ./pgdata:/var/lib/postgresql/data
+    network_mode: host
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -d $${POSTGRES_NAME} -U $${POSTGRES_USER}"]
       interval: 1s
       timeout: 3s
       retries: 30
 
-  app:
+  fraand:
     image: fraand
-    container_name: app
+    container_name: fraand
     build:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      db:
+      postgres:
         condition: service_healthy
     restart: always
     env_file:
       - .env/dev/django.env
       - .env/dev/db.env
-    volumes:
-      - .:/app
+#    volumes:
+#      - .:/app
     network_mode: host
-    command: >
-      bash -c "
-      python3 fraand/manage.py makemigrations &&
-      python3 fraand/manage.py migrate &&
-      python3 fraand/manage.py runserver 0.0.0.0:8000
-      "
+#    command: >
+#      bash -c "
+#      python3 fraand/manage.py makemigrations &&
+#      python3 fraand/manage.py migrate &&
+#      python3 fraand/manage.py runserver 0.0.0.0:8000
+#      "
 
 
 volumes:
