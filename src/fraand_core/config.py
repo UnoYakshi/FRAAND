@@ -11,6 +11,16 @@ from pydantic import BaseSettings, PostgresDsn, validator
 
 
 class Settings(BaseSettings):
+    class Config:
+        case_sensitive = True
+
+        env_file = '.env'
+        env_file_encoding = 'utf-8'
+        env_prefix = 'app_'
+
+    TITLE: str
+    ENVIRONMENT: str
+
     # CORS Middleware
     CORS_ORIGINS: list[str]
     CORS_CREDENTIALS: bool
@@ -40,9 +50,6 @@ class Settings(BaseSettings):
 
     # Pagination
     PAGE_SIZE: int = 1000
-
-    class Config:
-        case_sensitive = True
 
 
 settings = Settings()  # type: ignore

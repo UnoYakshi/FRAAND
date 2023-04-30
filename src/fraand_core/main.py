@@ -3,7 +3,13 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from src.fraand_core.config import settings
 
-app = FastAPI()
+SHOW_DOCS_ENVIRONMENT = ('dev', 'staging')
+
+app_configs = {'title': settings.TITLE}
+if settings.ENVIRONMENT not in SHOW_DOCS_ENVIRONMENT:
+    app_configs['openapi_url'] = None  # Hide /docs...
+
+app = FastAPI(**app_configs)
 
 app.add_middleware(
     CORSMiddleware,
