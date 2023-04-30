@@ -6,7 +6,7 @@ from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.fraand_core.db import engine
-from src.fraand_core.deps import get_session
+from src.fraand_core.deps import get_async_session
 from src.fraand_core.main import app
 
 
@@ -19,7 +19,7 @@ def event_loop():
 
 
 @pytest_asyncio.fixture(scope='function')
-async def override_get_session() -> AsyncSession:
+async def override_get_async_session() -> AsyncSession:
     # establish database connection
     connection = await engine.connect()
     # begin a transaction
@@ -34,8 +34,8 @@ async def override_get_session() -> AsyncSession:
 
 
 @pytest_asyncio.fixture(scope='function')
-async def client(override_get_session) -> AsyncClient:
-    app.dependency_overrides[get_session] = lambda: override_get_session
+async def client(override_get_async_session) -> AsyncClient:
+    app.dependency_overrides[get_async_session] = lambda: override_get_async_session
     async with AsyncClient(
         app=app,
         base_url='http://localhost:8000',
