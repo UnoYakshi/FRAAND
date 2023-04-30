@@ -5,7 +5,7 @@
 !src/
 !alembic/
 !alembic.ini
-#!requirements/
+!requirements/
 #!scripts/
 !pyproject.toml
 !pdm.lock
