@@ -8,7 +8,6 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         # dependencies for building python packages
         build-essential
-
 # Create python dependencies wheels
 COPY requirements /tmp/requirements
 RUN pip wheel --wheel-dir /usr/src/app/wheels -r /tmp/requirements/${BUILD_ENVIRONMENT}.txt
@@ -40,7 +39,7 @@ WORKDIR /app
 COPY --chown=fraand:fraand . .
 RUN chmod -R +x scripts
 
-USER fastapi
+USER fraand
 
 EXPOSE 8000
 
