@@ -8,7 +8,7 @@ if [ "$FASTAPI_ENV" = "DEV" ]; then
         --port 8000 \
         --workers 2 \
         --log-level "debug" \
-        app.main:app
+        src.fraand_core.main:app
 
 else
     uvicorn \
@@ -16,5 +16,5 @@ else
         --port 8000 \
         --workers 2 \
         --log-level "debug" \
-        app.main:app
+        src.fraand_core.main:app
 fi
