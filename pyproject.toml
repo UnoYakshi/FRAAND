@@ -3,51 +3,78 @@ name = ""
 version = ""
 description = ""
 authors = [
-    {name = "Uno Yakshi", email = "uno.yakshi@e.email"},
+    {name = "UnoYakshi", email = "uno.yakshi@gmail.com"},
 ]
 dependencies = [
-    "django>=4.0",
-    "django-environ>=0.8.1",
-    "psycopg2-binary>=2.9.3",
-    "Pillow>=9.1.1",
-    "django-crispy-forms>=1.14.0",
-    "django-taggit>=3.0.0",
-    "django-extensions>=3.1.5",
+    "alembic>=1.10.4",
+    "asyncpg[sa]>=0.27.0",
+    "fastapi[orjson,ujson]>=0.95.1",
+    "pydantic>=1.10.7",
+    "uvicorn>=0.22.0",
+    "sqlmodel>=0.0.8",
+    "mako>=1.2.4",
+    "ujson>=5.7.0",
+    "orjson>=3.8.11",
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 license = {text = "GNU"}
 
-[project.urls]
-homepage = ""
 
-[project.optional-dependencies]
-[tool]
 [tool.pdm]
 [tool.pdm.dev-dependencies]
 dev = [
-    "pytest>=6.2.5",
-    "flake8>=4.0.1",
-    "black>=21.12b0",
-    "pytest-django>=4.5.2",
-    "isort>=5.10.1",
+    "pytest>=7.3.1",
+    "pytest-asyncio>=0.21.0",
+    "httpx>=0.24.0",
+    "pre-commit>=3.2.2",
+    "black>=23.3.0",
+    "isort>=5.12.0",
+    "mypy>=1.2.0",
+    "flake8>=6.0.0",
+    "autoflake>=2.1.1",
+    "sqlalchemy-stubs>=0.4",
+    "flake8-bugbear>=23.3.23",
+    "pep8-naming>=0.13.3",
 ]
 
+
+[[tool.pdm.autoexport]]
+filename = "requirements/production.txt"
+without-hashes = true
+groups = ["default"]
+
+[[tool.pdm.autoexport]]
+filename = "requirements/dev.txt"
+without-hashes = true
+groups = ["dev"]
+
+[tool.pdm.scripts]
+_.env_file = ".env/import_dev.env"
+
 [tool.black]
-verbose = true
 line-length = 120
-target-version = ['py39']
-src = "fraand"
+target-version = ['py311']
+single-quotes = true
 skip-string-normalization = true
-exclude = "fraand/social_network/migrations"
+include = '\.pyi?$'
+exclude = '''
+/(
+  \.toml
+  |\.sh
+  |\.git
+  |\.ini
+  |Dockerfile
+  |Jenkinfile
+)/
+'''
 
 [tool.isort]
-py_version=39
-verbose = true
-src_paths = ["fraand"]
+profile = 'black'
 line_length = 120
-profile = "django"
-skip = "fraand/social_network/migrations"
+multi_line_output = 3
+skip_glob = 'alembic/versions/*.py'
 
-[build-system]
-requires = ["pdm-pep517"]
-build-backend = "pdm.pep517.api"
+[tool.mypy]
+python_version = 3.11
+disallow_untyped_defs = true
+exclude = ['pgdata/', 'scripts/', 'alembic/', 'tests/']

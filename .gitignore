@@ -143,3 +143,5 @@ fraand/media/
 
 # Docker-related...
 /postgres
+/pgdata
+.pdm-python
