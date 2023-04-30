@@ -46,7 +46,7 @@ groups = ["default"]
 [[tool.pdm.autoexport]]
 filename = "requirements/dev.txt"
 without-hashes = true
-groups = ["dev"]
+groups = ["default", "dev"]
 
 [tool.pdm.scripts]
 _.env_file = ".env/import_dev.env"
