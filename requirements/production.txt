@@ -11,6 +11,8 @@ h11==0.14.0
 idna==3.4
 mako==1.2.4
 MarkupSafe==2.1.2
+mypy==1.2.0
+mypy-extensions==1.0.0
 orjson==3.8.11
 pydantic==1.10.7
 python-dotenv==1.0.0

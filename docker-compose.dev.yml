@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  fraand-core:
+    container_name: fraand
+    hostname: fraand
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env
+    network_mode: host
+    volumes:
+      - ${PATH_TO_PROJECT}:/app
+
+  postgres:
+    image: postgres:14-alpine
+    container_name: postgres
+    hostname: postgres
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ${PATH_TO_PROJECT}/pgdata:/var/lib/postgresql/data
+    network_mode: host
+    healthcheck:
+        test: [ "CMD-SHELL", "sh", "-c", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_NAME}"]
+        interval: 1s
+        timeout: 3s
+        retries: 10
