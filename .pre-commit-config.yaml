@@ -19,6 +19,11 @@ repos:
         files: ^src/
         additional_dependencies: [flake8-docstrings]
 
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: 'v0.0.263'
+    hooks:
+      - id: ruff
+
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: 'v0.991'
     hooks:

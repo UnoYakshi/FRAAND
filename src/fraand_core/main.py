@@ -1,7 +1,20 @@
-from fastapi import FastAPI
+"""The core application setup.
+
+Includes:
+- configuration
+- middleware
+- routers
+- mounts
+"""
+
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse, Response
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
 from src.fraand_core.config import settings
+from src.fraand_core.constants import STATIC_ABS_FILE_PATH, TEMPLATES_ABS_FILE_PATH
 from src.fraand_core.db import init_db
 
 SHOW_DOCS_ENVIRONMENT = ('dev', 'staging')
@@ -20,17 +33,24 @@ app.add_middleware(
     allow_headers=settings.CORS_HEADERS,
 )
 
+app.mount('/static', StaticFiles(directory=STATIC_ABS_FILE_PATH), name='static')
+templates = Jinja2Templates(directory=TEMPLATES_ABS_FILE_PATH)
+
 
 @app.on_event('startup')
-async def on_startup():
+async def on_startup() -> None:
+    """Before the start of the server..."""
     await init_db()
 
 
-@app.get('/')
-async def root() -> str:
-    return 'Howdy!'
+@app.get('/', response_class=HTMLResponse)
+async def root(request: Request) -> Response:
+    """The home page of the platform."""
+    rows = list(range(10))
+    return templates.TemplateResponse(name='index.html', context={'request': request, 'rows': rows})
 
 
 @app.get('/ping')
 async def ping() -> dict[str, str]:
+    """Simple server pinging."""
     return {'ping': 'pong!'}

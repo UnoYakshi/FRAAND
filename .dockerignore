@@ -16,3 +16,4 @@
 # source files
 !*.py
 !*.sh
+!*.html
