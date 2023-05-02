@@ -16,7 +16,7 @@ Is a stuff sharing platform (aka social network).
     - `pre-commit run`
 3. Add `pdm-autoexport` so that dependencies changes would be automatically exported onto the `requirements/*.txt`.
    - `pdm plugin add pdm-autoexport`
-
+4. Add [all the environment variables](docs/envars.md) in your `.env` (should be in the project's root).
 
 ## Planned Features
 
