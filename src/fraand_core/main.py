@@ -7,7 +7,9 @@ Includes:
 - mounts
 """
 
-from fastapi import FastAPI, Request
+from typing import Annotated
+
+from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
@@ -16,6 +18,8 @@ from fastapi.templating import Jinja2Templates
 from src.fraand_core.config import settings
 from src.fraand_core.constants import STATIC_ABS_FILE_PATH, TEMPLATES_ABS_FILE_PATH
 from src.fraand_core.db import init_db
+from src.fraand_core.routers import security_router, users_router
+from src.fraand_core.security import oauth2_scheme
 
 SHOW_DOCS_ENVIRONMENT = ('dev', 'staging')
 
@@ -25,6 +29,7 @@ if settings.ENVIRONMENT not in SHOW_DOCS_ENVIRONMENT:
 
 app = FastAPI(**app_configs)
 
+# Add middlewares, mounts, routers, etc.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGINS,
@@ -34,7 +39,10 @@ app.add_middleware(
 )
 
 app.mount('/static', StaticFiles(directory=STATIC_ABS_FILE_PATH), name='static')
-templates = Jinja2Templates(directory=TEMPLATES_ABS_FILE_PATH)
+app_templates = Jinja2Templates(directory=TEMPLATES_ABS_FILE_PATH)
+
+app.include_router(security_router)
+app.include_router(users_router)
 
 
 @app.on_event('startup')
@@ -47,10 +55,10 @@ async def on_startup() -> None:
 async def root(request: Request) -> Response:
     """The home page of the platform."""
     rows = list(range(10))
-    return templates.TemplateResponse(name='index.html', context={'request': request, 'rows': rows})
+    return app_templates.TemplateResponse(name='index.html', context={'request': request, 'rows': rows})
 
 
 @app.get('/ping')
-async def ping() -> dict[str, str]:
+async def ping(token: Annotated[str, Depends(oauth2_scheme)]) -> dict[str, str]:
     """Simple server pinging."""
-    return {'ping': 'pong!'}
+    return {'ping': 'pong!', 'token': token}
