@@ -85,7 +85,7 @@ exclude = ['pgdata/', 'scripts/', 'alembic/', 'tests/']
 [tool.ruff]
 # https://beta.ruff.rs/docs/rules
 select = ["A", "B", "D", "E", "F", "N", "I", "S", "W", "ARG", "ANN", "COM", "C4", "ERA", "INP", "ISC", "RET", "RUF", "PIE", "PLE", "PLR", "PT", "PTH", "SIM", "SLF", "T20", "TRY"]
-ignore = ["ANN101", "D202", "D401", "TRY400"]
+ignore = ["ANN101", "D202", "D212", "D401", "TRY400"]
 
 # Allow autofix for all enabled rules (when `--fix`) is provided.
 fixable = ["A", "B", "C", "D", "E", "F", "G", "I", "N", "Q", "S", "T", "W", "ANN", "ARG", "BLE", "COM", "DJ", "DTZ", "EM", "ERA", "EXE", "FBT", "ICN", "INP", "ISC", "NPY", "PD", "PGH", "PIE", "PL", "PT", "PTH", "PYI", "RET", "RSE", "RUF", "SIM", "SLF", "TCH", "TID", "TRY", "UP", "YTT"]

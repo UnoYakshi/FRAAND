@@ -3,10 +3,10 @@ from sqlalchemy import Boolean, Column, ForeignKey, LargeBinary, String
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 
-from src.fraand_core.models import UIDBase
+from src.fraand_core.models import UUIDBase
 
 
-class Item(UIDBase):
+class Item(UUIDBase):
     """Items people can share with each other..."""
 
     __tablename__ = 'items'
@@ -21,7 +21,7 @@ class Item(UIDBase):
         return {'email': 'some_email@mail.inpls', 'Telegram': '@grociepo'}
 
 
-class Image(UIDBase):
+class Image(UUIDBase):
     """Images files for items."""
 
     __tablename__ = 'images'

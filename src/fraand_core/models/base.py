@@ -20,7 +20,9 @@ Base.metadata = metadata
 SQLModel.metadata = Base.metadata
 
 
-class UIDBase(Base):
+class UUIDBase(Base):
     """Base class with UUID."""
+
+    __abstract__ = True
 
     uid = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
