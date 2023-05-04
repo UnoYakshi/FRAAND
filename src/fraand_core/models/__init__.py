@@ -1,7 +1,5 @@
-"""
-Adds support for alembic's migrations autogenrate feature.
-"""
+"""Adds support for alembic's migrations autogenrate feature."""
 
-from .base import Base, SQLModel  # noqa: F401
+from .base import Base, SQLModel, UIDBase
 
 # Import your models here
