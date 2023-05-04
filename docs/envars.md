@@ -20,8 +20,7 @@ TODO: Explain this section, fix `[*]`...
 - `CORS_HEADERS` (`[*]`)
 
 ## FastAPI
-
-- FASTAPI_ENV (`DEV`) — used to determine whether to generate OpenAPI (`/docs` route).
-- ENVIRONMENT (`dev`) — used in [Dockerfile](../Dockerfile) to determine correct requirements file (in `requirements/` folder).
-- TITLE (`FRAAND`) — project's title to display in OpenAPI, etc.
-- PATH_TO_PROJECT — an absolute path to your project's root directory, used in `docker-compose*.yml` for mounting volumes correctly.
+- `FASTAPI_ENV` (`DEV`) — used to determine whether to generate OpenAPI (`/docs` route).
+- `ENVIRONMENT` (`dev`) — used in [Dockerfile](../Dockerfile) to determine correct requirements file (in `requirements/` folder).
+- `TITLE` (`FRAAND`) — project's title to display in OpenAPI, etc.
+- `PATH_TO_PROJECT` — an absolute path to your project's root directory, used in `docker-compose*.yml` for mounting volumes correctly.
