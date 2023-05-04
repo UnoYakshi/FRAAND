@@ -114,6 +114,7 @@ exclude = [
     "dist",
     "node_modules",
     "venv",
+    "alembic",
 ]
 
 line-length = 120
