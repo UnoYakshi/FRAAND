@@ -10,14 +10,14 @@ Is a stuff sharing platform (aka social network).
 
 ## Development Prerequisites
 
-1. Install [PDM](https://github.com/pdm-project/pdm) dependencies:
-    - `pdm install --dev`
-2. "Deploy" `pre-commit`:
+1. Install [PDM](https://github.com/pdm-project/pdm).
+2. Install PDM dependencies, `pdm install --dev`
+3. "Deploy" `pre-commit`:
     - `pre-commit install`
     - `pre-commit run`
-3. Add `pdm-autoexport` so that dependencies changes would be automatically exported onto the `requirements/*.txt`.
+4. Add `pdm-autoexport` so that dependencies changes would be automatically exported onto the `requirements/*.txt`.
    - `pdm plugin add pdm-autoexport`
-4. Add [all the environment variables](docs/envars.md) in your `.env` (should be in the project's root).
+5. Add [all the environment variables](docs/envars.md) in your `.env` (should be in the project's root).
 
 ## Planned Features
 
@@ -47,9 +47,50 @@ You will also find a tool's license in the brackets.
   - allows to create Pydantic-ready DB models, hence, to reduce the code base for Pydantic schemes AND ORM models
 - pre-commit + black + isort + mypy + flake8 — code quality
 
-### CI/CD, extras
+### CI/CD, management, extras
+- PDM — package manager, sophisticated enough to fulfil the most (if not all) our needs
 - Docker + docker compose (V2) — deployment
 - pytest — integration and unit-testing
+
+
+## File Structure
+You've probably already guessed what's the project about and how it can be structured.
+Yet, to get into the project easier, let's go through the most important parts...
+
+### Root
+- [pyproject.tom](pyproject.toml) is the starting point of FRAAND.
+It's where all the project's metadata is stored, according to [PEP-621](https://peps.python.org/pep-0621/).
+- Most of the configuration files are also in the root. Such as:
+  - [.dockerignore](.dockerignore) — what [Dockerfile](Dockerfile) should ignore.
+  - [.pre-commit-config.yaml](.pre-commit-config.yaml) — [pre-commit] hooks config.
+  - [mypy.ini](mypy.ini) — typing checker tool config.
+  - [alembic.ini](alembic.ini) — DB migrations config.
+- [Dockerfile](Dockerfile) — Docker image build instructions.
+- [docker-compose.dev.yml](docker-compose.dev.yml) — is responsible for local development deployment.
+- `docs/` — self-explanatory, documentation.
+- `alembic/` — Alembic migrations directory.
+  - `versions/` — actual migration files.
+- `requirements/` — here you can find dead simple `.txt` requirements for different environments (dev, stage, production).
+- `scripts/` — a great place to put a standalone script
+if you want to execute it outside of the FRAAND Core logic (and it's too small for a separate micro-service).
+
+### Source Code
+- `src/fraand_core/` — all the actual FRAAND platform's code is located here.
+  - `domains/` — all the logical parts of the platform. Each domain might have:
+    - `dependencies.py/` — FastAPI `Depends()` methods.
+    - `models/` — this domain's ORM models.
+    - `schemas/` — Pydantic schemas for endpoints/models.
+    - `exceptions/` — custom domain's exceptions.
+    - `constants/` — a place to put your static data such as constants or function maps.
+    - `serivce/` — all the business logic functionality.
+    - `router/` — [WIP] domain's endpoints composed into an `APIRouter`.
+    - `utils/` — [WIP] any utility that doesn't necessary a part of the domain but is used only here.
+  - `models/` — ORM models used by some (2..N) domains.
+  - `crud/` — [WIP] a base class for ORM CRUD-managers.
+  - `routers/` — [WIP] a single point to have all the
+  - `utils/` — general utility functionality.
+
+(*) — [WIP] directories are likely to be reworked soon enough.
 
 
 ## License
