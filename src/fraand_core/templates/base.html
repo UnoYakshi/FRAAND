@@ -35,19 +35,17 @@
 </head>
 <body>
 
-<h1>REMOVE THIS LINE</h1>
-
 <header>
 {#    {% include "widgets/header_cirrus.html" %}#}
 {#    <!--    {% include "widgets/subheader_cirrus.html" %}-->#}
 </header>
 
-{% if request.user.is_authenticated %}
-    <li>User: {{ user.get_username }}</li>
-    <li><a href="{{ url('logout') }}?next={{ request.path }}">Logout</a></li>
-{% else %}
-    <li><a href="{{ url('login') }}?next={{ request.path }}">Login</a></li>
-{% endif %}
+{#{% if request.user.is_authenticated %}#}
+{#    <li>User: {{ user.get_username }}</li>#}
+{#    <li><a href="{{ url('logout') }}?next={{ request.path }}">Logout</a></li>#}
+{#{% else %}#}
+{#    <li><a href="{{ url('login') }}?next={{ request.path }}">Login</a></li>#}
+{#{% endif %}#}
 
 {# All main content resides within a container #}
 <main role="main" class="container {% block body_container_classes %}{% endblock %}">
