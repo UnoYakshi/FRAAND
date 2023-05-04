@@ -11,7 +11,11 @@ from pydantic import BaseSettings, PostgresDsn, validator
 
 
 class Settings(BaseSettings):
+    """FRAAND Platform settings..."""
+
     class Config:
+        """Extra configuration for the settings..."""
+
         case_sensitive = True
 
         env_file = '.env'
@@ -35,7 +39,9 @@ class Settings(BaseSettings):
     SQLALCHEMY_DATABASE_URL: PostgresDsn | None
 
     @validator('SQLALCHEMY_DATABASE_URL', pre=True)
-    def assemble_db_connection_string(cls, v: PostgresDsn | None, values: dict[str, Any]) -> Any:
+    def assemble_db_connection_string(cls, v: PostgresDsn | None, values: dict[str, Any]) -> str:
+        """Composes `SQLALCHEMY_DATABASE_URL` parameter..."""
+
         if isinstance(v, str):
             return v
         return PostgresDsn.build(
@@ -51,4 +57,4 @@ class Settings(BaseSettings):
     PAGE_SIZE: int = 1000
 
 
-settings = Settings()  # type: ignore
+settings = Settings('.env')  # type: ignore

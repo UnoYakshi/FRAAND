@@ -1,1 +1,3 @@
-from .base_orsjson import ORJSONModel  # noqa: F401
+"""Platform-wise schemas and abstract classes..."""
+
+from .base_orsjson import ORJSONModel

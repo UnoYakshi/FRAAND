@@ -1,4 +1,5 @@
-"""Provides the access to global constants across the core project.
+"""
+Provides the access to global constants across the core project.
 
 Such as:
 - absolute paths

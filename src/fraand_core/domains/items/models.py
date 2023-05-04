@@ -1,4 +1,5 @@
-"""ORM models for items."""
+"""ORM models for Items."""
+
 from sqlalchemy import Boolean, Column, ForeignKey, LargeBinary, String
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
@@ -17,7 +18,7 @@ class Item(UUIDBase):
     city: str = Column(String)
 
     def get_contacts(self) -> dict[str, str]:
-        """Get contacts."""
+        """[WIP] Placeholder for retrieving contact information for this User's Item...."""
         return {'email': 'some_email@mail.inpls', 'Telegram': '@grociepo'}
 
 
@@ -26,6 +27,7 @@ class Image(UUIDBase):
 
     __tablename__ = 'images'
 
+    image = Column(LargeBinary, nullable=False)
+
     item_uid = Column(UUID, ForeignKey('items.uid'))
     item = relationship(Item, back_populates='images')
-    image = Column(LargeBinary, nullable=False)

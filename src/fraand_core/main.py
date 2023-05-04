@@ -1,4 +1,5 @@
-"""The core application setup.
+"""
+The core application setup.
 
 Includes:
 - configuration
@@ -58,7 +59,13 @@ async def root(request: Request) -> Response:
     return app_templates.TemplateResponse(name='index.html', context={'request': request, 'rows': rows})
 
 
-@app.get('/ping')
-async def ping(token: Annotated[str, Depends(oauth2_scheme)]) -> dict[str, str]:
-    """Simple server pinging."""
+@app.get('/auth-ping')
+async def auth_ping(token: Annotated[str, Depends(oauth2_scheme)]) -> dict[str, str]:
+    """Simple server pinging with authorization..."""
     return {'ping': 'pong!', 'token': token}
+
+
+@app.get('/ping')
+async def ping() -> dict[str, str]:
+    """Simple server pinging."""
+    return {'ping': 'pong!'}

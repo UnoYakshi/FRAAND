@@ -1,6 +1,6 @@
-"""
-Sets up postgres connection pool.
-"""
+"""Sets up PostgreSQL connection pool..."""
+
+import logging
 
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
@@ -12,6 +12,8 @@ engine = create_async_engine(settings.SQLALCHEMY_DATABASE_URL, future=True, echo
 AsyncSessionFactory = sessionmaker(bind=engine, class_=AsyncSession, expire_on_commit=False)
 
 
-async def init_db():
+async def init_db() -> None:
+    """Logs the database connection info [after migrations, before the server]..."""
+
     async with engine.begin() as conn:
-        print(conn.info)
+        logging.info(conn.info)
