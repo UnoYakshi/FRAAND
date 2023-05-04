@@ -125,3 +125,11 @@ target-version = "py311"
 [tool.ruff.mccabe]
 # Unlike Flake8, default to a complexity level of 10.
 max-complexity = 10
+
+[tool.ruff.flake8-bugbear]
+# Allow default arguments like, e.g., `data: List[str] = Query()` or `session: Session = Depends(get_async_session)`...
+extend-immutable-calls = ["Depends", "fastapi.Depends", "fastapi.params.Depends", "Query", "fastapi.Query"]
+
+[tool.ruff.pep8-naming]
+# Allow Pydantic's `@validator` decorator to trigger class method treatment.
+classmethod-decorators = ["pydantic.validator"]
