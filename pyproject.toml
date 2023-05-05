@@ -144,3 +144,22 @@ extend-immutable-calls = ["Depends", "fastapi.Depends", "fastapi.params.Depends"
 [tool.ruff.pep8-naming]
 # Allow Pydantic's `@validator` decorator to trigger class method treatment.
 classmethod-decorators = ["pydantic.validator", "pydantic.root_validator"]
+
+
+[tool.coverage]
+
+[tool.coverage.run]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    # Don't complain about missing debug-only code:
+    "def __repr__",
+    "if self.debug",
+
+    # Don't complain about abstract methods, they aren't run:
+    "@(abc.)?abstractmethod"
+]
+
+[tool.coverage.html]
+directory = "coverage_html_report"
