@@ -2,12 +2,18 @@
 *
 
 # Add exception for the directories you actually want to include in the context
-!fraand/
+!src/
+!alembic/
+!alembic.ini
+!requirements/
+!scripts/
 !pyproject.toml
 !pdm.lock
 !.pdm.toml
+!pdm.toml
 !setup.cfg
 
 # source files
 !*.py
 !*.sh
+!*.html

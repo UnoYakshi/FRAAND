@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block head_title %}Home{% endblock %}
+
+{% block body_content %}
+<section class="bg-gray-200">
+    <div class="content bg-gray-800">
+{#        {% include "widgets/main_search_cirrus.html" %}#}
+    </div>
+</section>
+
+{#{% if request.user.is_authenticated %}#}
+<section>
+    <div class="content">
+{#        {% include "widgets/items_results.html" %}#}
+    <img src="{{ url_for('static', path='otter.jpg') }}" alt="otter.jpg" />
+
+    </div>
+</section>
+{#{% endif %}#}
+{% endblock %}
+
+{% block body_js %}
+{# Add your JavaScript content here, where it will be included at the end of the <body> tag. #}
+{% endblock %}

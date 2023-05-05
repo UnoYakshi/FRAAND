@@ -3,51 +3,162 @@ name = ""
 version = ""
 description = ""
 authors = [
-    {name = "Uno Yakshi", email = "uno.yakshi@e.email"},
+    { name = "UnoYakshi", email = "uno.yakshi@gmail.com" },
 ]
 dependencies = [
-    "django>=4.0",
-    "django-environ>=0.8.1",
-    "psycopg2-binary>=2.9.3",
-    "Pillow>=9.1.1",
-    "django-crispy-forms>=1.14.0",
-    "django-taggit>=3.0.0",
-    "django-extensions>=3.1.5",
+    "alembic>=1.10.4",
+    "asyncpg[sa]>=0.27.0",
+    "fastapi[orjson,ujson]>=0.95.1",
+    "pydantic[dotenv]>=1.10.7",
+    "uvicorn[standart]>=0.22.0",
+    "ujson>=5.7.0",
+    "orjson>=3.8.11",
+    "sqlalchemy[asyncio,mypy]==1.4.41",
+    "sqlmodel>=0.0.8",
+    "jinja2>=3.1.2",
+    "fastapi-users>=11.0.0",
 ]
-requires-python = ">=3.9"
-license = {text = "GNU"}
+requires-python = ">=3.11"
+license = { text = "GNU" }
 
-[project.urls]
-homepage = ""
 
-[project.optional-dependencies]
-[tool]
 [tool.pdm]
 [tool.pdm.dev-dependencies]
 dev = [
-    "pytest>=6.2.5",
-    "flake8>=4.0.1",
-    "black>=21.12b0",
-    "pytest-django>=4.5.2",
-    "isort>=5.10.1",
+    "pytest>=7.3.1",
+    "pytest-asyncio>=0.21.0",
+    "httpx>=0.24.0",
+    "pre-commit>=3.2.2",
+    "black>=23.3.0",
+    "isort>=5.12.0",
+    "mypy>=1.2.0",
+    "sqlalchemy-stubs>=0.4",
+    "pep8-naming>=0.13.3",
+    "ruff>=0.0.264",
+    "safety>=2.3.4",
+    "coverage>=7.2.5",
 ]
 
+[[tool.pdm.autoexport]]
+filename = "requirements/production.txt"
+without-hashes = true
+groups = ["default"]
+
+[[tool.pdm.autoexport]]
+filename = "requirements/dev.txt"
+without-hashes = true
+groups = ["default", "dev"]
+
+[tool.pdm.scripts]
+_.env_file = ".env/import_dev.env"
+
+
 [tool.black]
-verbose = true
 line-length = 120
-target-version = ['py39']
-src = "fraand"
+target-version = ['py311']
+single-quotes = true
 skip-string-normalization = true
-exclude = "fraand/social_network/migrations"
+include = '\.pyi?$'
+exclude = '''
+/(
+  \.toml
+  |\.sh
+  |\.git
+  |\.ini
+  |Dockerfile
+  |Jenkinfile
+)/
+'''
+
 
 [tool.isort]
-py_version=39
-verbose = true
-src_paths = ["fraand"]
+profile = 'black'
 line_length = 120
-profile = "django"
-skip = "fraand/social_network/migrations"
+multi_line_output = 3
+skip_glob = 'alembic/versions/*.py'
 
-[build-system]
-requires = ["pdm-pep517"]
-build-backend = "pdm.pep517.api"
+
+[tool.mypy]
+python_version = 3.11
+disallow_untyped_defs = true
+exclude = ['pgdata/', 'scripts/', 'alembic/', 'tests/']
+
+
+[tool.ruff]
+# https://beta.ruff.rs/docs/rules
+select = ["A", "B", "D", "E", "F", "N", "I", "S", "W", "ARG", "ANN", "COM", "C4", "ERA", "INP", "ISC", "RET", "RUF", "PIE", "PLE", "PLR", "PT", "PTH", "SIM", "SLF", "T20", "TRY"]
+ignore = ["ANN101", "D202", "D212", "D401", "I001", "TRY400"]
+
+# Allow autofix for all enabled rules (when `--fix`) is provided.
+fixable = ["A", "B", "C", "D", "E", "F", "G", "I", "N", "Q", "S", "T", "W", "ANN", "ARG", "BLE", "COM", "DJ", "DTZ", "EM", "ERA", "EXE", "FBT", "ICN", "INP", "ISC", "NPY", "PD", "PGH", "PIE", "PL", "PT", "PTH", "PYI", "RET", "RSE", "RUF", "SIM", "SLF", "TCH", "TID", "TRY", "UP", "YTT"]
+unfixable = []
+
+src = ["src"]
+
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    "alembic",
+]
+
+# Group violations by containing file.
+format = "grouped"
+
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.ruff.mccabe]
+# Unlike Flake8, default to a complexity level of 10.
+max-complexity = 10
+
+[tool.ruff.flake8-annotations]
+allow-star-arg-any = true
+
+[tool.ruff.flake8-bugbear]
+# Allow default arguments like, e.g., `data: List[str] = Query()` or `session: Session = Depends(get_async_session)`...
+extend-immutable-calls = ["Depends", "fastapi.Depends", "fastapi.params.Depends", "Query", "fastapi.Query"]
+
+[tool.ruff.pep8-naming]
+# Allow Pydantic's `@validator` decorator to trigger class method treatment.
+classmethod-decorators = ["pydantic.validator", "pydantic.root_validator"]
+
+
+[tool.coverage]
+
+[tool.coverage.run]
+branch = true
+
+[tool.coverage.report]
+exclude_lines = [
+    # Don't complain about missing debug-only code:
+    "def __repr__",
+    "if self.debug",
+
+    # Don't complain about abstract methods, they aren't run:
+    "@(abc.)?abstractmethod"
+]
+
+[tool.coverage.html]
+directory = "coverage_html_report"
