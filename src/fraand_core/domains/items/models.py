@@ -4,6 +4,8 @@ from sqlalchemy import Boolean, Column, ForeignKey, LargeBinary, String
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 
+from src.fraand_core.crud.base import BaseCRUD
+from src.fraand_core.domains.items.schemas.items import ItemCreateSchema, ItemUpdateSchema
 from src.fraand_core.models import UUIDBase
 
 
@@ -31,3 +33,12 @@ class Image(UUIDBase):
 
     item_uid = Column(UUID, ForeignKey('items.uid'))
     item = relationship(Item, back_populates='images')
+
+
+class ItemCRUD(BaseCRUD[Item, ItemCreateSchema, ItemUpdateSchema]):
+    """Item CRUD manager..."""
+
+    ...
+
+
+item_crud_manager = ItemCRUD(Item)

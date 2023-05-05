@@ -1,0 +1,1 @@
+"""Items-related Pydantic schemas..."""
