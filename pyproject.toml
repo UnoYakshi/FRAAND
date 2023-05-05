@@ -92,6 +92,8 @@ ignore = ["ANN101", "D202", "D212", "D401", "TRY400"]
 fixable = ["A", "B", "C", "D", "E", "F", "G", "I", "N", "Q", "S", "T", "W", "ANN", "ARG", "BLE", "COM", "DJ", "DTZ", "EM", "ERA", "EXE", "FBT", "ICN", "INP", "ISC", "NPY", "PD", "PGH", "PIE", "PL", "PT", "PTH", "PYI", "RET", "RSE", "RUF", "SIM", "SLF", "TCH", "TID", "TRY", "UP", "YTT"]
 unfixable = []
 
+src = ["src"]
+
 # Exclude a variety of commonly ignored directories.
 exclude = [
     ".bzr",
@@ -117,9 +119,12 @@ exclude = [
     "alembic",
 ]
 
-line-length = 120
+# Group violations by containing file.
+format = "grouped"
 
+line-length = 120
 target-version = "py311"
+update-check = true
 
 [tool.ruff.per-file-ignores]
 "__init__.py" = ["F401"]
@@ -127,6 +132,9 @@ target-version = "py311"
 [tool.ruff.mccabe]
 # Unlike Flake8, default to a complexity level of 10.
 max-complexity = 10
+
+[tool.ruff.flake8-annotations]
+allow-star-arg-any = true
 
 [tool.ruff.flake8-bugbear]
 # Allow default arguments like, e.g., `data: List[str] = Query()` or `session: Session = Depends(get_async_session)`...
