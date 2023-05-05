@@ -36,6 +36,7 @@ dev = [
     "pep8-naming>=0.13.3",
     "ruff>=0.0.264",
     "safety>=2.3.4",
+    "coverage>=7.2.5",
 ]
 
 [[tool.pdm.autoexport]]

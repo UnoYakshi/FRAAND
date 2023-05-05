@@ -3,4 +3,5 @@
 set -e
 set -x
 
-pytest tests --asyncio-mode=strict --log-level=INFO
+coverage run -m pytest tests --asyncio-mode=strict --log-level=INFO
+coverage report -m
