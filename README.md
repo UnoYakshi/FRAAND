@@ -5,7 +5,7 @@
 [![Imports: isort](https://img.shields.io/badge/%20imports-isort-%231674b1)](https://pycqa.github.io/isort/)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/charliermarsh/ruff/main/assets/badge/v0.json)](https://github.com/charliermarsh/ruff)
 
-Free Rent (it's called 'sharing') Application Among Neighbours [Decentrilized] platform.
+Free Rent (it's called 'sharing') Application Among Neighbours [Decentralized] platform.
 Is a stuff sharing platform (aka social network).
 
 
@@ -60,7 +60,7 @@ You've probably already guessed what's the project about and how it can be struc
 Yet, to get into the project easier, let's go through the most important parts...
 
 ### Root
-- [pyproject.tom](pyproject.toml) is the starting point of FRAAND.
+- [pyproject.toml](pyproject.toml) is the starting point of FRAAND.
 It's where all the project's metadata is stored, according to [PEP-621](https://peps.python.org/pep-0621/).
 - Most of the configuration files are also in the root. Such as:
   - [.dockerignore](.dockerignore) — what [Dockerfile](Dockerfile) should ignore.
@@ -74,7 +74,7 @@ It's where all the project's metadata is stored, according to [PEP-621](https://
   - `versions/` — actual migration files.
 - `requirements/` — here you can find dead simple `.txt` requirements for different environments (dev, stage, production).
 - `scripts/` — a great place to put a standalone script
-if you want to execute it outside of the FRAAND Core logic (and it's too small for a separate micro-service).
+if you want to execute it outside the FRAAND Core logic (and it's too small for a separate microservice).
 
 ### Source Code
 - `src/fraand_core/` — all the actual FRAAND platform's code is located here.
