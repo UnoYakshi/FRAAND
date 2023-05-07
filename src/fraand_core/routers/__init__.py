@@ -1,4 +1,3 @@
 """Routers aggregator..."""
 
-from .security_router import security_router
-from .users_router import users_router
+from .users_router import auth_router, passwords_router, registration_router, users_router, verification_router
