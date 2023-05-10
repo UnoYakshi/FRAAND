@@ -8,6 +8,8 @@ Includes:
 - mounts
 """
 
+from typing import Annotated
+
 from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, Response
@@ -17,8 +19,8 @@ from fastapi.templating import Jinja2Templates
 from src.fraand_core.config import settings
 from src.fraand_core.constants import STATIC_ABS_FILE_PATH, TEMPLATES_ABS_FILE_PATH
 from src.fraand_core.db import init_db
+from src.fraand_core.domains.users.dependencies import current_active_user
 from src.fraand_core.domains.users.models import User
-from src.fraand_core.domains.users.routes import current_active_user
 from src.fraand_core.routers import (
     auth_router,
     passwords_router,
@@ -62,10 +64,16 @@ async def on_startup() -> None:
 
 
 @app.get('/', response_class=HTMLResponse)
-async def root(request: Request) -> Response:
+async def root(request: Request, user: Annotated[User | None, Depends(current_active_user)]) -> Response:
     """The home page of the platform."""
     rows = list(range(10))
-    return app_templates.TemplateResponse(name='index.html', context={'request': request, 'rows': rows})
+    context = {
+        'request': request,
+        'rows': rows,
+    }
+    if user:
+        context['current_user'] = user
+    return app_templates.TemplateResponse(name='index.html', context=context)
 
 
 @app.get('/authenticated-route')
@@ -75,7 +83,6 @@ async def authenticated_route(user: User = Depends(current_active_user)) -> dict
     return {'message': f'Hello {user.email}!'}
 
 
-# TODO: Fix 401 Unauthorized!..
 @app.get('/ping')
 async def ping() -> dict[str, str]:
     """Simple server pinging..."""

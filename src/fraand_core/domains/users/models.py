@@ -8,7 +8,7 @@ from src.fraand_core.deps import get_async_session
 from src.fraand_core.models.base import Base
 
 
-class User(Base, SQLAlchemyBaseUserTableUUID):
+class User(SQLAlchemyBaseUserTableUUID, Base):
     """Base model for Users..."""
 
     ...
