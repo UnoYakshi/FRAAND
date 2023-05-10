@@ -1,4 +1,4 @@
-"""..."""
+"""All the users/authentication/authorization routers..."""
 
 from src.fraand_core.domains.users.dependencies import fastapi_users
 from src.fraand_core.domains.users.schemas import BaseUserSchema, UserCreateSchema, UserUpdateSchema
