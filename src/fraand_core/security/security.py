@@ -1,10 +1,11 @@
 """Ductape solution based on https://fastapi.tiangolo.com/tutorial/security/get-current-user/."""
 
-from fastapi_users.authentication import AuthenticationBackend, BearerTransport, JWTStrategy
+from fastapi_users.authentication import AuthenticationBackend, BearerTransport, CookieTransport, JWTStrategy
 
 from src.fraand_core.config import settings
 
 bearer_transport = BearerTransport(tokenUrl='auth/jwt/login')
+cookie_transport = CookieTransport(cookie_name='auth')
 
 
 def get_jwt_strategy() -> JWTStrategy:
@@ -14,7 +15,13 @@ def get_jwt_strategy() -> JWTStrategy:
 
 
 jwt_bearer_auth_backend = AuthenticationBackend(
-    name='jwt',
+    name='jwt_bearer_auth_back',
     transport=bearer_transport,
+    get_strategy=get_jwt_strategy,
+)
+
+jwt_cookie_auth_backend = AuthenticationBackend(
+    name='jwt_cookie_auth_back',
+    transport=cookie_transport,
     get_strategy=get_jwt_strategy,
 )
