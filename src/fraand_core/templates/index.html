@@ -9,9 +9,8 @@
         </div>
     </section>
 
-    <a href="/auth/jwt/login">Login</a>
-    {% if current_user %}
-        {{ current_user.email }}
+    {% include "login.html" %}
+
     <section>
         <div class="content">
             {#        {% include "widgets/items_results.html" %}#}
@@ -23,7 +22,6 @@
 
         </div>
     </section>
-    {% endif %}
 {% endblock %}
 
 {% block body_js %}

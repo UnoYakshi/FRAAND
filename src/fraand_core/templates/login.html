@@ -1,0 +1,21 @@
+{% if current_user %}
+
+    {{ current_user.email }}
+
+    <form action="/auth/jwt/logout" method="post" id="lougout_form">
+        <input class="submit" type="submit" value="Logout">
+    </form>
+
+{% else %}
+
+    <form method="post" action="/auth/jwt/login" id="login_form">
+        <label for="username">E-mail or username:</label><br>
+        <input type="text" id="username" name="username">
+
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password">
+
+        <input class="submit" type="submit" value="Login">
+    </form>
+
+{% endif %}
