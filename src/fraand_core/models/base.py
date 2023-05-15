@@ -2,10 +2,9 @@
 
 import uuid
 
-from sqlalchemy import Column
+from sqlalchemy import Column, MetaData
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
-from sqlmodel import MetaData, SQLModel
 
 POSTGRES_INDEXES_NAMING_CONVENTION = {
     'ix': '%(column_0_label)s_idx',
@@ -17,7 +16,6 @@ POSTGRES_INDEXES_NAMING_CONVENTION = {
 metadata = MetaData(naming_convention=POSTGRES_INDEXES_NAMING_CONVENTION)
 
 Base = declarative_base(metadata=metadata)
-SQLModel.metadata = Base.metadata
 
 
 class UUIDBase(Base):

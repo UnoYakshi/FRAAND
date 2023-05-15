@@ -30,6 +30,9 @@ class Settings(BaseSettings):
     CORS_METHODS: list[str]
     CORS_HEADERS: list[str]
 
+    # Auth...
+    AUTH_JWT_SECRET: str
+
     # PostgreSQL Database Connection
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str

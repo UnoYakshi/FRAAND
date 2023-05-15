@@ -19,8 +19,15 @@ from fastapi.templating import Jinja2Templates
 from src.fraand_core.config import settings
 from src.fraand_core.constants import STATIC_ABS_FILE_PATH, TEMPLATES_ABS_FILE_PATH
 from src.fraand_core.db import init_db
-from src.fraand_core.routers import security_router, users_router
-from src.fraand_core.security import oauth2_scheme
+from src.fraand_core.domains.users.dependencies import current_active_user
+from src.fraand_core.domains.users.models import User
+from src.fraand_core.routers import (
+    auth_router,
+    passwords_router,
+    registration_router,
+    users_router,
+    verification_router,
+)
 
 SHOW_DOCS_ENVIRONMENT = ('dev', 'staging')
 
@@ -42,8 +49,12 @@ app.add_middleware(
 app.mount('/static', StaticFiles(directory=STATIC_ABS_FILE_PATH), name='static')
 app_templates = Jinja2Templates(directory=TEMPLATES_ABS_FILE_PATH)
 
-app.include_router(security_router)
-app.include_router(users_router)
+# Include auth-related routers...
+app.include_router(auth_router, prefix='/auth/jwt', tags=['auth'])
+app.include_router(registration_router, prefix='/auth', tags=['auth'])
+app.include_router(passwords_router, prefix='/auth', tags=['auth'])
+app.include_router(verification_router, prefix='/auth', tags=['auth'])
+app.include_router(users_router, prefix='/users', tags=['users'])
 
 
 @app.on_event('startup')
@@ -53,19 +64,27 @@ async def on_startup() -> None:
 
 
 @app.get('/', response_class=HTMLResponse)
-async def root(request: Request) -> Response:
+async def root(request: Request, user: Annotated[User | None, Depends(current_active_user)]) -> Response:
     """The home page of the platform."""
     rows = list(range(10))
-    return app_templates.TemplateResponse(name='index.html', context={'request': request, 'rows': rows})
+    context = {
+        'request': request,
+        'rows': rows,
+    }
+    if user:
+        context['current_user'] = user
+    return app_templates.TemplateResponse(name='index.html', context=context)
 
 
-@app.get('/auth-ping')
-async def auth_ping(token: Annotated[str, Depends(oauth2_scheme)]) -> dict[str, str]:
-    """Simple server pinging with authorization..."""
-    return {'ping': 'pong!', 'token': token}
+@app.get('/authenticated-route')
+async def authenticated_route(user: User = Depends(current_active_user)) -> dict[str, str]:
+    """A simple check for an authenticated user..."""
+
+    return {'message': f'Hello {user.email}!'}
 
 
 @app.get('/ping')
 async def ping() -> dict[str, str]:
-    """Simple server pinging."""
+    """Simple server pinging..."""
+
     return {'ping': 'pong!'}

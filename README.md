@@ -45,9 +45,11 @@ You will also find a tool's license in the brackets.
   - v. 1.4 was chosen [over v. 2.0] because SQLModel doesn't really support v. 2.0 yet (there is a [pull request](https://github.com/tiangolo/sqlmodel/pull/563))
 
 ### Code Quality
-- [SQLModel](sqlmodel.tiangolo.com/) — intermediate layer between SQLAlchemy and Pydantic
-  - allows to create Pydantic-ready DB models, hence, to reduce the code base for Pydantic schemes AND ORM models
-- pre-commit + black + isort + mypy + flake8 — code quality
+- pre-commit (MIT) — git hooks to disallow commits with low code quality
+- black (MIT) — automatic code formatter
+- isort (MIT) — imports sorting utility
+- mypy (MIT) — static type checker
+- Ruff (MIT) — a vast code quality tool, Flake8 (and its plugins) super-performant alternative
 
 ### CI/CD, management, extras
 - PDM — package manager, sophisticated enough to fulfil the most (if not all) our needs
