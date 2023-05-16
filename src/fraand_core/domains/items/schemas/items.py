@@ -21,7 +21,7 @@ class ItemBaseSchema(ORJSONModel):
     # Access granted to specific users or groups...
     # TODO: Add `access` field/relationship..
 
-    owner_uid: UUID4
+    owner_id: UUID4
 
     # TODO: Add `tags` field (one-to-many)...
 

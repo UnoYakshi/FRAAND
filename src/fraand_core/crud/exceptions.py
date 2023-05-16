@@ -1,6 +1,6 @@
 """Custom exceptions for CRUD managers..."""
 
-from fraand_core.crud.annotations import ModelType
+from src.fraand_core.crud.annotations import ModelType
 
 
 class NotImplementedUniqueKeysError(NotImplementedError):
