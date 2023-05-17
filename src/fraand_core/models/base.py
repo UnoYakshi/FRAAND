@@ -4,7 +4,7 @@ import uuid
 
 from sqlalchemy import Column, MetaData
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import DeclarativeBase
 
 POSTGRES_INDEXES_NAMING_CONVENTION = {
     'ix': '%(column_0_label)s_idx',
@@ -13,9 +13,15 @@ POSTGRES_INDEXES_NAMING_CONVENTION = {
     'fk': '%(table_name)s_%(column_0_name)s_fkey',
     'pk': '%(table_name)s_pkey',
 }
-metadata = MetaData(naming_convention=POSTGRES_INDEXES_NAMING_CONVENTION)
+base_metadata = MetaData(naming_convention=POSTGRES_INDEXES_NAMING_CONVENTION)
 
-Base = declarative_base(metadata=metadata)
+
+class Base(DeclarativeBase):
+    """The base declarative class for all models..."""
+
+    # TODO: Should we use it?.. ``__allow_unmapped__ = True``
+
+    metadata = base_metadata
 
 
 class UUIDBase(Base):
@@ -23,4 +29,4 @@ class UUIDBase(Base):
 
     __abstract__ = True
 
-    uid = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)  # noqa: A003

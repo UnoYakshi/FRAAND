@@ -22,3 +22,23 @@ def upgrade() -> None:
 
 def downgrade() -> None:
     ${downgrades if downgrades else "pass"}
+
+
+def schema_upgrades():
+    """Schema upgrade migrations go here..."""
+    ${upgrades if upgrades else "pass"}
+
+
+def schema_downgrades():
+    """schema downgrade migrations go here..."""
+    ${downgrades if downgrades else "pass"}
+
+
+def data_upgrades():
+    """Add any optional data upgrade migrations here!"""
+    pass
+
+
+def data_downgrades():
+    """Add any optional data downgrade migrations here!"""
+    pass

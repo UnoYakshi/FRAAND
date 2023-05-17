@@ -8,6 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncEngine
 from alembic import context
 from src.fraand_core.config import settings
 from src.fraand_core.models.base import Base
+from src.fraand_core.models.utils import import_domains_models
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -21,6 +22,7 @@ if config.config_file_name is not None:
 
 # Add 'autogenerate' support, target the metadata of the base models class.
 target_metadata = Base.metadata  # type: ignore
+import_domains_models()
 
 
 def run_migrations_offline() -> None:
