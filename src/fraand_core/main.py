@@ -10,9 +10,9 @@ Includes:
 
 from typing import Annotated
 
-from fastapi import Depends, FastAPI, Form, Request
+from fastapi import Depends, FastAPI, Form, Request, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse, Response
+from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -92,6 +92,22 @@ async def ping() -> dict[str, str]:
 
 @app.post('/search')
 async def search(query: Annotated[str, Form()]) -> dict[str, str]:
-    """Simple server pinging..."""
+    """WIP: Placeholder for HTML..."""
 
     return {'search_query': query}
+
+
+@app.post('/register_proxy')
+async def register_proxy(
+    request: Request,
+    email: Annotated[str, Form()],
+    password: Annotated[str, Form()],
+) -> RedirectResponse:
+    """WIP: HTML Form based solution to pass credentials to /auth/register..."""
+    import httpx
+
+    async with httpx.AsyncClient() as client:
+        await client.post(url=f'{request.base_url}auth/register', json={'email': email, 'password': password})
+
+    # HTTP_302_FOUND can be used, too...
+    return RedirectResponse(url=f'{request.base_url}', status_code=status.HTTP_303_SEE_OTHER)

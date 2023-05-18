@@ -1,14 +1,22 @@
 {% if not current_user %}
 
     <form method="post" id="login_form">
-        <label for="username">E-mail:</label><br>
-        <input type="text" id="username" name="username">
+        <label for="email">E-mail:</label><br>
+        <input type="text" id="email" name="email">
 
         <label for="password">Password:</label><br>
         <input type="password" id="password" name="password">
 
-        <input class="submit" type="submit" formaction="/auth/jwt/login" value="Login">
-        <input class="submit" type="submit" formaction="/auth/register" value="Sign Up">
+        {# Login button... #}
+        <input class="submit bg-info text-light" type="submit" formaction="/auth/jwt/login" value="Login">
+
+        {# Register button... #}
+        {#        <input class="submit" type="submit" formaction="/auth/register" value="Sign Up">#}
+        <input class="submit" type="submit" formaction="{{ url_for('register_proxy') }}" value="Sign Up">
+
+        {# Forgor password button... #}
+        <br>
+        <input class="submit" type="submit" formaction="{{ url_for('reset:forgot_password') }}?next={{ request.path }}" value="Remind password">
     </form>
 
 {% endif %}
