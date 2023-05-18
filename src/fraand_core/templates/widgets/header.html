@@ -1,0 +1,67 @@
+{# Global header... #}
+<nav class="header navbar header-fixed u-unselectable header-animated">
+
+    <div class="header-brand">
+
+        {# FRAAND logo... #}
+        <div class="nav-item no-hover">
+            <a href="/"><h6 class="title">FRAAN[D]</h6></a>
+        </div>
+
+        {# Smaller screen hamburger... #}
+        <div class="nav-item nav-btn" id="header-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+    </div>
+
+    {# Global search items bar... #}
+    <div class="header-nav nav-left row level">
+        <div class="col-xl-3 level-item"></div>
+        <div class="col-xl-10 level-item">
+            {% include "widgets/search/bar.html" %}
+        </div>
+    </div>
+
+    {# City dropdown... #}
+    <div class="nav-item has-sub" id="dropdown">
+        <a class="nav-dropdown-link">
+            <span class="icon"><i class="fa fa-wrapper fa-book" aria-hidden="true"></i></span>
+            {% if current_user %}
+                {{ current_user.city }}
+            {% else %}
+                City
+            {% endif %}
+        </a>
+    </div>
+
+    {# Login/profile... #}
+    <div class="nav-item">
+        {% if current_user %}
+
+            {# User avatar... #}
+            <div class="nav-item no-hover">
+                <img src="{{ url_for('static', path='otter.jpg') }}" alt="otter.jpg"/>
+                <li>User: <a href="{{ url_for('profile_deals') }}">{{ current_user.email }}</a></li>
+                {#<a><img src="{{ current_user.avatar.url }}" alt="profile avatar"/></a>#}
+            </div>
+
+            {# Logout button... #}
+            <a href="/auth/jwt/logout?next={{ request.path }}">Logout</a>
+
+        {% else %}
+
+            {# Login form... #}
+            <div class="dropdown">
+                Login / Sign Up
+                <div class="dropdown-content">
+                    {% include "widgets/auth/login.html" %}
+                </div>
+            </div>
+
+        {% endif %}
+    </div>
+
+</nav>

@@ -5,24 +5,22 @@
 {% block body_content %}
     <section class="bg-gray-200">
         <div class="content bg-gray-800">
-            {#        {% include "widgets/main_search_cirrus.html" %}#}
+{#            {% include "widgets/main_search_cirrus.html" %}#}
         </div>
     </section>
 
-    {% include "login.html" %}
 
     <section>
         <div class="content">
-            {#        {% include "widgets/items_results.html" %}#}
-            <img src="{{ url_for('static', path='otter.jpg') }}" alt="otter.jpg"/>
-
-            {% for row in rows %}
-            {{ row }}
-            {% endfor %}
-
+{#            {% include "widgets/items_results.html" %}#}
         </div>
     </section>
 {% endblock %}
+
+{#{% block body_content %}#}
+{#    {% include "cirrus/search/results.html" with items=items_results %}#}
+{#{% endblock %}#}
+
 
 {% block body_js %}
     {# Add your JavaScript content here, where it will be included at the end of the <body> tag. #}

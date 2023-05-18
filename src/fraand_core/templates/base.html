@@ -11,7 +11,7 @@
     <link href="https://unpkg.com/cirrus-ui" rel="stylesheet" crossorigin="anonymous">
 
     {# App CSS #}
-    <link rel="stylesheet" href="{{ url_for('static', path='css/app.css') }}?v=0.1.0">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/main.css') }}?v=0.1.0">
     {# Tip: update the `?v` param to force browsers to recache a new file version. #}
     {% block head_css %}{% endblock %}
 
@@ -19,15 +19,6 @@
     {# FontAwesome SVG styles #}
 
     <script defer src="{{ url_for('static', path='vendor/fontawesome-free-5.15.4/js/all.min.js') }}"></script>
-{#        FontAwesome can be served via CDN from their website.#}
-{#        However, their CDN support is on a per-account basis. In order to use a CDN,#}
-{#        you must create an account on fontawesome.com and request a kit.#}
-{##}
-{#        If you choose that route, you may safely remove the local files from this project#}
-{#        and serve via your own CDN kit.#}
-{##}
-{#        The code, icons, and other FontAwesome files are covered by licenses as detailed here:#}
-{#        https://fontawesome.com/license/free#}
 
     {% block head_js %}{% endblock head_js %}
 
@@ -36,25 +27,17 @@
 <body>
 
 <header>
-{#    {% include "widgets/header_cirrus.html" %}#}
-{#    <!--    {% include "widgets/subheader_cirrus.html" %}-->#}
+    {% include "widgets/header.html" %}
 </header>
-
-{#{% if request.user.is_authenticated %}#}
-{#    <li>User: {{ user.get_username }}</li>#}
-{#    <li><a href="{{ url('logout') }}?next={{ request.path }}">Logout</a></li>#}
-{#{% else %}#}
-{#    <li><a href="{{ url('login') }}?next={{ request.path }}">Login</a></li>#}
-{#{% endif %}#}
 
 {# All main content resides within a container #}
 <main role="main" class="container {% block body_container_classes %}{% endblock %}">
     {% block body_content %}{% endblock %}
 </main>
 
-{#<!--<footer class="footer">-->#}
-{#<!--    {% include "widgets/base_footer.html" %}-->#}
-{#<!--</footer>-->#}
+<footer class="footer">
+    {% include "widgets/footer.html" %}
+</footer>
 
 {## JAVASCRIPT LOADED AFTER BODY ##}
 

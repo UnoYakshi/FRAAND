@@ -10,7 +10,7 @@ Includes:
 
 from typing import Annotated
 
-from fastapi import Depends, FastAPI, Request
+from fastapi import Depends, FastAPI, Form, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
@@ -47,7 +47,7 @@ app.add_middleware(
 )
 
 app.mount('/static', StaticFiles(directory=STATIC_ABS_FILE_PATH), name='static')
-app_templates = Jinja2Templates(directory=TEMPLATES_ABS_FILE_PATH)
+app_templates = Jinja2Templates(directory=TEMPLATES_ABS_FILE_PATH, auto_reload=True)
 
 # Include auth-related routers...
 app.include_router(auth_router, prefix='/auth/jwt', tags=['auth'])
@@ -88,3 +88,10 @@ async def ping() -> dict[str, str]:
     """Simple server pinging..."""
 
     return {'ping': 'pong!'}
+
+
+@app.post('/search')
+async def search(query: Annotated[str, Form()]) -> dict[str, str]:
+    """Simple server pinging..."""
+
+    return {'search_query': query}
