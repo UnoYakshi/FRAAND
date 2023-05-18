@@ -43,13 +43,12 @@
 
             {# User avatar... #}
             <div class="nav-item no-hover">
-                <img src="{{ url_for('static', path='otter.jpg') }}" alt="otter.jpg"/>
-                <li>User: <a href="{{ url_for('profile_deals') }}">{{ current_user.email }}</a></li>
-                {#<a><img src="{{ current_user.avatar.url }}" alt="profile avatar"/></a>#}
+                <img class="img-contain" src="{{ url_for('static', path='otter.jpg') }}" style="height: 60px;" alt="otter.jpg"/>
+                {{ current_user.email }}
             </div>
 
-            {# Logout button... #}
-            <a href="/auth/jwt/logout?next={{ request.path }}">Logout</a>
+            {# Logout form... #}
+            {% include "widgets/auth/logout.html" %}
 
         {% else %}
 

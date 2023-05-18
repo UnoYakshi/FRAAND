@@ -1,8 +1,6 @@
 {% if current_user %}
 
-    {{ current_user.email }}
-
-    <form action="/auth/jwt/logout?next={{ request.path }}" method="post" id="logout_form">
+    <form action="{{ url_for('logout_proxy') }}" method="post" id="logout_form">
         <input class="submit" type="submit" value="Logout">
     </form>
 

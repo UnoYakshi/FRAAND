@@ -10,9 +10,9 @@ Includes:
 
 from typing import Annotated
 
-from fastapi import Depends, FastAPI, Form, Request, status
+from fastapi import Depends, FastAPI, Form, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse, RedirectResponse, Response
+from fastapi.responses import HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
@@ -28,6 +28,7 @@ from src.fraand_core.routers import (
     users_router,
     verification_router,
 )
+from src.fraand_core.security.proxy_router import fastapi_users_proxy_router
 
 SHOW_DOCS_ENVIRONMENT = ('dev', 'staging')
 
@@ -56,6 +57,8 @@ app.include_router(passwords_router, prefix='/auth', tags=['auth'])
 app.include_router(verification_router, prefix='/auth', tags=['auth'])
 app.include_router(users_router, prefix='/users', tags=['users'])
 
+app.include_router(fastapi_users_proxy_router, prefix='/proxy', tags=['auth', 'user'])
+
 
 @app.on_event('startup')
 async def on_startup() -> None:
@@ -65,14 +68,15 @@ async def on_startup() -> None:
 
 @app.get('/', response_class=HTMLResponse)
 async def root(request: Request, user: Annotated[User | None, Depends(current_active_user)]) -> Response:
-    """The home page of the platform."""
-    rows = list(range(10))
+    """The home page of the platform..."""
+
     context = {
         'request': request,
-        'rows': rows,
     }
+
     if user:
         context['current_user'] = user
+
     return app_templates.TemplateResponse(name='index.html', context=context)
 
 
@@ -95,19 +99,3 @@ async def search(query: Annotated[str, Form()]) -> dict[str, str]:
     """WIP: Placeholder for HTML..."""
 
     return {'search_query': query}
-
-
-@app.post('/register_proxy')
-async def register_proxy(
-    request: Request,
-    email: Annotated[str, Form()],
-    password: Annotated[str, Form()],
-) -> RedirectResponse:
-    """WIP: HTML Form based solution to pass credentials to /auth/register..."""
-    import httpx
-
-    async with httpx.AsyncClient() as client:
-        await client.post(url=f'{request.base_url}auth/register', json={'email': email, 'password': password})
-
-    # HTTP_302_FOUND can be used, too...
-    return RedirectResponse(url=f'{request.base_url}', status_code=status.HTTP_303_SEE_OTHER)

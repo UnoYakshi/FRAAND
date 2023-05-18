@@ -8,14 +8,14 @@
         <input type="password" id="password" name="password">
 
         {# Login button... #}
-        <input class="submit bg-info text-light" type="submit" formaction="/auth/jwt/login" value="Login">
+        <input class="submit bg-info text-light" type="submit" formaction="{{ url_for('login_proxy') }}" value="Login">
 
         {# Register button... #}
-        {#        <input class="submit" type="submit" formaction="/auth/register" value="Sign Up">#}
         <input class="submit" type="submit" formaction="{{ url_for('register_proxy') }}" value="Sign Up">
 
-        {# Forgor password button... #}
         <br>
+
+        {# Forgor password button... #}
         <input class="submit" type="submit" formaction="{{ url_for('reset:forgot_password') }}?next={{ request.path }}" value="Remind password">
     </form>
 
