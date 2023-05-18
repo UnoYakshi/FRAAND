@@ -1,0 +1,32 @@
+/*
+When the 'Your dropdown text' div gets hovered, we change the display property of the dropdown
+content in order for it to be shown
+*/
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/*
+"An element with position: relative; is positioned relative to its normal position"
+*/
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/*
+"An element with position: absolute; is positioned relative to the nearest positioned ancestor"
+
+In this case, it's positioned relative to the 'Login' div. I then played with the
+left and top properties in order to align it properly
+*/
+.dropdown-content {
+    display: none;
+    position: fixed;
+    right: 0px;
+    top: 46px;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    padding: 12px 16px;
+    z-index: 1;
+}
