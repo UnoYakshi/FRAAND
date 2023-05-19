@@ -40,9 +40,9 @@ You will also find a tool's license in the brackets.
 - uvicorn (BSD 3-Clause) + gunicorn (MIT) — ASGI + WSGI HTTP servers
 - PostgreSQL ([PostgreSQL](https://opensource.org/license/postgresql/)) — DB
 - SQLAlchemy 1.4 (MIT) + Alembic (MIT) — ORM and migrations tool
-  - kind of a world standard choice, useful to get into
+  - kind of a world standard choice, useful to get into for junior developers
   - SQLAlchemy Core can also be used to high-performance operations (e.g., to `bulk_update` 400K rows in a single transaction)
-  - v. 1.4 was chosen [over v. 2.0] because SQLModel doesn't really support v. 2.0 yet (there is a [pull request](https://github.com/tiangolo/sqlmodel/pull/563))
+  - v. 2.0 was chosen [over v. 1.4] since we dropped SQLModel for now ([SQLModel migration to SA 2.0 PR](https://github.com/tiangolo/sqlmodel/pull/563))
 
 ### Code Quality
 - pre-commit (MIT) — git hooks to disallow commits with low code quality
@@ -52,9 +52,9 @@ You will also find a tool's license in the brackets.
 - Ruff (MIT) — a vast code quality tool, Flake8 (and its plugins) super-performant alternative
 
 ### CI/CD, management, extras
-- PDM — package manager, sophisticated enough to fulfil the most (if not all) our needs
-- Docker + docker compose (V2) — deployment
-- pytest — integration and unit-testing
+- PDM (MIT) — package manager, sophisticated enough to fulfil the most (if not all) our needs
+- Docker + docker compose v2 (Apache 2.0) — deployment
+- pytest (MIT) — integration and unit-testing
 
 
 ## File Structure
@@ -81,14 +81,14 @@ if you want to execute it outside the FRAAND Core logic (and it's too small for 
 ### Source Code
 - `src/fraand_core/` — all the actual FRAAND platform's code is located here.
   - `domains/` — all the logical parts of the platform. Each domain might have:
-    - `dependencies.py/` — FastAPI `Depends()` methods.
-    - `models/` — this domain's ORM models.
-    - `schemas/` — Pydantic schemas for endpoints/models.
-    - `exceptions/` — custom domain's exceptions.
-    - `constants/` — a place to put your static data such as constants or function maps.
-    - `serivce/` — all the business logic functionality.
-    - `router/` — [WIP] domain's endpoints composed into an `APIRouter`.
-    - `utils/` — [WIP] any utility that doesn't necessary a part of the domain but is used only here.
+    - `dependencies` — FastAPI `Depends()` methods.
+    - `models` — this domain's ORM models.
+    - `schemas` — Pydantic schemas for endpoints/models.
+    - `exceptions` — custom domain's exceptions.
+    - `constants` — a place to put your static data such as constants or function maps.
+    - `serivce` — all the business logic functionality.
+    - `router` — [WIP] domain's endpoints composed into an `APIRouter`.
+    - `utils` — [WIP] any utility that doesn't necessary a part of the domain but is used only here.
   - `models/` — ORM models used by some (2..N) domains.
   - `crud/` — [WIP] a base class for ORM CRUD-managers.
   - `routers/` — [WIP] a single point to have all the
