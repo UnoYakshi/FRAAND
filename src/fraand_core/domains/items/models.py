@@ -23,8 +23,6 @@ class ItemTagAssoc(Base):
 class Item(UUIDBase):
     """Items people can share with each other..."""
 
-    from src.fraand_core.domains.users.models import User
-
     __tablename__ = 'items'
 
     name: Mapped[str] = mapped_column()
@@ -36,7 +34,7 @@ class Item(UUIDBase):
     images: Mapped[list['Image']] = relationship(back_populates='item')
 
     owner_id: Mapped[uuid.UUID] = mapped_column(ForeignKey('users.id'))
-    owner: Mapped['User'] = relationship(back_populates='items')
+    owner: Mapped['User'] = relationship(back_populates='items')  # noqa: F821
 
     def get_contacts(self) -> dict[str, str]:
         """[WIP] Placeholder for retrieving contact information for this User's Item...."""
