@@ -25,6 +25,7 @@ from src.fraand_core.routers import (
     auth_router,
     passwords_router,
     registration_router,
+    search_router,
     users_router,
     verification_router,
 )
@@ -56,6 +57,8 @@ app.include_router(registration_router, prefix='/auth', tags=['auth'])
 app.include_router(passwords_router, prefix='/auth', tags=['auth'])
 app.include_router(verification_router, prefix='/auth', tags=['auth'])
 app.include_router(users_router, prefix='/users', tags=['users'])
+# Include search router
+app.include_router(search_router, prefix='/search', tags=['search'])
 
 app.include_router(fastapi_users_proxy_router, prefix='/proxy', tags=['auth', 'user'])
 
