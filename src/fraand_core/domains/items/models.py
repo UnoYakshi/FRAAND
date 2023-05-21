@@ -42,7 +42,7 @@ class Item(UUIDBase):
         """[WIP] Placeholder for retrieving contact information for this User's Item...."""
         if not self.owner_id:
             ...
-        return {'email': 'some_email@mail.inpls', 'Telegram': '@grociepo'}
+        return {'email': 'some_email@mail.inpls', 'Telegram': 'https://t.me/grociepo'}
 
 
 class Image(UUIDBase):
