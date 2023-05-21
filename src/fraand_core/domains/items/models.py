@@ -5,8 +5,6 @@ import uuid
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from src.fraand_core.crud.base import BaseCRUD
-from src.fraand_core.domains.items.schemas.items import ItemCreateSchema, ItemUpdateSchema
 from src.fraand_core.models.base import Base, UUIDBase
 
 
@@ -25,6 +23,8 @@ class ItemTagAssoc(Base):
 class Item(UUIDBase):
     """Items people can share with each other..."""
 
+    from src.fraand_core.domains.users.models import User
+
     __tablename__ = 'items'
 
     name: Mapped[str] = mapped_column()
@@ -32,10 +32,16 @@ class Item(UUIDBase):
     is_published: Mapped[bool | None] = mapped_column(default=True)
     city: Mapped[str | None] = mapped_column()
 
-    tags: Mapped[set[ItemTagAssoc]] = relationship(back_populates='item')
+    tags: Mapped[list[ItemTagAssoc]] = relationship(back_populates='item')
+    images: Mapped[list['Image']] = relationship(back_populates='item')
+
+    owner_id: Mapped[uuid.UUID] = mapped_column(ForeignKey('users.id'))
+    owner: Mapped['User'] = relationship(back_populates='items')
 
     def get_contacts(self) -> dict[str, str]:
         """[WIP] Placeholder for retrieving contact information for this User's Item...."""
+        if not self.owner_id:
+            ...
         return {'email': 'some_email@mail.inpls', 'Telegram': '@grociepo'}
 
 
@@ -58,13 +64,4 @@ class Tag(Base):
     id: Mapped[int] = Column(Integer, autoincrement=True, primary_key=True)  # noqa: A003
     name: Mapped[str] = Column(String, nullable=False)
 
-    items: Mapped[set[ItemTagAssoc]] = relationship(back_populates='tag')
-
-
-class ItemCRUD(BaseCRUD[Item, ItemCreateSchema, ItemUpdateSchema]):
-    """Item CRUD manager..."""
-
-    ...
-
-
-item_crud_manager = ItemCRUD(Item)
+    items: Mapped[list[ItemTagAssoc]] = relationship(back_populates='tag')
