@@ -1,0 +1,51 @@
+<div class="tile bg-gray-100 p-3 u-round-xs u-overflow-y-visible u-relative">
+    {% if item.images.all %}
+        <div class="tile__icon">
+            <figure class="avatar" style="background-color: transparent;">
+                {% for image in item.images.all %}
+<!--                    <img src="{{ image.image.url }}" class="img-stretch rat-1-1" alt="...">-->
+                {% endfor %}
+            </figure>
+        </div>
+    {% endif %}
+    <div class="tile__container">
+        <p class="tile__title m-0"><a href="{{ url_for('get_item_details', item_id=item.id) }}">{{ item.name }}</a></p>
+        <p class="tile__subtitle m-0">{{ item.description }}</p>
+
+        <div class="tile__buttons m-0 u-text-left">
+            <div class="tag-container">
+                {% for tag in item.tags %}
+                    <div class="tag">
+                        {{ tag }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="tile__buttons m-0 u-text-right">
+
+            {# Contacts... #}
+            <div class="list-dropdown dropdown-right">
+                <button class="btn-outline btn-dropdown m-0">
+                    <i class="icon fad fa-ellipsis-v" aria-hidden="true"></i>contacts
+                </button>
+                <ul class="menu u-text-left u-absolute">
+                    {% for key, value in item.get_contacts.items %}
+                        <li class="menu-item">
+                            <i class="icon fas fa-folder-open" aria-hidden="true"></i>
+                            {# TODO: Copy to clipboard instead! #}
+                            <a href="{{ value }}" class="tooltip"
+                               data-tooltip="{{ key }}: {{ value }}">copy {{ key }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {# Rent buttons... #}
+            {% if current_user.id != item.owner_uid.id %}
+                {# Here will be DEALS #}
+            {% endif %}
+
+        </div>
+    </div>
+</div>

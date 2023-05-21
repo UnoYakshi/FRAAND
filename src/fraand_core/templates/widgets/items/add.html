@@ -1,0 +1,28 @@
+{% extends "cirrus/base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block head_title %}Add New Item{% endblock %}
+
+
+{% block body_content %}
+    <div class="row">
+        <div class="col">
+            {% block add_item_form %}
+
+                {% if success_notification %}
+                    <h2>You have successfully created a new item!</h2>
+                    {{ form.name.label }}: {{ form.name.value }}
+                    <br>
+                    {{ form.description.label }}: {{ form.description.value }}
+                    <h2>Add a new one?</h2>
+                {% endif %}
+
+                <form method="post" action="." enctype="multipart/form-data">
+                    {% crispy form %}
+                </form>
+
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

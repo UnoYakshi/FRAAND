@@ -1,0 +1,27 @@
+{% extends "cirrus/base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block head_title %}Add New Item{% endblock %}
+
+
+{% block body_content %}
+    <div class="row">
+        <div class="col">
+
+            <form method="post">{% csrf_token %}
+                <p>
+                    Are you sure you want to delete <b>"{{ object.name }}"</b>?
+                    <br/>
+                    With such a nice description like: {{ object.description }}...
+                    <br/>
+                    {% if object.images.all %}With images!{% endif %}
+                    {% if object.tags.all %}With tags!{% endif %}
+                </p>
+                <input type="submit" value="Yes, I consent!">
+                <input type="button" value="No, abort!" onclick="window.location.href='{{ request.META.HTTP_REFERER }}'">
+            </form>
+
+        </div>
+    </div>
+{% endblock %}
