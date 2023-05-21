@@ -56,10 +56,9 @@ async def get_item(item_id: Annotated[UUID, ...], session: AsyncSession = Depend
     path='/',
     response_model=list[ItemBaseSchema],
     responses={
-        status.HTTP_201_OK: {'description': 'Item with the given data is successfully created.'},
-        # status.HTTP_400_BAD_REQUEST: {'description': 'If item is not found by the given UUID.'},
+        status.HTTP_200_OK: {'description': 'Item with the given data is successfully created.'},
+        status.HTTP_400_BAD_REQUEST: {'description': 'If item is not found by the given UUID.'},
     },
-    status_code=status.HTTP_201_CREATED,
 )
 async def get_items(
     skip: int = 0,
@@ -77,8 +76,9 @@ async def get_items(
     response_model=ItemBaseSchema,
     responses={
         status.HTTP_201_CREATED: {'description': 'A new item is created.'},
-        status.HTTP_400_BAD_REQUEST: {'description': 'Incorrect data provided.'},
+        status.HTTP_400_BAD_REQUEST: {'description': 'Incorrect data provided for the new item.'},
     },
+    status_code=status.HTTP_201_CREATED,
 )
 async def create_item(data: ItemCreateSchema, session: AsyncSession = Depends(get_async_session)) -> ItemBaseSchema:
     """Create a new Item with the provided data..."""
