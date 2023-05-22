@@ -3,7 +3,7 @@ CRUD-router for Items domain...
 
 Endpoints are:
 - GET /{id}
-- GET /?skip=&limit=
+- GET /? q= & skip= & limit= & should_search_in_name= & should_search_in_description=
 - POST /create
 - PUT /update/{id}
 - DELETE /delete/{id]
@@ -13,6 +13,7 @@ from typing import Annotated
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy import or_, select
 
 from src.fraand_core.crud.base import BaseCRUD
 from src.fraand_core.deps import AsyncSession, get_async_session
@@ -76,8 +77,6 @@ async def get_items(
             :skip: How many Items to skip in the results...
             :limit: How many Items to include...
     """
-
-    from sqlalchemy import or_, select
 
     q = search_params.get('q')
     skip = search_params.get('skip')
