@@ -79,8 +79,8 @@ async def get_items(
     """
 
     q = search_params.get('q')
-    skip = search_params.get('skip')
-    limit = search_params.get('limit')
+    skip = search_params['skip']
+    limit = search_params['limit']
 
     # Compose the select-query...
     query = select(Item)
