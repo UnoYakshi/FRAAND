@@ -96,11 +96,10 @@ async def get_items(
                     Item.description.icontains(q),
                 ),
             )
-        else:
-            if should_search_in_name:
-                query = query.where(or_(Item.name.ilike(q), Item.name.icontains(q)))
-            if should_search_in_description:
-                query = query.where(or_(Item.description.ilike(q), Item.description.icontains(q)))
+        elif should_search_in_name:
+            query = query.where(or_(Item.name.ilike(q), Item.name.icontains(q)))
+        elif should_search_in_description:
+            query = query.where(or_(Item.description.ilike(q), Item.description.icontains(q)))
 
     # Add pagination...
     query = query.offset(skip).limit(limit)
