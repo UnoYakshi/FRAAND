@@ -9,6 +9,7 @@ Endpoints are:
 - DELETE /delete/{id]
 """
 
+
 from typing import Annotated
 from uuid import UUID
 
@@ -21,8 +22,6 @@ from src.fraand_core.domains.items.dependencies import search_query
 from src.fraand_core.domains.items.models import Item
 from src.fraand_core.domains.items.schemas.items import ItemBaseSchema, ItemCreateSchema, ItemUpdateSchema
 
-items_router = APIRouter(prefix='/items', tags=['items'])
-
 
 class ItemCRUD(BaseCRUD[Item, ItemCreateSchema, ItemUpdateSchema]):
     """Item CRUD manager..."""
@@ -30,6 +29,7 @@ class ItemCRUD(BaseCRUD[Item, ItemCreateSchema, ItemUpdateSchema]):
     ...
 
 
+items_router = APIRouter(prefix='/items', tags=['items'])
 item_crud_manager = ItemCRUD(Item)
 
 
