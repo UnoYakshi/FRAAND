@@ -16,6 +16,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from src.fraand_core.crud.base import BaseCRUD
 from src.fraand_core.deps import AsyncSession, get_async_session
+from src.fraand_core.domains.items.dependencies import search_query
 from src.fraand_core.domains.items.models import Item
 from src.fraand_core.domains.items.schemas.items import ItemBaseSchema, ItemCreateSchema, ItemUpdateSchema
 
@@ -61,13 +62,52 @@ async def get_item(item_id: Annotated[UUID, ...], session: AsyncSession = Depend
     },
 )
 async def get_items(
-    skip: int = 0,
-    limit: int = 100,
+    search_params: Annotated[dict, Depends(search_query)],
+    should_search_in_name: bool = True,
+    should_search_in_description: bool = True,
     session: AsyncSession = Depends(get_async_session),
 ) -> list[ItemBaseSchema]:
-    """..."""
+    """
+    Returns Items by the given query...
 
-    items = await item_crud_manager.read_many(session, skip=skip, limit=limit)
+    :parameter search_params:
+            :query: Will be used to find somewhat matching [to the value] results;
+                      both name and description will be used; as OR predicates...
+            :skip: How many Items to skip in the results...
+            :limit: How many Items to include...
+    """
+
+    from sqlalchemy import or_, select
+
+    q = search_params.get('q')
+    skip = search_params.get('skip')
+    limit = search_params.get('limit')
+
+    # Compose the select-query...
+    query = select(Item)
+
+    # Add filters for name and/or description if needed...
+    if q:
+        if should_search_in_name and should_search_in_description:
+            query = query.where(
+                or_(
+                    Item.name.ilike(q),
+                    Item.name.icontains(q),
+                    Item.description.ilike(q),
+                    Item.description.icontains(q),
+                ),
+            )
+        else:
+            if should_search_in_name:
+                query = query.where(or_(Item.name.ilike(q), Item.name.icontains(q)))
+            if should_search_in_description:
+                query = query.where(or_(Item.description.ilike(q), Item.description.icontains(q)))
+
+    # Add pagination...
+    query = query.offset(skip).limit(limit)
+
+    result = await session.execute(query)
+    items = result.scalars().all()
     return [ItemBaseSchema.from_orm(item) for item in items]
 
 
