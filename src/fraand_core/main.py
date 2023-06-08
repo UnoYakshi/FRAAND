@@ -23,6 +23,7 @@ from src.fraand_core.domains.users.dependencies import current_active_user
 from src.fraand_core.domains.users.models import User
 from src.fraand_core.routers import (
     auth_router,
+    items_router,
     passwords_router,
     registration_router,
     users_router,
@@ -56,8 +57,10 @@ app.include_router(registration_router, prefix='/auth', tags=['auth'])
 app.include_router(passwords_router, prefix='/auth', tags=['auth'])
 app.include_router(verification_router, prefix='/auth', tags=['auth'])
 app.include_router(users_router, prefix='/users', tags=['users'])
-
 app.include_router(fastapi_users_proxy_router, prefix='/proxy', tags=['auth', 'user'])
+
+# Include Items-related routers...
+app.include_router(items_router)
 
 
 @app.on_event('startup')

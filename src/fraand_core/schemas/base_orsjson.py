@@ -33,6 +33,7 @@ class ORJSONModel(BaseModel):
         json_encoders = {datetime: convert_datetime_to_gmt}  # method for customer JSON encoding of datetime fields
 
         extra = Extra.forbid
+        orm_mode = True
 
     @root_validator()
     def set_null_microseconds(cls, data: dict) -> dict:
