@@ -28,7 +28,7 @@ RUN apt-get update \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Copy python dependencies wheels from builder
-COPY --from=builder /usr/src/app/wheels  /wheels/
+COPY --from=builder /usr/src/app/wheels /wheels/
 
 # Use wheels to install python dependencies
 RUN pip install --no-cache-dir --no-index --find-links=/wheels/ /wheels/* \
