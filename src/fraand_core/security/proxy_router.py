@@ -24,6 +24,7 @@ async def login_proxy(
     password: Annotated[str, Form()],
 ) -> RedirectResponse:
     """WIP: HTML Form based solution to pass credentials to /auth/jwt/login..."""
+
     async with httpx.AsyncClient() as client:
         login_response = await client.post(
             url=f'{request.base_url}auth/jwt/login',
@@ -35,7 +36,7 @@ async def login_proxy(
         )
 
     # Also add an Auth Token we received to the redirect...
-    redirect_response = RedirectResponse(url=f'{request.base_url}', status_code=status.HTTP_302_FOUND)
+    redirect_response = RedirectResponse(url=f'{request.base_url}', status_code=status.HTTP_303_SEE_OTHER)
     redirect_response.set_cookie(key='auth', value=login_response.cookies.get('auth'), httponly=True)
 
     return redirect_response
