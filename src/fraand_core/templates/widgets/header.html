@@ -41,9 +41,14 @@
     <div class="nav-item">
         {% if current_user %}
 
+            {# Test ADD ITEM button... #}
+            <a href="{{ url_for('add_item') }}">+ Add Item</a>
+
             {# User avatar... #}
             <div class="nav-item no-hover">
-                <img class="img-contain" src="{{ url_for('static', path='otter.jpg') }}" style="height: 60px;" alt="otter.jpg"/>
+                <a href="{{ url_for('get_user_items') }}">
+                    <img class="img-contain" src="{{ url_for('static', path='otter.jpg') }}" style="height: 60px;" alt="otter.jpg"/>
+                </a>
                 {{ current_user.email }}
             </div>
 

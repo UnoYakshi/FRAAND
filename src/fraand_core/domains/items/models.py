@@ -28,7 +28,7 @@ class Item(UUIDBase):
         from src.fraand_core.domains.users.models import User
 
     __tablename__ = 'items'
-    name: Mapped[str] = mapped_column()
+    name: Mapped[str] = mapped_column(nullable=False)
     description: Mapped[str | None] = mapped_column()
     is_published: Mapped[bool | None] = mapped_column(default=True)
     city: Mapped[str | None] = mapped_column()

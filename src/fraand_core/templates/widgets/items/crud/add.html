@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+
+{% block head_title %}Add New Item{% endblock %}
+
+
+{% block body_container_classes %}{% endblock %}
+
+
+{% block body_content %}
+
+    <div class="row">
+        <div class="col">
+
+            {% block add_item_form %}
+
+                {% if item %}
+                    <h2>You have successfully created a new item!</h2>
+                    {% include 'widgets/items/card/item_card.html' %}
+                    <h2>Add a new one?</h2>
+                {% endif %}
+
+                {% if current_user %}
+                    <form method="post" id="login_form" enctype="multipart/form-data">
+                        <label for="name">Name:</label><br>
+                        <input type="text" id="name" name="name" required>
+
+                        <label for="description">Description:</label>
+                        <textarea cols="40" rows="5" id="description" name="description"></textarea>
+
+                        <label for="city">City:</label>
+                        <input type="text" id="city" name="city">
+
+                        <label for="owner_id">Owner ID:</label>
+                        <input type="text" id="owner_id" name="owner_id" value="{{ current_user.id }}">
+
+                        {# Add button... #}
+{#                        <input class="submit bg-info text-light" type="submit" formaction="{{ url_for('create_item') }}"#}
+                        <input class="submit bg-info text-light" type="submit" formaction="{{ url_for('add_item') }}"
+                               value="Add New Item">
+                    </form>
+                {% else %}
+                    TEST<br/>
+                    TEST<br/>
+                    TEST<br/>
+                    TEST<br/>
+                {% endif %}
+
+
+            {% endblock %}
+
+        </div>
+    </div>
+
+{% endblock %}

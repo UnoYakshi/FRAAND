@@ -1,0 +1,20 @@
+{% block head_title %}Remove Item UUID({{ item.id }}) ?{% endblock %}
+
+
+{% block body_content %}
+    <div class="row">
+        <div class="col">
+            <form method="post" action="{{ url_for('delete_item', item_id=item.id) }}">
+                <p>
+                    Are you sure you want to delete <b>"{{ item.name }}"</b>?
+                    <br/>
+                    With such a nice description like: {{ item.description }}...
+                    <br/>
+                </p>
+                <input type="submit" value="Yes, I consent!">
+                <input type="button" value="No, abort!" onclick="window.location.href='{{ request.headers['Referer'] or '/' }}'">
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

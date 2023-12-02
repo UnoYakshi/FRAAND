@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+{% block head_title %}{{ current_user.id }}'s Items{% endblock %}
+
+
+{% if current_user %}
+
+    {{ current_user.id }}'s items:
+    <ul>
+
+        {% for item in items %}
+            <li>
+                {% include "widgets/items/card/item_card.html" with context %}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+
+    No User is authenticated.
+
+{% endif %}

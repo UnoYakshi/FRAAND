@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+
+{% block head_title %}Edit {{ item.name }}{% endblock %}
+
+
+{% block body_content %}
+
+    <div class="row">
+        <div class="col-8">
+
+            <form method="post">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" value="{{ item.name }}">
+
+                <label for="description">Description:</label>
+                <textarea cols="40" rows="5" id="description" name="description">{{ item.description }}</textarea>
+
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" value="{{ item.city }}">
+
+                <label for="owner">Owner:</label>
+                <input type="text" id="owner" name="owner" value="{{ item.owner_id }}" disabled>
+
+                {# Submit...#}
+                <input type="hidden" name="_method" value="PUT">
+                <input class="submit" type="submit"
+                       formaction="{{ url_for('edit_item', item_id=item.id) }}"
+                       value="Save">
+                <input type="button" value="Cancel" onclick="window.location.href='{{ request.headers['Referer'] or '/' }}'">
+            </form>
+
+        </div>
+    </div>
+
+{% endblock %}

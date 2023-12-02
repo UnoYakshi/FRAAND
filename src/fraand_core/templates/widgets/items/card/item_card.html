@@ -1,0 +1,90 @@
+<div class="tile bg-gray-100 p-3 u-round-xs u-overflow-y-visible u-relative">
+
+    {# Images... #}
+    {% if item.images %}
+        <div class="tile__icon">
+            <figure class="avatar" style="background-color: transparent;">
+                {% for image in item.images %}
+                    <img src="{{ image.image.url }}" class="img-stretch rat-1-1" alt="...">
+                {% endfor %}
+            </figure>
+        </div>
+    {% endif %}
+
+
+    <div class="tile__container">
+
+        {# Metadata... #}
+        <p class="tile__title m-0">
+            <a href="{{ url_for('get_item', item_id=item.id) }}">
+                {{ item.name }}
+            </a>
+        </p>
+        <p class="tile__subtitle m-0">{{ item.description }}</p>
+        <span class="info">Created: {{ item.created_at }}</span>
+
+        {# Tags... #}
+        <div class="tile__buttons m-0 u-text-left">
+            {% include "widgets/items/card/item_tags.html" with context %}
+        </div>
+
+        <div class="tile__buttons m-0 u-text-right">
+
+            {# Contacts... #}
+            <div class="list-dropdown dropdown-right">
+                <button class="btn-outline btn-dropdown m-0">
+                    <i class="icon fad fa-ellipsis-v" aria-hidden="true"></i>contacts
+                </button>
+                <ul class="menu u-text-left u-absolute">
+                    {#                    {% for key, value in item.get_contacts.items %}#}
+                    {#                        <li class="menu-item">#}
+                    {#                            <i class="icon fas fa-folder-open" aria-hidden="true"></i>#}
+                    {# TODO: Copy to clipboard instead! #}
+                    {#                            <a href="{{ value }}" class="tooltip"#}
+                    {#                               data-tooltip="{{ key }}: {{ value }}">copy {{ key }}</a>#}
+                    {#                        </li>#}
+                    {#                    {% endfor %}#}
+                </ul>
+            </div>
+
+            {# Buttons... #}
+            {% if current_user %}
+
+                {# Rent buttons... #}
+                {% if current_user.id != item.owner_id %}
+
+                    {% if item.get_deal_or_none and item.get_deal_or_none.to_user_id == user.id %}
+
+                        <a href="{{ url_for('get_rent', id=item.get_deal_or_none.id) }}" target="_blank"
+                           class="btn btn-info pull-right u-overflow">
+                            CURRENT DEAL
+                        </a>
+                        {% for key, value in item.get_contacts.items %}
+                            <button class="btn-transparent outline">copy <a href="{{ value }}">{{ key }}</a></button>
+                        {% endfor %}
+
+                    {% else %}
+
+                        <button class="btn-link outline">
+                            RENT BUTTON
+                            {# <a href="{{ url_for('add_rent', item_id=item.id) }}" target="_blank">RENT</a>#}
+                        </button>
+
+                    {% endif %}
+
+                {# Edit/Delete buttons... #}
+                {% else %}
+                    UUID[{{ item.id }}]
+                    <a href="{{ url_for('edit_item', item_id=item.id) }}" target="_blank" class="btn btn-info pull-right u-overflow">
+                        EDIT
+                    </a>
+                    <a href="{{ url_for('delete_item', item_id=item.id) }}" target="_blank" class="btn btn-info pull-right u-overflow">
+                        DELETE
+                    </a>
+                {% endif %}
+
+            {% endif %}
+
+        </div>
+    </div>
+</div>

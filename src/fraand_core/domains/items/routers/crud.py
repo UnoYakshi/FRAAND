@@ -9,7 +9,6 @@ Endpoints are:
 - DELETE /delete/{id]
 """
 
-
 from typing import Annotated
 from uuid import UUID
 
@@ -29,11 +28,11 @@ class ItemCRUD(BaseCRUD[Item, ItemCreateSchema, ItemUpdateSchema]):
     ...
 
 
-items_router = APIRouter(prefix='/items', tags=['items'])
+items_crud_router = APIRouter(prefix='/crud', tags=['items', 'crud'])
 item_crud_manager = ItemCRUD(Item)
 
 
-@items_router.get(
+@items_crud_router.get(
     path='/{item_id:str}',
     response_model=ItemBaseSchema,
     responses={
@@ -54,7 +53,7 @@ async def get_item(item_id: Annotated[UUID, ...], session: AsyncSession = Depend
     return ItemBaseSchema.from_orm(item)
 
 
-@items_router.get(
+@items_crud_router.get(
     path='/',
     response_model=list[ItemBaseSchema],
     responses={
@@ -66,6 +65,7 @@ async def get_items(
     search_params: Annotated[dict, Depends(search_query)],
     should_search_in_name: bool = True,
     should_search_in_description: bool = True,
+    belongs_to_users: list[UUID] | None = None,
     session: AsyncSession = Depends(get_async_session),
 ) -> list[ItemBaseSchema]:
     """
@@ -101,6 +101,9 @@ async def get_items(
         elif should_search_in_description:
             query = query.where(or_(Item.description.ilike(q), Item.description.icontains(q)))
 
+    if belongs_to_users:
+        query = query.where(Item.owner_id.in_(belongs_to_users))
+
     # Add pagination...
     query = query.offset(skip).limit(limit)
 
@@ -109,7 +112,7 @@ async def get_items(
     return [ItemBaseSchema.from_orm(item) for item in items]
 
 
-@items_router.post(
+@items_crud_router.post(
     path='/create',
     response_model=ItemBaseSchema,
     responses={
@@ -132,7 +135,17 @@ async def create_item(data: ItemCreateSchema, session: AsyncSession = Depends(ge
     return ItemBaseSchema.from_orm(item)
 
 
-@items_router.put(
+@items_crud_router.post(
+    path='/update/{item_id:str}',
+    response_model=ItemBaseSchema,
+    responses={
+        status.HTTP_200_OK: {
+            'description': 'Item (provided by UUID) is updated with the given data. POST-version for HTTP/1.x',
+        },
+        status.HTTP_400_BAD_REQUEST: {'description': 'If item is not found by the given UUID.'},
+    },
+)
+@items_crud_router.put(
     path='/update/{item_id:str}',
     response_model=ItemBaseSchema,
     responses={
@@ -152,7 +165,7 @@ async def update_item(
     return ItemBaseSchema.from_orm(updated_item)
 
 
-@items_router.delete(
+@items_crud_router.delete(
     path='/delete/{item_id:str}',
     response_model=ItemBaseSchema,
     responses={

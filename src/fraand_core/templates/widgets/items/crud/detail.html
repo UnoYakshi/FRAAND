@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+
+{% block head_title %}Item {{ item.name }}{% endblock %}
+
+
+{% block body_content %}
+
+    <div class="row">
+        <div class="col-2">
+
+            {# Buttons... #}
+            {% if current_user and current_user.id == item.owner_id.id %}
+                <div class="btn-group w-100p">
+                    <button class="btn-success btn--lg"
+                            onclick="window.location.href='{{ url_for('edit_item', item_id=item.id) }}';">EDIT
+                    </button>
+                    <button class="btn-dark" onclick="window.location.href='{{ url_for('delete_item', id=item.id) }}';">
+                        REMOVE
+                    </button>
+                </div>
+            {% endif %}
+{#            <button class="w-100p" onclick="window.location.href='{{ request.META.HTTP_REFERER }}'">back</button>#}
+
+        </div>
+        <div class="col-8">
+
+            {# The item card itself... #}
+            {% include 'widgets/items/card/item_card.html' %}
+
+            {# Images... #}
+            <ul class="slides-container" id="slides-container">
+                {% for img in item.images %}
+                    <li class="slide">
+                        <img src="{{ img.image.url }}">
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+
+{% endblock %}
