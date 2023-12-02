@@ -5,9 +5,9 @@
     - [ ] [FUTURE] activity feed
     - [ ] [FUTURE] reputation points (probably with real-life economic value)
 - [ ] item
-    - [ ] name
-    - [ ] description
-    - [ ] tags
+    - [x] name
+    - [x] description
+    - [x] tags
     - [ ] categories
     - [ ] carousel of images (or URLs field)
     - [ ] rent-to (link to a profile)
