@@ -1,4 +1,4 @@
-<form class="form-group" method="post" action="{{ url_for('search') }}" style="width:100%; margin-left: 1em;">
-{#    <button type="submit" class="form-group-btn">GO!</button>#}
-    <input type="search" class="form-group-input" name="query" placeholder="Search..." value="{{ query }}">
+<form class="form-group" method="get" action="{{ url_for('get_search_results') }}"
+      style="width:100%; margin-left: 1em;">
+    <input type="search" class="form-group-input" name="q" placeholder="Search..." value="{{ query }}">
 </form>

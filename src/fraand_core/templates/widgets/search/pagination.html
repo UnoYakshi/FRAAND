@@ -1,24 +1,32 @@
 <div class="pagination u-center">
     <!-- previous page link -->
-    {% if items.previtem %}
-        <div class="pagination-item short"><a href="{{ base_url }}page={{ items.previous_page_number }}">Prev</a></div>
-    {% else %}
-        <div class="pagination-item short disabled"><a class="disabled">Prev</a></div>
-    {% endif %}
+    <div class="pagination-item short {{ 'disabled' if not items.prev_page_number else '' }}">
+        {% if items.prev_page_number %}
+            <a href="{{ base_url }}?q={{ q }}&skip={{ (items.prev_page_number - 1) * limit }}&limit={{ limit }}">Prev</a>
+        {% else %}
+            <a class="disabled">Prev</a>
+        {% endif %}
+    </div>
+
+    {% set pages_num = 1 + items|length // limit %}
 
     <!-- page number link-->
-<!--    {% for i in paginator.page_range %}-->
-<!--        {% if items.number == i %}-->
-<!--            <div class="pagination-item short selected"><a>{{ i }}</a></div>-->
-<!--        {% else %}-->
-<!--            <div class="pagination-item short"><a href="{{ base_url }}page={{ i }}">{{ i }}</a></div>-->
-<!--        {% endif %}-->
-<!--    {% endfor %}-->
+    {% for idx in range(pages_num) %}
+        <div class="pagination-item short {{ 'selected' if items.current_page_number == idx + 1 else '' }}">
+            {% if items.current_page_number == idx + 1 %}
+                <a>{{ idx + 1 }}</a>
+            {% else %}
+                <a href="{{ base_url }}?q={{ q }}&skip={{ idx * limit }}&limit={{ limit }}">{{ idx + 1 }}</a>
+            {% endif %}
+        </div>
+    {% endfor %}
 
     <!-- next page link -->
-    {% if items.nextitem %}
-        <div class="pagination-item short"><a href="{{ base_url }}page={{ items.next_page_number }}">Next</a></div>
-    {% else %}
-        <div class="pagination-item short disabled"><a class="disabled">Next</a></div>
-    {% endif %}
+    <div class="pagination-item short {{ 'disabled' if not items.next_page_number else '' }}">
+        {% if items.next_page_number %}
+            <a href="{{ base_url }}?q={{ q }}&skip={{ items.next_page_number * limit }}&limit={{ limit }}">Next</a>
+        {% else %}
+            <a class="disabled">Next</a>
+        {% endif %}
+    </div>
 </div>
