@@ -5,6 +5,7 @@ The config is loading the values for each parameter from the environment
 (Environment Variables Values) using pydantic's `BaseSettings`.
 """
 
+from pathlib import Path
 from typing import Any
 
 from pydantic import BaseSettings, PostgresDsn, validator
@@ -47,8 +48,20 @@ class Settings(BaseSettings):
 
         if isinstance(v, str):
             return v
+
+        # Error handling for missing values
+        scheme = 'postgresql+asyncpg'
+        user = values.get('POSTGRES_USER')
+        password = values.get('POSTGRES_PASSWORD')
+        host = values.get('POSTGRES_HOST')
+        port = values.get('POSTGRES_PORT')
+        path = values.get('POSTGRES_DB')
+
+        if not all([user, password, host, port, path]):
+            raise ValueError('DB')
+
         return PostgresDsn.build(
-            scheme='postgresql+asyncpg',
+            scheme=scheme,
             user=values['POSTGRES_USER'],
             password=values['POSTGRES_PASSWORD'],
             host=values['POSTGRES_HOST'],
@@ -60,4 +73,7 @@ class Settings(BaseSettings):
     PAGE_SIZE: int = 1000
 
 
-settings = Settings('.env')  # type: ignore
+if Path('.env'):
+    settings = Settings('.env')  # type: ignore
+else:
+    raise FileNotFoundError('.env')
