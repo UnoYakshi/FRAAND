@@ -1,0 +1,24 @@
+<div class="pagination u-center">
+    <!-- previous page link -->
+    {% if items.previtem %}
+        <div class="pagination-item short"><a href="{{ base_url }}page={{ items.previous_page_number }}">Prev</a></div>
+    {% else %}
+        <div class="pagination-item short disabled"><a class="disabled">Prev</a></div>
+    {% endif %}
+
+    <!-- page number link-->
+<!--    {% for i in paginator.page_range %}-->
+<!--        {% if items.number == i %}-->
+<!--            <div class="pagination-item short selected"><a>{{ i }}</a></div>-->
+<!--        {% else %}-->
+<!--            <div class="pagination-item short"><a href="{{ base_url }}page={{ i }}">{{ i }}</a></div>-->
+<!--        {% endif %}-->
+<!--    {% endfor %}-->
+
+    <!-- next page link -->
+    {% if items.nextitem %}
+        <div class="pagination-item short"><a href="{{ base_url }}page={{ items.next_page_number }}">Next</a></div>
+    {% else %}
+        <div class="pagination-item short disabled"><a class="disabled">Next</a></div>
+    {% endif %}
+</div>

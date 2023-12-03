@@ -1,0 +1,22 @@
+{% extends "cirrus/base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block head_title %}Add New Item{% endblock %}
+
+
+{% block body_content %}
+    <div class="row">
+        <div class="col-8">
+
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Save">
+                <input type="button" value="Cancel" onclick="window.location.href='{{ request.META.HTTP_REFERER }}'">
+
+            </form>
+
+        </div>
+    </div>
+{% endblock %}

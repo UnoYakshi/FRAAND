@@ -1,0 +1,42 @@
+{% extends "cirrus/base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block head_title %}Add New Item{% endblock %}
+
+
+{% block body_content %}
+
+    <div class="row">
+        <div class="col-2">
+
+            {# Buttons... #}
+            {% if user.id == item.owner_uid.id %}
+            <div class="btn-group w-100p">
+                <button class="btn-success btn--lg"
+                        onclick="window.location.href='{% url 'edit_item' pk=object.pk %}';">EDIT
+                </button>
+                <button class="btn-dark" onclick="window.location.href='{% url 'delete_item' pk=object.pk %}';">REMOVE
+                </button>
+            </div>
+            {% endif %}
+            <button class="w-100p" onclick="window.location.href='{{ request.META.HTTP_REFERER }}'">back</button>
+
+        </div>
+        <div class="col-8">
+
+            {# The item card itself... #}
+            {% include 'cirrus/search/item_card.html' with item=object %}
+
+            {# Images... #}
+            <ul class="slides-container" id="slides-container">
+                {% for img in object.images.all %}
+                    <li class="slide">
+                        <img src="{{ img.image.url }}">
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+{% endblock %}
