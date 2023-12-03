@@ -14,23 +14,14 @@ from fastapi import Depends, FastAPI, Form, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
 
 from src.fraand_core.config import settings
-from src.fraand_core.constants import STATIC_ABS_FILE_PATH, TEMPLATES_ABS_FILE_PATH
+from src.fraand_core.constants import STATIC_ABS_FILE_PATH
 from src.fraand_core.db import init_db
 from src.fraand_core.domains.users.dependencies import current_active_user
 from src.fraand_core.domains.users.models import User
-from src.fraand_core.routers import (
-    auth_router,
-    items_router,
-    passwords_router,
-    registration_router,
-    search_router,
-    users_router,
-    verification_router,
-)
-from src.fraand_core.security.proxy_router import fastapi_users_proxy_router
+from src.fraand_core.routers import include_routers
+from src.fraand_core.templates import app_templates
 
 SHOW_DOCS_ENVIRONMENT = ('dev', 'staging')
 
@@ -50,21 +41,8 @@ app.add_middleware(
 )
 
 app.mount('/static', StaticFiles(directory=STATIC_ABS_FILE_PATH), name='static')
-app_templates = Jinja2Templates(directory=TEMPLATES_ABS_FILE_PATH, auto_reload=True)
 
-# Include auth-related routers...
-app.include_router(auth_router, prefix='/auth/jwt', tags=['auth'])
-app.include_router(registration_router, prefix='/auth', tags=['auth'])
-app.include_router(passwords_router, prefix='/auth', tags=['auth'])
-app.include_router(verification_router, prefix='/auth', tags=['auth'])
-app.include_router(users_router, prefix='/users', tags=['users'])
-# Include search router
-app.include_router(search_router, prefix='/search', tags=['search'])
-
-app.include_router(fastapi_users_proxy_router, prefix='/proxy', tags=['auth', 'user'])
-
-# Include Items-related routers...
-app.include_router(items_router)
+include_routers(app)
 
 
 @app.on_event('startup')

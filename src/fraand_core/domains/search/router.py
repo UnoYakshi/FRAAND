@@ -11,7 +11,7 @@ from fastapi.responses import HTMLResponse
 
 from src.fraand_core.domains.users.dependencies import current_active_user
 from src.fraand_core.domains.users.models import User
-from src.fraand_core.main import app_templates
+from src.fraand_core.templates import app_templates
 
 search_router = APIRouter()
 
