@@ -17,7 +17,7 @@ distlib==0.3.6
 dnspython==2.3.0
 dparse==0.6.2
 email-validator==2.0.0.post2
-fastapi==0.95.1
+fastapi==0.109.1
 fastapi-users==11.0.0
 fastapi-users-db-sqlalchemy==5.0.0
 filelock==3.12.0
