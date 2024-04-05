@@ -38,7 +38,7 @@ mccabe==0.7.0
 mypy==1.2.0
 mypy-extensions==1.0.0
 nodeenv==1.7.0
-orjson==3.8.11
+orjson==3.9.15
 packaging==23.1
 passlib==1.7.4
 pathspec==0.11.1
