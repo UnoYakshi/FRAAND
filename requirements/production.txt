@@ -25,7 +25,7 @@ mypy-extensions==1.0.0
 orjson==3.9.15
 passlib==1.7.4
 pycparser==2.21
-pydantic==1.10.7
+pydantic==1.10.13
 pyjwt==2.6.0
 python-dotenv==1.0.0
 python-multipart==0.0.7
