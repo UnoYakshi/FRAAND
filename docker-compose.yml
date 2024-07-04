@@ -3,20 +3,40 @@ version: "3.9"
 services:
   fraand-core:
     container_name: fraand
+    hostname: fraand
     build: .
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     env_file:
       - .env
-    ports:
-      - 8000:8000
+    labels:
+      caddy: api.fraand.org
+      caddy.reverse_proxy: "{{upstreams 8000}}"
+    networks:
+      - caddy
     volumes:
-      - .:/app
+      - ${PATH_TO_PROJECT}:/app
 
   postgres:
     image: postgres:14-alpine
     container_name: postgres
+    hostname: postgres
+    restart: always
     env_file:
       - .env
+    volumes:
+      - ${PATH_TO_PROJECT}/pgdata:/var/lib/postgresql/data
     ports:
       - 5432:5432
+    networks:
+      - caddy
+    healthcheck:
+      test: [ "CMD-SHELL", "sh", "-c", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_NAME}" ]
+      interval: 1s
+      timeout: 3s
+      retries: 10
+
+networks:
+  caddy:
+    external: true
