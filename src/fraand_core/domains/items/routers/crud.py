@@ -6,7 +6,7 @@ Endpoints are:
 - GET /? q= & skip= & limit= & should_search_in_name= & should_search_in_description=
 - POST /create
 - PUT /update/{id}
-- DELETE /delete/{id]
+- DELETE /delete/{id}
 """
 
 from typing import Annotated

@@ -137,7 +137,11 @@ allow-star-arg-any = true
 
 [tool.ruff.flake8-bugbear]
 # Allow default arguments like, e.g., `data: List[str] = Query()` or `session: Session = Depends(get_async_session)`...
-extend-immutable-calls = ["Depends", "fastapi.Depends", "fastapi.params.Depends", "Query", "fastapi.Query"]
+extend-immutable-calls = [
+    "Depends", "fastapi.Depends", "fastapi.params.Depends",
+    "Query", "fastapi.Query", "fastapi.params.Query",
+    "Body", "fastapi.Body", "fastapi.params.Body"
+]
 
 [tool.ruff.pep8-naming]
 # Allow Pydantic's `@validator` decorator to trigger class method treatment.

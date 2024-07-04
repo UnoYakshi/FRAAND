@@ -10,7 +10,7 @@ Includes:
 
 from typing import Annotated
 
-from fastapi import Depends, FastAPI, Form, Request
+from fastapi import Depends, FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
@@ -77,10 +77,3 @@ async def ping() -> dict[str, str]:
     """Simple server pinging..."""
 
     return {'ping': 'pong!'}
-
-
-@app.post('/search')
-async def search(query: Annotated[str, Form()]) -> dict[str, str]:
-    """WIP: Placeholder for HTML..."""
-
-    return {'search_query': query}
