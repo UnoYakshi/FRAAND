@@ -15,5 +15,7 @@ else
         --port 8000 \
         --workers 2 \
         --log-level "info" \
+        --proxy-headers \
+        ---forwarded-allow-ips "*" \
         src.fraand_core.main:app
 fi
