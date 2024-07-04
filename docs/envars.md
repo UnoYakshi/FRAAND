@@ -24,3 +24,7 @@ TODO: Explain this section, fix `[*]`...
 - `ENVIRONMENT` (`dev`) — used in [Dockerfile](../Dockerfile) to determine correct requirements file (in `requirements/` folder).
 - `TITLE` (`FRAAND`) — project's title to display in OpenAPI, etc.
 - `PATH_TO_PROJECT` — an absolute path to your project's root directory, used in `docker-compose*.yml` for mounting volumes correctly.
+
+## General
+- `DEBUG` — general debug mode for multiple modules (?)
+- `CADDY_INGRESS_NETWORKS` — will likely help auto-discovery for [caddy-docker-proxy](https://github.com/lucaslorentz/caddy-docker-proxy) (set it to `caddy`).

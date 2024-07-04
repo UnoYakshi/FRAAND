@@ -54,6 +54,7 @@ You will also find a tool's license in the brackets.
 ### CI/CD, management, extras
 - PDM (MIT) — package manager, sophisticated enough to fulfil the most (if not all) our needs
 - Docker + docker compose v2 (Apache 2.0) — deployment
+- [caddy-docker-proxy](https://github.com/lucaslorentz/caddy-docker-proxy) (MIT) — subdomains, auto SSL
 - pytest (MIT) — integration and unit-testing
 
 
