@@ -6,7 +6,7 @@ anyio==3.6.2
 asyncpg==0.27.0
 bcrypt==4.0.1
 black==24.3.0
-certifi==2023.7.22
+certifi==2024.7.4
 cffi==1.15.1
 cfgv==3.3.1
 charset-normalizer==3.1.0
@@ -14,7 +14,7 @@ click==8.1.3
 coverage==7.2.5
 cryptography==42.0.4
 distlib==0.3.6
-dnspython==2.3.0
+dnspython==2.6.1
 dparse==0.6.2
 email-validator==2.0.0.post2
 fastapi==0.109.1
@@ -27,7 +27,7 @@ h11==0.14.0
 httpcore==0.17.0
 httpx==0.24.0
 identify==2.5.24
-idna==3.4
+idna==3.7
 iniconfig==2.0.0
 isort==5.12.0
 jinja2==3.1.4
@@ -48,7 +48,7 @@ pluggy==1.0.0
 pre-commit==3.3.1
 pycodestyle==2.10.0
 pycparser==2.21
-pydantic==1.10.7
+pydantic==1.10.13
 pyflakes==3.0.1
 pyjwt==2.6.0
 pytest==7.3.1
@@ -56,7 +56,7 @@ pytest-asyncio==0.21.0
 python-dotenv==1.0.0
 python-multipart==0.0.7
 pyyaml==6.0
-requests==2.31.0
+requests==2.32.0
 ruamel-yaml==0.17.22
 ruff==0.0.264
 safety==2.3.4
@@ -64,10 +64,10 @@ setuptools==67.7.2
 sniffio==1.3.0
 SQLAlchemy==2.0.12
 sqlalchemy-stubs==0.4
-starlette==0.36.2
+starlette==0.40.0
 toml==0.10.2
 typing-extensions==4.5.0
 ujson==5.7.0
-urllib3==2.0.7
+urllib3==2.2.2
 uvicorn==0.22.0
 virtualenv==20.23.0
