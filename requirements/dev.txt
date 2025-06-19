@@ -68,6 +68,6 @@ starlette==0.40.0
 toml==0.10.2
 typing-extensions==4.5.0
 ujson==5.7.0
-urllib3==2.2.2
+urllib3==2.5.0
 uvicorn==0.22.0
 virtualenv==20.26.6
