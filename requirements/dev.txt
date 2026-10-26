@@ -70,4 +70,4 @@ typing-extensions==4.5.0
 ujson==5.13.0
 urllib3==2.7.0
 uvicorn==0.22.0
-virtualenv==20.36.1
+virtualenv==21.14.13
